@@ -7,4 +7,6 @@
 # server.servlet.context-path=/test # (this will make the root website path as "/test")
 
 # Choose which profile would be used
-spring.profiles.active=dev
+spring:
+  profiles:
+    active: dev

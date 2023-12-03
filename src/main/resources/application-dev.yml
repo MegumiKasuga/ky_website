@@ -4,3 +4,14 @@ server:
   port: 8080
   servlet:
     context-path: /kuayue_dev
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.195.253:3306/kuayue?useUnicode=true&characterEncoding=utf-8
+    username: haozi
+    password: 000000
+
+#    url: jdbc:mysql://localhost:3306/kuayue?useUnicode=true&characterEncoding=utf-8
+#    username: root
+#    password: 3333
