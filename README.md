@@ -1,2 +1,2 @@
 # ky_website
-A website for minecraft mode "Kuayue"
+A website for minecraft mod "Kuayue"
