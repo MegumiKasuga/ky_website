@@ -76,18 +76,18 @@
                     formatNotAllowed : "錯誤：只允許上傳圖片文件，允許上傳的圖片文件格式有："
                 },
                 preformattedText : {
-                    title             : "添加預格式文本或代碼塊", 
+                    title             : "添加預格式文本或代碼塊",
                     emptyAlert        : "錯誤：請填寫預格式文本或代碼的內容。",
                     placeholder       : "coding now...."
                 },
                 codeBlock : {
-                    title             : "添加代碼塊",                 
+                    title             : "添加代碼塊",
                     selectLabel       : "代碼語言：",
                     selectDefaultText : "請語言代碼語言",
                     otherLanguage     : "其他語言",
                     unselectedLanguageAlert : "錯誤：請選擇代碼所屬的語言類型。",
                     codeEmptyAlert    : "錯誤：請填寫代碼內容。",
-                    placeholder:      : "coding now...."
+                    placeholder      : "coding now...."
                 },
                 htmlEntities : {
                     title : "HTML實體字符"
@@ -97,13 +97,13 @@
                 }
             }
         };
-        
+
         exports.defaults.lang = lang;
     };
-    
+
 	// CommonJS/Node.js
 	if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
-    { 
+    {
         module.exports = factory;
     }
 	else if (typeof define === "function")  // AMD/CMD/Sea.js
@@ -120,10 +120,10 @@
                 factory(editormd);
             });
 		}
-	} 
+	}
 	else
 	{
         factory(window.editormd);
 	}
-    
+
 })();
