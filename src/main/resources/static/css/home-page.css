@@ -1,0 +1,57 @@
+.main_body {
+    background: url('../images/background.jpg') no-repeat center fixed;
+    background-size: cover;
+}
+
+.main_body_with_mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 40px;
+    padding: 10px;
+    background: inherit;
+    overflow: hidden;
+    transition-duration: .5s;
+}
+
+.main_box{
+    background-color: rgba(0, 0, 0, 0);
+    top: 1000px;
+}
+
+.nav-bar {
+    height: 20px;
+}
+
+.nav_bar_button {
+    color: white;
+    transition-duration: .2s;
+}
+
+.nav_bar_button:hover {
+    color: forestgreen;
+    transition-duration: .2s;
+}
+
+.nav_btn_group {
+    position: relative;
+    left: -23%;
+}
+
+.no_padding {
+    padding: 0;
+}
+
+.no_margin {
+    margin: 0;
+}
+
+.no_border {
+    border: none;
+}
+
+.no_background_color {
+    background-color: rgba(0 ,0, 0, 0);
+}
