@@ -7,23 +7,21 @@
     <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css" th:href="@{lib/editormd/css/editormd.min.css}">
     <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.min.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
     <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{lib/highlight/agate.min.css}">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.css" th:href="@{lib/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/css/home-page.css" th:href="@{css/home-page.css}">
     <title>跨越</title>
-    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.rtl.css">
-    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../static/css/home-page.css">
-
-    <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/home_page.js"></script>
-
 </head>
-<body class="main_body">
+<body class="main_body" th:style="'background-image: url('+@{/images/background.jpg}+');'">
     <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar" onscroll="on_nav_bar_scroll()">
         <div class="container row h-100">
             <a class="navbar-brand col-4 h-100" href="./">
-                <img src="../static/images/kuayue_logo.png" alt="logo" class="w-25">
+                <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
                 <span class="nav_bar_button"><strong>跨越</strong> |&nbsp;Kuayue</span>
             </a>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">下载</div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./download.html" th:href="@{/download}" style="text-decoration: none"><span style="color: whitesmoke">下载</span></a>
+            </div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">画廊</div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">百科</div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">蓝图</div>
@@ -46,13 +44,15 @@
 
     <div id="mask" class="main_body_with_mask" onscroll="on_background_scroll()"></div>
 
-    <a href="./download.html" th:href="@{/download}">下载页面</a>
-    <a href="./login.html" th:href="@{/login}">登录页面</a>
+    <!--<a href="./download.html" th:href="@{/download}">下载页面</a>
+    <a href="./login.html" th:href="@{/login}">登录页面</a>-->
 
     <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+
 </body>
 
 </html>
