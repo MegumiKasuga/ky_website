@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.min.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
     <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{lib/highlight/agate.min.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{css/me.css}">
-    <title>登录</title>
+    <title>下载</title>
 </head>
-<body>
+<body th:style="'background-image: url('+@{/images/furina1.png}+');'">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
         <div class="container">
             <a class="navbar-brand" href="./">
@@ -19,11 +19,19 @@
             </a>
         </div>
     </nav>
-    <h1>登录页面</h1>
+    <h1>下载页面</h1>
+
     <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
 
+    <!--<style>
+        body
+        {
+            background:url('../static/images/furina1.png');
+            background-color:#cccccc;
+        }
+    </style>-->
 </body>
 </html>
