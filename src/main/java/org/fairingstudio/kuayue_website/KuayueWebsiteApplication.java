@@ -8,11 +8,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication
 @MapperScan("org.fairingstudio.kuayue_website.dao")
 public class KuayueWebsiteApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(KuayueWebsiteApplication.class, args);
     }
-
 }
 
 /*

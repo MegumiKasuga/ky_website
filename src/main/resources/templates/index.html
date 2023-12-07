@@ -12,15 +12,22 @@
     <link rel="stylesheet" href="../static/css/home-page.css" th:href="@{css/home-page.css}">
     <title>跨越</title>
 </head>
-<body class="main_body" th:style="'background-image: url('+@{/images/background.jpg}+');'">
+<body class="main_body" th:style="'background-image: url('+@{/images/background.png}+');'">
+
+    <span style="margin: 0 5px; height: 80px; text-align: center; position: absolute; top:83%; right: 5%">
+        <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="hxd3d" class="h-75">
+        <label style="font-size: 40px; position: relative; top: 10px"> &nbsp;|&nbsp; </label>
+        <img src="../static/images/kuayue.png" th:src="@{/images/kuayue.png}" alt="kuayue" class="h-75">
+    </span>
+
     <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar" onscroll="on_nav_bar_scroll()">
         <div class="container row h-100">
             <a class="navbar-brand col-4 h-100" href="./">
                 <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
-                <span class="nav_bar_button"><strong>跨越</strong> |&nbsp;Kuayue</span>
+                <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
             </a>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="./download.html" th:href="@{/download}" style="text-decoration: none"><span style="color: whitesmoke">下载</span></a>
+                <a href="./download.html" th:href="@{/download}" style="text-decoration: none"><span class="nav_bar_button">下载</span></a>
             </div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">画廊</div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">百科</div>
@@ -28,21 +35,6 @@
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">论坛</div>
         </div>
     </nav>
-    <div class="row align-content-center">
-        <div class="col"></div>
-        <div class="col"></div>
-    </div>
-    <div class="container-xxl">
-        <div class="row main_box">
-            <div class="col"></div>
-            <div class="col-8">
-
-            </div>
-            <div class="col"></div>
-        </div>
-    </div>
-
-    <div id="mask" class="main_body_with_mask" onscroll="on_background_scroll()"></div>
 
     <!--<a href="./download.html" th:href="@{/download}">下载页面</a>
     <a href="./login.html" th:href="@{/login}">登录页面</a>-->
