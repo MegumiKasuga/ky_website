@@ -1,0 +1,49 @@
+.bbs_entrance_cell {
+    text-align: center;
+    border: solid black;
+    border-radius: 6px;
+    margin: 30px 0;
+    transition-duration: .3s;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bbs_entrance_cell:hover {
+    color: forestgreen;
+    font-size: 18px;
+    border-color: forestgreen;
+    transition-duration: .3s;
+}
+
+.text_area {
+    width: 80%;
+    height: 10vw;
+    position: relative;
+    left: 10%;
+    top: 5vw;
+}
+
+.submit_button {
+    position: relative;
+    text-align: center;
+    letter-spacing: 2px;
+    left: 80%;
+    width: 60px;
+    top: 6vw;
+    color: forestgreen;
+    border: solid forestgreen;
+    border-radius: 3px;
+}
+
+.highlight {
+    color: black;
+    border-radius: 6px;
+    border-color: black;
+    transition-duration: .3s;
+}
+
+.bbs_entrance_cell:hover {
+    color: forestgreen;
+    font-size: 18px;
+    border-color: forestgreen;
+    transition-duration: .3s;
+}

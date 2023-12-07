@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{lib/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/lib/animate/animate.css" th:href="@{lib/animate/animate.css}">
+    <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css" th:href="@{lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.min.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{lib/highlight/agate.min.css}">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.css" th:href="@{lib/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/css/home-page.css" th:href="@{css/home-page.css}">
+    <link rel="stylesheet" href="../static/css/wiki-page.css" th:href="@{css/wiki-page.css}">
     <title>百科</title>
 </head>
-<body>
+<body onload="on_wiki_load()" class="main_body" th:style="'background-image: url('+@{/images/background.png}+');'">
+    <div class="wiki_body_with_mask mask" id="mask"></div>
 
+    <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar">
+        <div class="container row h-100">
+            <a class="navbar-brand col-4 h-100" href="./">
+                <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
+                <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
+            </a>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./download.html" th:href="@{/download}" style="text-decoration: none"><span class="nav_bar_button">下载</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./gallery.html" th:href="@{/gallery}" style="text-decoration: none"><span class="nav_bar_button">画廊</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./wiki.html" th:href="@{/wiki}" style="text-decoration: none"><span class="nav_bar_button">百科</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./schematic.html" th:href="@{/schematic}" style="text-decoration: none"><span class="nav_bar_button">蓝图</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./bbs_entrance.html" th:href="@{/bbs_entrance}" style="text-decoration: none"><span class="nav_bar_button">论坛</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row" id="main_display_board">
+        <div class="col"></div>
+
+        <div class="col-10 use_font">
+            <table class="wiki_main_box">
+                <tr>
+                    <td class="text-center">
+                        <div class="wiki_choose_box">
+                            <img src="../static/images/tutor_book.png" th:src="@{/images/tutor_book.png}" alt="tutor" class="wiki_choose_box_image">
+                            <h3 class="wiki_choose_box_internal_text"><strong>&nbsp;教&nbsp;程&nbsp;</strong></h3>
+                            <p class="wiki_choose_box_internal_text">
+                                关于如何使用 Mod 内容和如何使用蓝图的教程<br/>
+                                关于如何使用跨越信号机系统的教程<br/>
+                                关于如何使用跨越售票机系统的教程<br/>
+                            </p>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="wiki_choose_box">
+                            <img src="../static/images/globe.png" th:src="@{/images/globe.png}" alt="wiki" class="wiki_choose_box_image">
+                            <h3 class="wiki_choose_box_internal_text"><strong>&nbsp;百&nbsp;科&nbsp;</strong></h3>
+                            <p class="wiki_choose_box_internal_text">
+                                关于 Mod 内车辆和转向架的百科<br/>
+                                关于国铁信号机系统和区间限界机制的百科<br/>
+                                关于铁路网络国标相关百科<br/>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col"></div>
+    </div>
+
+    <div class="fixed-bottom row wiki_bottom_bar" id="wiki_bottom_bar">
+        <div class="col left color_939393">
+            <a style="color: #939393;" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
+            <a style="color: #939393;" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
+        </div>
+        <div class="col right color_939393">
+            Kuayue&nbsp;Development&nbsp;Group&nbsp;&nbsp;2023<br/>
+            跨越开发组&nbsp;&nbsp;2023
+        </div>
+    </div>
+
+    <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
+    <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+    <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+    <script src="../static/js/wiki_page.js" th:src="@{/js/wiki_page.js}"></script>
 </body>
 </html>

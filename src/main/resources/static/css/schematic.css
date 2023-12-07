@@ -1,0 +1,7 @@
+.bottom_bar {
+    height: 30px;
+    background-color: #2c3034;
+    color: whitesmoke;
+    transition-duration: .5s;
+    font-size: 10px;
+}
