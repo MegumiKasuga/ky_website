@@ -1,24 +1,42 @@
-const change_color_index = 200;
+const change_color_index = 500;
+
+function getElement(id) {return document.getElementById(id);}
+
+function on_load() {
+    setInterval("on_nav_bar_scroll()", 100);
+    setInterval("on_background_scroll()", 100);
+    setInterval("on_bottom_bar_scroll()", 100);
+}
 
 function on_nav_bar_scroll() {
-    let bar = $("nav_bar");
-
-    if(document.body.scrollTop > change_color_index){
+    let bar = getElement("nav_bar");
+    let scrY = window.scrollY;
+    bar.style.transitionDuration = ".5s";
+    if(scrY > change_color_index){
         bar.style.backgroundColor = "#156D00";
     } else {
-        bar.style.backgroundColor = "rgba(0, 0, 0, 0)";
+        bar.style.backgroundColor = "transparent";
     }
 }
 
 function on_background_scroll() {
-    let body = document.body;
-    let mask = $("mask");
+    let mask = getElement("mask");
 
-    if(body.scrollTop > change_color_index) {
-        mask.style.boxShadow = "inset 0 0 0 3000px rgba(80, 80, 80, 0.4)";
+    if(window.scrollY > change_color_index * .5) {
+        mask.style.boxShadow = "inset 0 0 0 3000px rgba(80, 80, 80, 0.2)";
         mask.style.filter = "blur(10px)";
     } else {
         mask.style.boxShadow = "";
         mask.style.filter = "";
+    }
+}
+
+function on_bottom_bar_scroll() {
+    let bar = getElement("bottom_bar");
+
+    if(window.scrollY > document.body.scrollHeight * 0.85) {
+        bar.style.opacity = "1";
+    } else {
+        bar.style.opacity = "0";
     }
 }
