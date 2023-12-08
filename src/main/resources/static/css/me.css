@@ -31,6 +31,20 @@ body{
 }
 
 /*-----引入字体-----*/
+@font-face{
+    font-family:'xingshu';
+    src:url('../fonts/xingshu.ttf');
+}
+
+@font-face{
+    font-family:'liu';
+    src:url('../fonts/liu.ttf');
+}
+
+@font-face{
+    font-family:'xiaokai';
+    src:url('../fonts/xiaokai.ttf');
+}
 
 /*-----绝对位置-----*/
 
@@ -40,8 +54,8 @@ body{
 }
 
 .m-right-bottom{
-    bottom: 0 !important;
-    right: 0 !important;
+    bottom: 1em !important;
+    right: 1em !important;
 }
 
 /*-----间距边框-----*/
@@ -336,6 +350,18 @@ body{
     line-height: 1.8 !important;
 }
 
+.m-xingshu{
+    font-family: "xingshu" !important;
+}
+
+.m-liu{
+    font-family: "liu" !important;
+}
+
+.m-xiaokai{
+    font-family: "xiaokai" !important;
+}
+
 /*-----字体粗细-----*/
 
 .m-text-thin{
@@ -385,8 +411,6 @@ body{
 }
 
 /*-----显示属性-----*/
-
-/*-----字体设置-----*/
 
 /*-----下划线-----*/
 

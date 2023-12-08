@@ -1,0 +1,33 @@
+
+body {
+    background:url('../images/klee1.png');
+    background-color:#cccccc;
+    background-size: 100%;
+}
+
+.margin-left-right-normal {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.nav_bar_button {
+    color: white;
+    transition-duration: .2s;
+}
+
+.nav_bar_button:hover {
+    color: forestgreen;
+    transition-duration: .2s;
+}
+
+.download_button {
+    color: black;
+    transition-duration: .2s;
+}
+
+.download_button:hover {
+    color: forestgreen;
+    transition-duration: .2s;
+}
+
+

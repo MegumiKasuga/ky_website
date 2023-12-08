@@ -10,20 +10,75 @@
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{css/me.css}">
     <title>登录</title>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-        <div class="container">
-            <a class="navbar-brand" href="./">
-                <strong>跨越</strong>
-                |&nbsp;Kuayue
-            </a>
-        </div>
+<body th:style="'background-image: url('+@{/images/keqing1.png}+');'">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a class="navbar-brand" href="./">
+            <img src="../static/images/kuayue_logo.png"
+                 th:src="@{/images/kuayue_logo.png}" alt="logo" style="max-height: 40px;margin-left: 1em">
+        </a>
+        <a class="navbar-brand" href="./">
+            <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link nav_bar_button margin-left-right-normal" href="./download.html"
+                   th:href="@{/download}" style="text-decoration: none">下载</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">画廊</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">百科</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">蓝图</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">论坛</a>
+            </li>
+        </ul>
     </nav>
-    <h1>登录页面</h1>
+
+    <div class="container-sm" style="margin-top: 4em">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <h1>登录页面</h1>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+
+    <span style="margin: 0 5px; height: 80px; text-align: center; position: absolute; top:25%; right: 5%">
+            <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="hxd3d" class="h-75">
+            <label style="font-size: 40px; position: relative; top: 10px"> &nbsp;|&nbsp; </label>
+            <img src="../static/images/kuayue.png" th:src="@{/images/kuayue.png}" alt="kuayue" class="h-75">
+    </span>
+
     <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
 
+    <style>
+        body {
+            background:url('../static/images/keqing1.png');
+            background-color:#cccccc;
+            background-size: 100%;
+        }
+        .margin-left-right-normal {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+        .nav_bar_button {
+            color: white;
+            transition-duration: .2s;
+        }
+
+        .nav_bar_button:hover {
+            color: forestgreen;
+            transition-duration: .2s;
+        }
+    </style>
 </body>
 </html>
