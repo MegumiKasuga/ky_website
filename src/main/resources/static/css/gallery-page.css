@@ -63,3 +63,18 @@
     position: relative;
     top: 30px;
 }
+
+.no_text_decoration {
+    text-decoration: none;
+}
+
+.hr_style {
+    margin: 0 30px;
+    position: relative;
+    top: 30px;
+}
+
+.empty_div_style {
+    position: relative;
+    top: 30vw;
+}

@@ -18,9 +18,9 @@
 
     <div class="main_body_with_mask mask" id="mask"></div>
 
-    <span style="margin: 0 5px; height: 80px; text-align: center; position: absolute; top:700px; right: 5%">
+    <span class="nav_style">
         <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="hxd3d" class="h-75">
-        <label style="font-size: 40px; position: relative; top: 10px"> &nbsp;|&nbsp; </label>
+        <label class="nav_label_style"> &nbsp;|&nbsp; </label>
         <img src="../static/images/kuayue.png" th:src="@{/images/kuayue.png}" alt="kuayue" class="h-75">
     </span>
 
@@ -51,14 +51,14 @@
     <div class="row" id="main_display_board">
         <div class="col"></div>
         <div class="col-10 use_font">
-            <div style="position: relative; top: 800px; background-color: white; border-radius: 50px; box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5); overflow: hidden; margin: 30px 0;">
+            <div class="home_page_cell">
                 <div class="row">
                     <div class="col text-center">
-                        <img src="../static/images/gear_1.png" th:src="@{/images/gear_1.png}" alt="gear" class="w-50" style="position: relative; top:23%">
+                        <img src="../static/images/gear_1.png" th:src="@{/images/gear_1.png}" alt="gear" class="w-50 image_style">
                     </div>
                     <div class="col text-center">
-                        <h3 style="position: relative; top: 10px; letter-spacing: 5px; line-height: 100px;">什么是&nbsp;<strong>跨越</strong>&nbsp;?</h3>
-                        <p style="letter-spacing: 4px; position: relative; top: 5px; line-height: 40px">
+                        <h3 class="home_page_name">什么是&nbsp;<strong>跨越</strong>&nbsp;?</h3>
+                        <p class="home_page_p">
                             &nbsp;<strong>跨越</strong>&nbsp;是一个为机械动力火车系统制作的<br>
                             中国铁路装饰类方块mod, <br>
                             添加了众多中国铁路客车车厢、机车装饰板。<br>
@@ -70,32 +70,32 @@
 
                 <hr>
 
-                <div class="row" style="position: relative; margin: 30px 0;">
+                <div class="row home_page_cell_2">
                     <div class="col text-center">
-                        <h3 style="position: relative; top: 10px; letter-spacing: 5px; line-height: 100px;">画廊与宣传视频</h3>
+                        <h3 class="home_page_name_2">画廊与宣传视频</h3>
                         <a href="https://www.bilibili.com/video/BV1Vu4y1W722/?spm_id_from=333.999.0.0" class="gallery_cell">前进型蒸汽机车动轮组展示视频</a><br>
                         <a href="https://www.bilibili.com/video/BV1Xu411A7jA/?spm_id_from=333.999.0.0&vd_source=b1853c78bfc87ae3d1da5df4cdb78eaf" class="gallery_cell">自定义水牌与接触网系统展示视频</a><br>
                         <a href="https://www.bilibili.com/video/BV1Vu4y1W722/?spm_id_from=333.999.0.0" class="gallery_cell">前进型蒸汽机车动轮组展示视频</a><br>
                         <a th:href="@{/gallery}" href="gallery.html" class="gallery_cell">点我进入画廊...</a>
                     </div>
                     <div class="col text-center">
-                        <img src="../static/images/catenary_grid.png" th:src="@{/images/catenary_grid.png}" alt="catenary gird" class="w-75" style="position: relative; top: 20%">
+                        <img src="../static/images/catenary_grid.png" th:src="@{/images/catenary_grid.png}" alt="catenary gird" class="w-75 image_style_2">
                     </div>
                 </div>
 
-                <img src="../static/images/sticker_bar.png" th:src="@{/images/sticker_bar.png}" alt="sticker bar" class="w-100" style="padding: 10px">
+                <img src="../static/images/sticker_bar.png" th:src="@{/images/sticker_bar.png}" alt="sticker bar" class="w-100 image_style_3">
 
-                <div class="row" style="position: relative; margin: 30px 0;">
+                <div class="row home_page_cell_2">
                     <div class="col text-center">
-                        <img src="../static/images/25t.png" th:src="@{/images/25t.png}" alt="catenary gird" class="w-50" style="position: relative; top: 10%">
+                        <img src="../static/images/25t.png" th:src="@{/images/25t.png}" alt="catenary gird" class="w-50 image_style_4">
                     </div>
                     <div class="col text-center">
-                        <h3 style="position: relative; top: 10px; letter-spacing: 5px; line-height: 100px;">下载支持与蓝图</h3>
-                        <p style="letter-spacing: 4px; position: relative; top: 5px; line-height: 40px">
+                        <h3 class="home_page_name_2">下载支持与蓝图</h3>
+                        <p class="home_page_p">
                             提供各版本 Mod 下载链接和使用建议。
                         </p>
                         <a th:href="@{/download}" href="download.html" class="gallery_cell">前往Mod下载页...</a><br>
-                        <p style="letter-spacing: 4px; position: relative; top: 5px; line-height: 40px">
+                        <p class="home_page_p">
                             提供各种机车蓝图、客车车厢蓝图的下载。
                         </p>
                         <a th:href="@{/schematic}" href="schematic.html" class="gallery_cell">前往蓝图下载页...</a><br>
@@ -104,9 +104,9 @@
 
                 <hr>
 
-                <div class="text-center" style="margin: 30px 20px; width: 100%">
-                    <h3 style="position: relative; letter-spacing: 5px; line-height: 100px;">列车百科和BBS</h3>
-                    <p style="letter-spacing: 4px; position: relative; top: 5px; line-height: 40px">
+                <div class="text-center home_page_cell_3">
+                    <h3 class="home_page_name_2">列车百科和BBS</h3>
+                    <p class="home_page_p">
                         提供关于各种&nbsp;Mod&nbsp;中车辆现实原型的百科资料<br>
                         提供各种关于国铁信号系统、售票系统，Mod 中信号系统设计、售票机系统使用的百科资料<br>
                         提供关于转向架、各车型速度限制的百科资料<br>
@@ -118,8 +118,8 @@
 
                 <hr>
 
-                <div class="text-center" style="padding: 30px 20px; width: 100%">
-                    <h3 style="position: relative; letter-spacing: 10px; line-height: 100px;">实机截图</h3>
+                <div class="text-center home_page_pic_cell">
+                    <h3 class="home_page_name_3">实机截图</h3>
                     <img src="../static/images/home_page_showcase/sc_1.jpg" th:src="@{/images/home_page_showcase/sc_1.jpg}" alt="showcase pic 1" class="showcase_pic">
                     <p>下载次数破万祝贺图</p>
                     <img src="../static/images/home_page_showcase/sc_2.jpg" th:src="@{/images/home_page_showcase/sc_2.jpg}" alt="showcase pic 2" class="showcase_pic">
@@ -133,11 +133,11 @@
     </div>
 
     <div class="fixed-bottom row bottom_bar" id="bottom_bar">
-        <div class="col" style="text-align: left;">
-            <a style="color: #939393;" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
-            <a style="color: #939393;" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
+        <div class="col align_left">
+            <a class="color_939393" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
+            <a class="color_939393" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
         </div>
-        <div class="col" style="color: #939393; text-align: right;">
+        <div class="col color_939393 align_right">
             Kuayue&nbsp;Development&nbsp;Group&nbsp;&nbsp;2023<br/>
             跨越开发组&nbsp;&nbsp;2023
         </div>
