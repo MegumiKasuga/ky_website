@@ -19,7 +19,7 @@
 
     <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar">
         <div class="container row h-100">
-            <a class="navbar-brand col-4 h-100" href="./">
+            <a class="navbar-brand col-4 h-100" href="./" th:href="@{/}">
                 <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
                 <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
             </a>
@@ -41,7 +41,7 @@
         </div>
     </nav>
 
-    <div class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 2em">
+    <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
         <div class="row">
             <div class="col-10 bg-light" style="border-radius: 10px">
                 <div>
@@ -150,9 +150,10 @@
 
     </footer>
 
-    <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom">
-        <div type="button" class="btn btn-lg btn-secondary">
-            <i class="fa fa-angle-up"></i>
+    <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
+        <div type="button" class="btn btn-lg btn-secondary" id="to-top-btn"
+             data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="返回顶部">
+            <i class="fa fa-angle-up" style="font-size: 30px"></i>
         </div>
     </div>
 
@@ -171,10 +172,32 @@
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!--    <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>-->
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
 
     <script>
+        <!--返回顶部-->
+        $('#to-top-btn').click(function toTop() {
+            $('html').animate({scrollTop: 0}, 300);
+        });
 
+        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+
+        <!--滚动侦测-->
+        let waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function(direction){
+                if (direction == 'down'){
+                    $('#toolbar').show(100); //100毫秒
+                }else{
+                    $('#toolbar').hide(300);
+                }
+                console.log('Scrolled to waypoint!')
+            }
+        })
     </script>
 
 </body>
