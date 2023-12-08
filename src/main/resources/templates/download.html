@@ -11,35 +11,34 @@
     <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.css" th:href="@{lib/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" href="../static/css/download-page.css" th:href="@{css/download-page.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{css/me.css}">
+    <link rel="stylesheet" href="../static/css/gallery-page.css" th:href="@{css/gallery-page.css}">
+    <link rel="stylesheet" href="../static/css/wiki-page.css" th:href="@{css/wiki-page.css}">
     <title>下载</title>
 </head>
 <body th:style="'background-image: url('+@{/images/klee1.png}+');'">
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="./">
-            <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" style="max-height: 40px">
-        </a>
-        <a class="navbar-brand" href="./">
-            <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
-        </a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./download.html"
-                   th:href="@{/download}" style="text-decoration: none">下载</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./gallery.html" th:href="@{/gallery}">画廊</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./wiki.html" th:href="@{/wiki}">百科</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./schematic.html" th:href="@{/schematic}">蓝图</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./bbs_entrance.html" th:href="@{/bbs_entrance}">论坛</a>
-            </li>
-        </ul>
+    <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar">
+        <div class="container row h-100">
+            <a class="navbar-brand col-4 h-100" href="./">
+                <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
+                <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
+            </a>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./download.html" th:href="@{/download}" style="text-decoration: none"><span class="nav_bar_button">下载</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./gallery.html" th:href="@{/gallery}" style="text-decoration: none"><span class="nav_bar_button">画廊</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./wiki.html" th:href="@{/wiki}" style="text-decoration: none"><span class="nav_bar_button">百科</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./schematic.html" th:href="@{/schematic}" style="text-decoration: none"><span class="nav_bar_button">蓝图</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="./bbs_entrance.html" th:href="@{/bbs_entrance}" style="text-decoration: none"><span class="nav_bar_button">论坛</span></a>
+            </div>
+        </div>
     </nav>
 
     <div class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 2em">
@@ -154,6 +153,17 @@
     <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom">
         <div type="button" class="btn btn-lg btn-secondary">
             <i class="fa fa-angle-up"></i>
+        </div>
+    </div>
+
+    <div class="fixed-bottom row bottom_bar wiki_bottom_bar" id="bottom_bar">
+        <div class="col" style="text-align: left;">
+            <a style="color: #939393;" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
+            <a style="color: #939393;" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
+        </div>
+        <div class="col" style="color: #939393; text-align: right;">
+            Kuayue&nbsp;Development&nbsp;Group&nbsp;&nbsp;2023<br/>
+            跨越开发组&nbsp;&nbsp;2023
         </div>
     </div>
 

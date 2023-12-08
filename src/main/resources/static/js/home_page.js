@@ -34,7 +34,7 @@ function on_background_scroll() {
 function on_bottom_bar_scroll() {
     let bar = getElement("bottom_bar");
 
-    if(window.scrollY > document.body.scrollHeight * 0.85) {
+    if(window.scrollY > document.body.scrollHeight * 0.8) {
         bar.style.opacity = "1";
     } else {
         bar.style.opacity = "0";
