@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserFileDao {
 
     //查询所有文件
-    List<UserFile> getAllFiles();
+    List<UserFile> selectAllFiles();
 
     //根据Id查询该用户的所有文件
     List<UserFile> getFilesByUserId(Integer id);

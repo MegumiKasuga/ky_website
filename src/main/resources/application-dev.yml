@@ -8,10 +8,20 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.195.253:3306/kuayue?useUnicode=true&characterEncoding=utf-8
-    username: carole
-    password: 000000
+#    url: jdbc:mysql://192.168.195.253:3306/kuayue?useUnicode=true&characterEncoding=utf-8
+#    username: carole
+#    password: 000000
+    url: jdbc:mysql://localhost:3306/files?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 3333
 
-#    url: jdbc:mysql://localhost:3306/kuayue?useUnicode=true&characterEncoding=utf-8
-#    username: root
-#    password: 3333
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: countSql
+  auto-dialect: true

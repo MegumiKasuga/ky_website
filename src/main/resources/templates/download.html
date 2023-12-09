@@ -41,6 +41,8 @@
         </div>
     </nav>
 
+
+
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
         <div class="row">
             <div class="col-10 bg-light" style="border-radius: 10px">
@@ -59,6 +61,17 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr th:each="file : ${allFiles}">
+                            <td th:text="${file.id}">1</td>
+                            <td th:text="${file.oldFileName}">aa.txt</td>
+                            <td th:text="${file.newFileName}">uuid.txt</td>
+                            <td th:text="${file.ext}">.txt</td>
+                            <td th:text="${file.path}">/files</td>
+                            <td th:text="${file.size}">1024</td>
+                            <td th:text="${file.type}">text/plain</td>
+                            <td th:text="${file.isImg}" th:classappend="${file.getIsImg()=='是'}?'':'negative'">否</td>
+                            <td th:text="${file.downCounts}">11</td>
+                        </tr>
                         <tr>
                             <td>forge</td>
                             <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
@@ -184,7 +197,7 @@
         let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
             return new bootstrap.Popover(popoverTriggerEl)
-        })
+        });
 
         <!--滚动侦测-->
         let waypoint = new Waypoint({
@@ -197,7 +210,7 @@
                 }
                 console.log('Scrolled to waypoint!')
             }
-        })
+        });
     </script>
 
 </body>

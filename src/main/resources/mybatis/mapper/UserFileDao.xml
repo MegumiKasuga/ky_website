@@ -5,7 +5,7 @@
 <mapper namespace="org.fairingstudio.kuayue_website.dao.UserFileDao">
 
     <!-- 查询所有的储存文件 -->
-    <select id="getAllFiles" resultType="org.fairingstudio.kuayue_website.entity.UserFile">
+    <select id="selectAllFiles" resultType="org.fairingstudio.kuayue_website.entity.UserFile">
         select * from t_files
     </select>
 
