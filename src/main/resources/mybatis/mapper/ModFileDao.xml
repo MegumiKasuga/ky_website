@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="org.fairingstudio.kuayue_website.dao.ModFileDao">
+
+    <resultMap id="modFileMap" type="org.fairingstudio.kuayue_website.entity.ModFile">
+        <id column="id" property="id"/>
+        <result column="mod_file_name" property="modFileName"/>
+        <result column="mc_version" property="MCVersion"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="download_counts" property="downloadCounts"/>
+        <result column="likes_counts" property="likesCounts"/>
+        <result column="upload_time" property="uploadTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="selectAllModFiles" resultMap="modFileMap">
+        select * from ky_mod_file
+    </select>
+
+</mapper>
+
+

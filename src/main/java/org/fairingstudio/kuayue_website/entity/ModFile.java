@@ -11,23 +11,23 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class User {
+public class ModFile {
 
     private Integer id;
 
-    private String userName;
+    private String modFileName;
 
-    private String password;
+    private String MCVersion;
 
-    private Integer role;
+    private String fileSize;
 
-    private Date signUpTime;
+    private Integer downloadCounts;
 
-    private String email;
+    private Integer likesCounts;
 
-    private String avatar;
+    private Date uploadTime;
 
     private Date updateTime;
 
-    private String nickname;
+    private Integer userId;
 }

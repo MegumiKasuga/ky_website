@@ -66,11 +66,12 @@
                             <td th:text="${file.oldFileName}">aa.txt</td>
                             <td th:text="${file.newFileName}">uuid.txt</td>
                             <td th:text="${file.ext}">.txt</td>
-                            <td th:text="${file.path}">/files</td>
-                            <td th:text="${file.size}">1024</td>
-                            <td th:text="${file.type}">text/plain</td>
-                            <td th:text="${file.isImg}" th:classappend="${file.getIsImg()=='是'}?'':'negative'">否</td>
-                            <td th:text="${file.downCounts}">11</td>
+                        </tr>
+                        <tr th:each="file : ${allModFiles}">
+                            <td th:text="${file.id}">1</td>
+                            <td th:text="${file.modFileName}">aa.txt</td>
+                            <td th:text="${file.MCVersion}">uuid.txt</td>
+                            <td th:text="${file.downloadCounts}">.txt</td>
                         </tr>
                         <tr>
                             <td>forge</td>
