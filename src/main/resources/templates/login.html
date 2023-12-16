@@ -35,7 +35,7 @@
                 <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
                 <span style="margin-left: 5px; letter-spacing: 2px; font-size: x-large; font-weight: 550">用户登录</span>
             </div>
-            <form action="index.html" th:action="@{/userLogin}" method="get" class="needs-validation" novalidate>
+            <form action="index.html" th:action="@{/userLogin}" method="post" class="needs-validation" novalidate>
                 <div class="mb-3 form-group">
                     <label for="usernameInput" class="form-label m-xiaokai">用户名</label>
                     <input type="text" id="usernameInput" class="form-control" placeholder="请输入用户名" name="username" required>
