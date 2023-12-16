@@ -1,6 +1,6 @@
 
 body {
-    background:url('../images/klee1.png');
+    background:url('../images/background.jpg');
     background-color:#cccccc;
     background-size: 100%;
 }
@@ -20,15 +20,3 @@ body {
     color: forestgreen;
     transition-duration: .2s;
 }
-
-.download_button {
-    color: black;
-    transition-duration: .2s;
-}
-
-.download_button:hover {
-    color: forestgreen;
-    transition-duration: .2s;
-}
-
-

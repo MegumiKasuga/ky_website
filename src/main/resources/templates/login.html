@@ -8,76 +8,98 @@
     <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.min.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
     <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{lib/highlight/agate.min.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{css/me.css}">
+    <link rel="stylesheet" href="../static/css/login.css" th:href="@{css/login.css}">
     <title>登录</title>
 </head>
-<body th:style="'background-image: url('+@{/images/keqing1.png}+');'">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-        <a class="navbar-brand" href="./">
-            <img src="../static/images/kuayue_logo.png"
-                 th:src="@{/images/kuayue_logo.png}" alt="logo" style="max-height: 40px;margin-left: 1em">
-        </a>
-        <a class="navbar-brand" href="./">
-            <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
-        </a>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="./download.html"
-                   th:href="@{/download}" style="text-decoration: none">下载</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">画廊</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">百科</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">蓝图</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav_bar_button margin-left-right-normal" href="#">论坛</a>
-            </li>
-        </ul>
+<body th:style="'background-image: url('+@{/images/background.jpg}+');'">
+    <nav class="navbar bg-dark navbar-dark py-sm-1 fixed-top">
+        <div class="container-sm h-100">
+            <a class="navbar-brand h-100" href="./" th:href="@{/}">
+                <img src="../static/images/kuayue_logo.png"
+                     th:src="@{/images/kuayue_logo.png}" alt="logo" style="max-height: 30px">
+                <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
+            </a>
+
+            <a class="nav-link nav_bar_button margin-left-right-normal h-100" href="download.html" th:href="@{/download}">下载</a>
+            <a class="nav-link nav_bar_button margin-left-right-normal h-100" href="gallery.html" th:href="@{/gallery}">画廊</a>
+            <a class="nav-link nav_bar_button margin-left-right-normal h-100" href="wiki.html" th:href="@{/wiki}">百科</a>
+            <a class="nav-link nav_bar_button margin-left-right-normal h-100" href="schematic.html" th:href="@{/schematic}">蓝图</a>
+            <a class="nav-link nav_bar_button margin-left-right-normal h-100" href="bbs_entrance.html" th:href="@{/bbs_entrance}">论坛</a>
+
+        </div>
     </nav>
 
-    <div class="container-sm" style="margin-top: 4em">
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <h1>登录页面</h1>
+    <div class="container-sm" style="margin-top: 8em">
+        <div class="bg-light animate__animated animate__fadeIn" id="loginBar">
+            <div style="text-align: center">
+                <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
+                <span style="margin-left: 5px; letter-spacing: 2px; font-size: x-large; font-weight: 550">用户登录</span>
             </div>
-            <div class="col-1"></div>
+            <form action="index.html" th:action="@{/userLogin}" method="get" class="needs-validation" novalidate>
+                <div class="mb-3 form-group">
+                    <label for="usernameInput" class="form-label m-xiaokai">用户名</label>
+                    <input type="text" id="usernameInput" class="form-control" placeholder="请输入用户名" name="username" required>
+                    <div class="invalid-feedback">请输入用户名！</div>
+                </div>
+                <div class="mb-5 form-group">
+                    <label for="passwordInput" class="form-label m-xiaokai">密码</label>
+                    <input type="password" id="passwordInput" class="form-control" placeholder="请输入密码" name="password" required>
+                    <div class="invalid-feedback">请输入密码！</div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto mb-3">
+                    <button type="submit" class="btn btn-dark">登录</button>
+                </div>
+                <div class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}" style="display: none">用户名或密码错误</div>
+            </form>
         </div>
     </div>
 
-    <span style="margin: 0 5px; height: 80px; text-align: center; position: absolute; top:25%; right: 5%">
-            <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="hxd3d" class="h-75">
-            <label style="font-size: 40px; position: relative; top: 10px"> &nbsp;|&nbsp; </label>
-            <img src="../static/images/kuayue.png" th:src="@{/images/kuayue.png}" alt="kuayue" class="h-75">
-    </span>
+    <div class="fixed-bottom row bottom_bar wiki_bottom_bar" id="bottom_bar" style="margin-left: 1em">
+        <div class="col align_left">
+            <a class="nav_bar_button" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
+            <a class="nav_bar_button" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
+        </div>
+        <div style="color: whitesmoke">
+            Kuayue&nbsp;Development&nbsp;Group&nbsp;&nbsp;2023<br/>
+            跨越开发组&nbsp;&nbsp;2023
+        </div>
+    </div>
 
     <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
 
-    <style>
-        body {
-            background:url('../static/images/keqing1.png');
-            background-color:#cccccc;
-            background-size: 100%;
-        }
-        .margin-left-right-normal {
-            margin-left: 1em;
-            margin-right: 1em;
-        }
-        .nav_bar_button {
-            color: white;
-            transition-duration: .2s;
-        }
+    <script>
+        // 如果验证不通过禁止提交表单
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // 获取表单验证样式
+                var forms = document.getElementsByClassName('needs-validation');
+                // 循环并禁止提交
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 
-        .nav_bar_button:hover {
-            color: forestgreen;
-            transition-duration: .2s;
+    <style>
+        #loginBar {
+            max-width: 400px;
+            border-radius: 10px;
+            padding-top: 1em;
+            padding-bottom: 1em;
+            padding-left: 1em;
+            padding-right: 1em;
+            margin: 0 auto;
         }
     </style>
 </body>

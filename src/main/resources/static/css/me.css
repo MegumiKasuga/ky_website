@@ -46,6 +46,11 @@ body{
     src:url('../fonts/xiaokai.ttf');
 }
 
+@font-face {
+    font-family: 'fangzheng';
+    src: url("../fonts/fang_zheng_miao_wu_font.ttf");
+}
+
 /*-----绝对位置-----*/
 
 .m-fixed{
@@ -360,6 +365,10 @@ body{
 
 .m-xiaokai{
     font-family: "xiaokai" !important;
+}
+
+.m-fangzheng{
+    font-family: "fangzheng" !important;
 }
 
 /*-----字体粗细-----*/

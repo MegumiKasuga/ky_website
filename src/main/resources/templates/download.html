@@ -17,9 +17,9 @@
 </head>
 <body th:style="'background-image: url('+@{/images/klee1.png}+');'">
 
-    <nav class="navbar navbar-expand-xxl navbar-dark py-sm-1 fixed-top" id="nav_bar">
-        <div class="container row h-100">
-            <a class="navbar-brand col-4 h-100" href="./" th:href="@{/}">
+    <nav class="navbar navbar-dark py-sm-1 fixed-top" id="nav_bar">
+        <div class="container-lg row h-100">
+            <a class="navbar-brand col-3 h-100" href="./" th:href="@{/}">
                 <img src="../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
                 <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
             </a>
@@ -37,6 +37,14 @@
             </div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
                 <a href="./bbs_entrance.html" th:href="@{/bbs_entrance}" class="no_text_decoration"><span class="nav_bar_button">论坛</span></a>
+            </div>
+
+            <div class="col-3 h-100 no_padding no_border no_background_color">
+                <div style="float: right">
+                    <a class="nav_bar_button" href="login.html" th:href="@{/login}"><strong>登录</strong></a>
+                    <span class="nav_bar_button">|</span>
+                    <a class="nav_bar_button" href="login.html" th:href="@{/login}"><strong>注册</strong></a>
+                </div>
             </div>
         </div>
     </nav>
@@ -61,12 +69,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="file : ${allFiles}">
-                            <td th:text="${file.id}">1</td>
-                            <td th:text="${file.oldFileName}">aa.txt</td>
-                            <td th:text="${file.newFileName}">uuid.txt</td>
-                            <td th:text="${file.ext}">.txt</td>
-                        </tr>
                         <tr th:each="file : ${allModFiles}">
                             <td th:text="${file.id}">1</td>
                             <td th:text="${file.modFileName}">aa.txt</td>
