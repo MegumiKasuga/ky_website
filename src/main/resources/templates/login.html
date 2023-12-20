@@ -49,13 +49,13 @@
                 <div class="d-grid gap-2 col-6 mx-auto mb-3">
                     <button type="submit" class="btn btn-dark">登录</button>
                 </div>
-                <div class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}" style="display: none">用户名或密码错误</div>
+                <div class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
             </form>
         </div>
     </div>
 
-    <div class="fixed-bottom row bottom_bar wiki_bottom_bar" id="bottom_bar" style="margin-left: 1em">
-        <div class="col align_left">
+    <div class="fixed-bottom bottom_bar wiki_bottom_bar col-4" id="bottom_bar" style="margin-left: 1em; z-index: -1">
+        <div class="align_left">
             <a class="nav_bar_button" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
             <a class="nav_bar_button" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
         </div>

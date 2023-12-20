@@ -1,9 +1,11 @@
 package org.fairingstudio.kuayue_website.dao;
 
 import org.fairingstudio.kuayue_website.entity.UserFile;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface UserFileDao {
 
     //查询所有文件

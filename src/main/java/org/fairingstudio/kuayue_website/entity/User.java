@@ -1,5 +1,7 @@
 package org.fairingstudio.kuayue_website.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,22 +13,26 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@TableName("ky_user")
 public class User {
 
     private Integer id;
 
-    private String userName;
+    @TableField("username")
+    private String username;
 
     private String password;
 
     private Integer role;
 
+    @TableField("sign_up_time")
     private Date signUpTime;
 
     private String email;
 
     private String avatar;
 
+    @TableField("update_time")
     private Date updateTime;
 
     private String nickname;

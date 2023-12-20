@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{lib/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/lib/animate/animate.css" th:href="@{lib/animate/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/fontawesome/css/font-awesome.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../../static/css/download-page.css" th:href="@{css/download-page.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{css/me.css}">
+    <title>MOD文件管理</title>
+</head>
+<body>
+    <h1 style="color: whitesmoke">MOD文件管理</h1>
+    <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
+        <div class="row">
+            <div class="col-10 bg-light" style="border-radius: 10px">
+                <div>
+                    <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
+                </div>
+                <hr>
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>运行环境</th>
+                        <th>MOD文件名</th>
+                        <th>MC版本</th>
+                        <th>下载量</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="file : ${allModFiles}">
+                        <td th:text="${file.id}">1</td>
+                        <td th:text="${file.modFileName}">aa.txt</td>
+                        <td th:text="${file.MCVersion}">uuid.txt</td>
+                        <td th:text="${file.downloadCounts}">.txt</td>
+                    </tr>
+                    <tr>
+                        <td>forge</td>
+                        <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                        <td>1.20.1</td>
+                        <td>776</td>
+                        <td>
+                            <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
+    <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script src="../../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+</body>
+</html>

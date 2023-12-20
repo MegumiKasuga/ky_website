@@ -16,11 +16,7 @@
         <result column="nickname" property="nickname"/>
     </resultMap>
 
-    <select id="login" resultMap="userMap">
-        select * from ky_user where username=#{username} and password=#{password}
-    </select>
-
-    <select id="findUserByName" resultMap="userMap">
+    <select id="selectUserByName" resultMap="userMap">
         select * from ky_user where username=#{username}
     </select>
 
