@@ -2,16 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{lib/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="../../static/lib/animate/animate.css" th:href="@{lib/animate/animate.css}">
-    <link rel="stylesheet" href="../../static/lib/fontawesome/css/font-awesome.css" th:href="@{lib/fontawesome/css/font-awesome.min.css}">
-    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{lib/bootstrap/css/bootstrap.rtl.css}">
-    <link rel="stylesheet" href="../../static/css/download-page.css" th:href="@{css/download-page.css}">
-    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{css/me.css}">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{/lib/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/lib/animate/animate.css" th:href="@{/lib/animate/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/fontawesome/css/font-awesome.css" th:href="@{/lib/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{/lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../../static/css/download-page.css" th:href="@{/css/download-page.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <!-- @{/} 斜杠开头表示相对整个应用根目录，此处必须这样写。不然在提交/admin/modFileManagement请求时会在静态资源路径上加上/admin导致404错误。 -->
     <title>MOD文件管理</title>
 </head>
 <body>
     <h1 style="color: whitesmoke">MOD文件管理</h1>
+    <h2 style="color: whitesmoke">用户信息：<span th:text="${session.userInfo}"></span></h2>
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
         <div class="row">
             <div class="col-10 bg-light" style="border-radius: 10px">
@@ -50,6 +52,13 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" th:inline="javascript">
+        window.onload = function () {
+            // let user = [[${session.userInfo}]];
+            // let session = [[${session}]];
+        }
+    </script>
 
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>

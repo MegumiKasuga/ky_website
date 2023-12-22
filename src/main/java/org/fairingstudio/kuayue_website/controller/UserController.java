@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,9 +31,10 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
-    public String userLogin(@RequestParam String username, @RequestParam String password, Model model) {
+    public String userLogin(@RequestParam String username, @RequestParam String password,
+                            Model model, HttpSession session,
+                            RedirectAttributes attributes) {
 
-        System.out.println("执行了用户登录的控制器方法");
         //获取subject对象
         Subject subject = SecurityUtils.getSubject();
         //封装请求参数到token
@@ -42,15 +44,31 @@ public class UserController {
             subject.login(token);
             List<ModFile> allModFiles = modFileService.getAllModFiles();
             model.addAttribute("allModFiles", allModFiles);
-            model.addAttribute("message", "登录成功！");
+            session.setAttribute("userInfo", subject.getPrincipal());
+
             return "admin/mod_file_management";
+
         } catch (UnknownAccountException e) {
-            model.addAttribute("message", "用户名不存在！");
-            return "/login";
+
+            //model.addAttribute("message", 1);
+            //return "/login";
+            attributes.addFlashAttribute("message", "用户名不存在！");
+            return "redirect:/login";
         } catch (IncorrectCredentialsException e) {
-            System.out.println("密码错误：e = " + e);
-            model.addAttribute("message", "密码错误！");
-            return "/login";
+
+            //model.addAttribute("message", 2);
+            //return "/login";
+            attributes.addFlashAttribute("message", "密码错误！");
+            return "redirect:/login";
         }
     }
 }
+
+/*
+redirectAttributes.addAttribute("key", value);
+这种方法相当于在重定向链接地址追加传递的参数。
+以上重定向的方法等同于 return "redirect:/重定向目标页面url?key=value" ，注意这种方法直接将传递的参数暴露在链接地址上，非常的不安全，慎用。
+
+redirectAttributes.addFlashAttribute("key", value);
+这种方法是隐藏了参数，链接地址上不直接暴露，但是能且只能在重定向的 “页面” 获取 param 参数值。其原理就是将设置的属性放到 session 中，session中的属性在重定向到目标页面后马上销毁。
+*/

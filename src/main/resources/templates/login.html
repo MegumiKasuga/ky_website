@@ -49,7 +49,7 @@
                 <div class="d-grid gap-2 col-6 mx-auto mb-3">
                     <button type="submit" class="btn btn-dark">登录</button>
                 </div>
-                <div class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
+                <div id="failure-info" class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
             </form>
         </div>
     </div>
@@ -76,9 +76,9 @@
             'use strict';
             window.addEventListener('load', function() {
                 // 获取表单验证样式
-                var forms = document.getElementsByClassName('needs-validation');
+                let forms = document.getElementsByClassName('needs-validation');
                 // 循环并禁止提交
-                var validation = Array.prototype.filter.call(forms, function(form) {
+                let validation = Array.prototype.filter.call(forms, function(form) {
                     form.addEventListener('submit', function(event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
@@ -89,6 +89,24 @@
                 });
             }, false);
         })();
+
+        $('.form-control').click(function () {
+            console.log('click form-control!')
+            $('#failure-info').hide();
+        })
+    </script>
+
+    <script type="text/javascript" th:inline="javascript">
+        /* 仅请求转发可用，重定向时无法获取message的值。
+        let failureMsg = [[${message}]];
+        if (failureMsg === 1){
+            document.getElementById("failure-info").innerText = "用户名不存在！";
+        } else if (failureMsg === 2) {
+            document.getElementById("failure-info").innerText = "密码错误！";
+        } else {
+            document.getElementById("failure-info").hidden = true;
+        }
+        */
     </script>
 
     <style>
