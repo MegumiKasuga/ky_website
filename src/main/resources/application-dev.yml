@@ -2,8 +2,6 @@
 
 server:
   port: 8080
-  servlet:
-    context-path: /kuayue_dev
 
 spring:
   datasource:
@@ -11,7 +9,7 @@ spring:
 #    url: jdbc:mysql://192.168.195.253:3306/kuayue?useUnicode=true&characterEncoding=utf-8
 #    username: carole
 #    password: 000000
-    url: jdbc:mysql://localhost:3306/kuayue?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     username: root
     password: 3333
   jackson:
@@ -21,6 +19,7 @@ spring:
     mode: HTML
     prefix: classpath:/templates/
     suffix: .html
+    cache: false
 
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml

@@ -1,21 +1,15 @@
 package org.fairingstudio.kuayue_website.config;
 
-import jakarta.annotation.Resource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
-import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.fairingstudio.kuayue_website.realm.UserRealm;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.DelegatingFilterProxy;
 
-import javax.swing.plaf.PanelUI;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,13 +17,36 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
-    public UserRealm userRealm() {
-        return new UserRealm();
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
+
+        System.out.println("执行了ShiroFilterFactoryBean的配置方法！");
+
+        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
+        //设置安全管理器
+        factoryBean.setSecurityManager(securityManager);
+        //权限设置
+        Map<String,String> map = new LinkedHashMap<>();
+        //所有admin目录下的页面必须登录才可以访问
+        map.put("/admin/*", "authc");
+
+        factoryBean.setFilterChainDefinitionMap(map);
+        //factoryBean.setLoginUrl("/login");
+
+        return factoryBean;
     }
 
+    /*@Bean
+    public DefaultShiroFilterChainDefinition shiroFilterChainDefinition() {
+        DefaultShiroFilterChainDefinition definition = new DefaultShiroFilterChainDefinition();
+        definition.addPathDefinition("/index", "authc");
+        return definition;
+    }*/
+
     //配置SecurityManager安全管理器
-    @Bean(name = "securityManager")
-    public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
+    @Bean
+    public DefaultWebSecurityManager securityManager(@Qualifier("userRealm") UserRealm userRealm) {
+
+        System.out.println("执行了安全管理器的配置方法！");
 
         //创建默认web安全管理器对象
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -53,15 +70,8 @@ public class ShiroConfig {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
-
-        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-        //设置安全管理器
-        factoryBean.setSecurityManager(securityManager);
-        //权限设置
-        Map<String, String> map = new HashMap<>();
-
-        return factoryBean;
+    public UserRealm userRealm() {
+        return new UserRealm();
     }
 }
 

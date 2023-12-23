@@ -1,6 +1,5 @@
 package org.fairingstudio.kuayue_website.controller;
 
-import jakarta.annotation.Resource;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Controller

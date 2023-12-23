@@ -1,6 +1,5 @@
 package org.fairingstudio.kuayue_website.realm;
 
-import jakarta.annotation.Resource;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;

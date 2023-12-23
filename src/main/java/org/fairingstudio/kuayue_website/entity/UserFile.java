@@ -1,5 +1,6 @@
 package org.fairingstudio.kuayue_website.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@TableName("ky_files")
 public class UserFile {
 
     private Integer id;

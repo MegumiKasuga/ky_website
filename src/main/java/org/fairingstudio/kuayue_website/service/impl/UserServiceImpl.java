@@ -1,7 +1,6 @@
 package org.fairingstudio.kuayue_website.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import jakarta.annotation.Resource;
 import org.fairingstudio.kuayue_website.dao.UserDao;
 import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
