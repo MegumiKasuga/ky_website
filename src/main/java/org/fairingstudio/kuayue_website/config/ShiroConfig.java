@@ -30,7 +30,8 @@ public class ShiroConfig {
         map.put("/admin/*", "authc");
 
         factoryBean.setFilterChainDefinitionMap(map);
-        //factoryBean.setLoginUrl("/login");
+
+        factoryBean.setLoginUrl("/intercept");
 
         return factoryBean;
     }

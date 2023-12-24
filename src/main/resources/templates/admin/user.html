@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/css/gallery-page.css" th:href="@{/css/gallery-page.css}">
     <link rel="stylesheet" href="../../static/css/wiki-page.css" th:href="@{/css/wiki-page.css}">
-    <!-- @{/} 斜杠开头表示相对整个应用根目录，此处必须这样写。不然在提交/admin/modFileManagement请求时会在静态资源路径上加上/admin导致404错误。 -->
-    <title>MOD文件管理</title>
+    <title th:text="${session.userInfo.nickname}+'的主页'">用户主页</title>
 </head>
 <body>
     <nav class="navbar navbar-dark py-sm-1 fixed-top" id="nav_bar">
@@ -22,7 +21,7 @@
                 <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
             </a>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../download.html" th:href="@{/download}" class="no_text_decoration"><span class="nav_bar_button">下载</span></a>
+                <a href="../download.html" th:href="@{/admin/modFileManagement}" class="no_text_decoration"><span class="nav_bar_button">mod文件管理</span></a>
             </div>
             <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
                 <a href="../gallery.html" th:href="@{/gallery}" class="no_text_decoration"><span class="nav_bar_button">画廊</span></a>
@@ -53,53 +52,7 @@
         </div>
     </nav>
 
-    <h1 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">MOD文件管理</h1>
-
-    <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
-        <div class="row">
-            <div class="col-10 bg-light" style="border-radius: 10px">
-                <div>
-                    <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
-                </div>
-                <hr>
-                <table class="table">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>运行环境</th>
-                        <th>MOD文件名</th>
-                        <th>MC版本</th>
-                        <th>下载量</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="file : ${allModFiles}">
-                        <td th:text="${file.id}">1</td>
-                        <td th:text="${file.modFileName}">aa.txt</td>
-                        <td th:text="${file.MCVersion}">uuid.txt</td>
-                        <td th:text="${file.downloadCounts}">.txt</td>
-                    </tr>
-                    <tr>
-                        <td>forge</td>
-                        <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
-                        <td>1.20.1</td>
-                        <td>776</td>
-                        <td>
-                            <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript" th:inline="javascript">
-        window.onload = function () {
-            // let user = [[${session.userInfo}]];
-            // let session = [[${session}]];
-        }
-    </script>
+    <h2 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">用户信息：<span th:text="${session.userInfo}"></span></h2>
 
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>

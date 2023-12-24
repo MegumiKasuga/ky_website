@@ -30,6 +30,18 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping("/admin/user")
+    public String userPage() {
+        return "/admin/user";
+    }
+
+    //登录拦截
+    @RequestMapping("/intercept")
+    public String intercept() {
+        return "intercept";
+    }
+
+    //用户登录
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
     public String userLogin(@RequestParam String username, @RequestParam String password,
                             Model model, HttpSession session,
@@ -46,7 +58,7 @@ public class UserController {
             model.addAttribute("allModFiles", allModFiles);
             session.setAttribute("userInfo", subject.getPrincipal());
 
-            return "admin/mod_file_management";
+            return "admin/user";
 
         } catch (UnknownAccountException e) {
 
@@ -61,6 +73,15 @@ public class UserController {
             attributes.addFlashAttribute("message", "密码错误！");
             return "redirect:/login";
         }
+    }
+
+    //注销
+    @RequestMapping("/admin/logout")
+    public String logout() {
+
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "/login";
     }
 }
 
