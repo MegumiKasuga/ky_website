@@ -14,29 +14,29 @@
     <title th:text="${session.userInfo.nickname}+'的主页'">用户主页</title>
 </head>
 <body>
+
     <nav class="navbar navbar-dark py-sm-1 fixed-top" id="nav_bar">
         <div class="container-lg row h-100">
             <a class="navbar-brand col-3 h-100" href="./" th:href="@{/}">
                 <img src="../../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
                 <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
             </a>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../download.html" th:href="@{/admin/modFileManagement}" class="no_text_decoration"><span class="nav_bar_button">mod文件管理</span></a>
+            <div class="col-1 h-100 dropdown">
+                <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">主站</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" th:href="@{/download}" class="dropdown-item" target="_blank">下载</a></li>
+                    <li><a href="#" th:href="@{/gallery}" class="dropdown-item" target="_blank">画廊</a></li>
+                    <li><a href="#" th:href="@{/wiki}" class="dropdown-item" target="_blank">百科</a></li>
+                    <li><a href="#" th:href="@{/schematic}" class="dropdown-item" target="_blank">蓝图</a></li>
+                    <li><a href="#" th:href="@{/bbs_entrance}" class="dropdown-item" target="_blank">论坛</a></li>
+                </ul>
             </div>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../gallery.html" th:href="@{/gallery}" class="no_text_decoration"><span class="nav_bar_button">画廊</span></a>
+            <div class="col-2 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../download.html" th:href="@{/admin/modFileManagement}" class="no_text_decoration"><span class="nav_bar_button">MOD文件管理</span></a>
             </div>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../wiki.html" th:href="@{/wiki}" class="no_text_decoration"><span class="nav_bar_button">百科</span></a>
-            </div>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../schematic.html" th:href="@{/schematic}" class="no_text_decoration"><span class="nav_bar_button">蓝图</span></a>
-            </div>
-            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
-                <a href="../bbs_entrance.html" th:href="@{/bbs_entrance}" class="no_text_decoration"><span class="nav_bar_button">论坛</span></a>
-            </div>
+            <div class="col-3"></div>
 
-            <div class="col-3 h-100 no_padding no_border no_background_color">
+            <div class="col-2 h-100 no_padding no_border no_background_color">
                 <div style="float: right">
                     <div class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
@@ -44,13 +44,15 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>
-                            <li><a href="#" th:href="@{/admin/logout}" class="dropdown-item">注销</a></li>
+                            <li><a href="#" th:href="@{/admin/logout}" class="dropdown-item">退出登录</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
+
 
     <h2 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">用户信息：<span th:text="${session.userInfo}"></span></h2>
 

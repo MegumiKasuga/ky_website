@@ -32,6 +32,8 @@ public class User {
 
     private String avatar;
 
+    private String sign;
+
     @TableField("update_time")
     private Date updateTime;
 
