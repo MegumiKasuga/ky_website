@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{/lib/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/lib/animate/animate.css" th:href="@{/lib/animate/animate.css}">
+    <link rel="stylesheet" href="../../static/lib/fontawesome/css/font-awesome.css" th:href="@{/lib/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../static/lib/highlight/agate.min.css" th:href="@{/lib/highlight/agate.min.css}">
+    <link rel="stylesheet" href="../../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{/lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../../static/css/download-page.css" th:href="@{/css/download-page.css}">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/gallery-page.css" th:href="@{/css/gallery-page.css}">
+    <link rel="stylesheet" href="../../static/css/wiki-page.css" th:href="@{/css/wiki-page.css}">
+    <title>错误</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark py-sm-1 fixed-top" id="nav_bar">
+        <div class="container-lg row h-100">
+            <a class="navbar-brand col-3 h-100" href="./" th:href="@{/}">
+                <img src="../../static/images/kuayue_logo.png" th:src="@{/images/kuayue_logo.png}" alt="logo" class="w-25">
+                <span class="nav_bar_button"><strong>跨越</strong>&nbsp;|&nbsp;Kuayue</span>
+            </a>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../download.html" th:href="@{/download}" class="no_text_decoration"><span class="nav_bar_button">下载</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../gallery.html" th:href="@{/gallery}" class="no_text_decoration"><span class="nav_bar_button">画廊</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../wiki.html" th:href="@{/wiki}" class="no_text_decoration"><span class="nav_bar_button">百科</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../schematic.html" th:href="@{/schematic}" class="no_text_decoration"><span class="nav_bar_button">蓝图</span></a>
+            </div>
+            <div class="col-1 h-100 no_padding no_border no_background_color nav_bar_button">
+                <a href="../bbs_entrance.html" th:href="@{/bbs_entrance}" class="no_text_decoration"><span class="nav_bar_button">论坛</span></a>
+            </div>
+
+            <div class="col-3 h-100 no_padding no_border no_background_color">
+                <div style="float: right">
+                    <a class="nav_bar_button" href="../login.html" th:if="${session.userInfo}==null" th:href="@{/login}"><strong>登录</strong></a>
+                    <span class="nav_bar_button" th:if="${session.userInfo}==null">|</span>
+                    <a class="nav_bar_button" href="../login.html" th:if="${session.userInfo}==null" th:href="@{/login}"><strong>注册</strong></a>
+                    <div th:if="${session.userInfo}!=null" class="dropdown">
+                        <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                            <span th:text="${session.userInfo.nickname}">用户昵称</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>
+                            <li><a href="#" th:href="@{/admin/logout}" class="dropdown-item">退出登录</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <i class="fa fa-exclamation-circle" style="font-size: 500%; margin: 1em"></i>
+            <div>
+                <h1>错误</h1>
+                <h2 th:text="'错误信息：' + ${exception}">错误信息</h2>
+                <h2>如果需要更多帮助，请联系网站管理员。</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-bottom row bottom_bar wiki_bottom_bar" id="bottom_bar">
+        <div class="col align_left">
+            <a class="color_939393" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=45128102451361">桂公网安备 45128102451361号</a> <br />
+            <a class="color_939393" href="https://beian.miit.gov.cn/">桂ICP备2022002550号</a>
+        </div>
+        <div class="col color_939393 align_right">
+            Kuayue&nbsp;Development&nbsp;Group&nbsp;&nbsp;2023<br/>
+            跨越开发组&nbsp;&nbsp;2023
+        </div>
+    </div>
+
+    <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
+    <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script src="../../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+
+</body>
+</html>
