@@ -7,6 +7,8 @@ import org.fairingstudio.kuayue_website.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,5 +26,12 @@ public class UserServiceImpl implements UserService {
         //User user = userDao.selectUserByName(name);
 
         return user;
+    }
+
+    @Override
+    public int updateLoginInfo(String username, String latestIpAddress, Date latestLoginTime) {
+
+        int nums = userDao.updateLoginInfo(username, latestIpAddress, latestLoginTime);
+        return nums;
     }
 }

@@ -5,7 +5,9 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.dao.UserDao;
+import org.fairingstudio.kuayue_website.entity.IpLocation;
 import org.fairingstudio.kuayue_website.service.UserService;
+import org.fairingstudio.kuayue_website.util.IpUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,6 +52,13 @@ class KuayueWebsiteApplicationTests {
         //使用父类实现加密
         SimpleHash simpleHash = new SimpleHash("MD5",password,"kuayue",3);
         System.out.println("父类带盐三次加密："+simpleHash.toHex());
+    }
+
+    @Test
+    void getLocationByIpAddress () {
+
+        IpLocation ipLocation = IpUtils.getLocation("202.108.22.5");
+        System.out.println("ipLocation = " + ipLocation);
     }
 
     @Test

@@ -38,4 +38,10 @@ public class User {
     private Date updateTime;
 
     private String nickname;
+
+    @TableField("latest_ip_address")
+    private String latestIpAddress;
+
+    @TableField("latest_login_time")
+    private Date latestLoginTime;
 }

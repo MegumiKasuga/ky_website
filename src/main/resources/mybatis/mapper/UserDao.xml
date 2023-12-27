@@ -14,11 +14,20 @@
         <result column="avatar" property="avatar"/>
         <result column="update_time" property="updateTime"/>
         <result column="nickname" property="nickname"/>
+        <result column="sign" property="sign"/>
+        <result column="latest_ip_address" property="latestIpAddress"/>
+        <result column="latest_login_time" property="latestLoginTime"/>
     </resultMap>
 
     <select id="selectUserByName" resultMap="userMap">
-        select * from ky_user where username=#{username}
+        select * from ky_user where username = #{username}
     </select>
+
+    <insert id="updateLoginInfo">
+        update ky_user
+        set latest_ip_address = #{latestIpAddress}, latest_login_time = #{latestLoginTime}
+        where username = #{username}
+    </insert>
 
 </mapper>
 

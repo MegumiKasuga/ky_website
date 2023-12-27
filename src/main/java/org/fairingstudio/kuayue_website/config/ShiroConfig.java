@@ -4,6 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.fairingstudio.kuayue_website.realm.UserRealm;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -66,8 +67,18 @@ public class ShiroConfig {
 
         //将UserRealm对象存入DefaultWebSecurityManager对象
         securityManager.setRealm(userRealm);
+
+        securityManager.setSessionManager(sessionManager());
         //返回
         return securityManager;
+    }
+
+    @Bean
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        // 为了解决输入网址地址栏出现 jsessionid 的问题
+        sessionManager.setSessionIdUrlRewritingEnabled(false);
+        return sessionManager;
     }
 
     @Bean

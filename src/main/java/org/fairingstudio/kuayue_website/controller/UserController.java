@@ -3,10 +3,14 @@ package org.fairingstudio.kuayue_website.controller;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.fairingstudio.kuayue_website.entity.IpLocation;
 import org.fairingstudio.kuayue_website.entity.ModFile;
+import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
 import org.fairingstudio.kuayue_website.service.UserFileService;
+import org.fairingstudio.kuayue_website.service.UserService;
+import org.fairingstudio.kuayue_website.util.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -24,6 +30,9 @@ public class UserController {
 
     @Autowired
     private ModFileService modFileService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/login")
     public String login() {
@@ -45,7 +54,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
     public String userLogin(@RequestParam String username, @RequestParam String password,
                             Model model, HttpSession session,
-                            RedirectAttributes attributes) {
+                            RedirectAttributes attributes, HttpServletRequest request) {
 
         //获取subject对象
         Subject subject = SecurityUtils.getSubject();
@@ -53,10 +62,18 @@ public class UserController {
         AuthenticationToken token = new UsernamePasswordToken(username, password);
         //调用login方法进行登录认证
         try {
+            //登录验证
             subject.login(token);
+            //更新用户登录信息
+            updateLoginInfo(username, request);
+
             List<ModFile> allModFiles = modFileService.getAllModFiles();
             model.addAttribute("allModFiles", allModFiles);
             session.setAttribute("userInfo", subject.getPrincipal());
+
+            User principal = (User) subject.getPrincipal();
+            IpLocation ipLocation = IpUtils.getLocation(principal.getLatestIpAddress());
+            session.setAttribute("ipLocation", ipLocation);
 
             return "admin/user";
 
@@ -82,6 +99,16 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return "/login";
+    }
+
+    public void updateLoginInfo(String username, HttpServletRequest request) {
+
+        String ipAddress = IpUtils.getIpAddress(request);
+
+        long currentTimeMillis = System.currentTimeMillis();
+        Date loginTime = new Date(currentTimeMillis);
+
+        userService.updateLoginInfo(username, ipAddress, loginTime);
     }
 }
 
