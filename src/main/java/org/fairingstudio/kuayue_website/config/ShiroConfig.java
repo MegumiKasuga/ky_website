@@ -3,7 +3,9 @@ package org.fairingstudio.kuayue_website.config;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.fairingstudio.kuayue_website.realm.UserRealm;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,12 +29,19 @@ public class ShiroConfig {
         factoryBean.setSecurityManager(securityManager);
         //权限设置
         Map<String,String> map = new LinkedHashMap<>();
-        //所有admin目录下的页面必须登录才可以访问
-        map.put("/admin/*", "authc");
+
+        /*=====设置各请求URL权限=====*/
+        //admin目录下的页面必须登录才可以访问
+        map.put("/admin/user", "authc");
+        map.put("/admin/logout", "authc");
+        //mod文件管理页需管理员角色才可访问
+        map.put("/admin/modFileManagement","roles[1]");
 
         factoryBean.setFilterChainDefinitionMap(map);
-
+        //设置未登录跳转页面
         factoryBean.setLoginUrl("/intercept");
+        //设置未授权跳转页面
+        factoryBean.setUnauthorizedUrl("/unathur");
 
         return factoryBean;
     }
@@ -68,9 +77,34 @@ public class ShiroConfig {
         //将UserRealm对象存入DefaultWebSecurityManager对象
         securityManager.setRealm(userRealm);
 
+        //设置session管理器
         securityManager.setSessionManager(sessionManager());
+        //设置rememberMe管理器
+        securityManager.setRememberMeManager(rememberMeManager());
         //返回
         return securityManager;
+    }
+
+    //cookie属性设置
+    public SimpleCookie rememberMeCookie() {
+
+        SimpleCookie cookie = new SimpleCookie("rememberMe");
+        //设置跨域
+        //cookie.setDomain(domain);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        //设置cookie的最大保存时间为一周
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        return cookie;
+    }
+
+    //创建shiro的cookie管理对象
+    public CookieRememberMeManager rememberMeManager() {
+
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        cookieRememberMeManager.setCipherKey("1234567890987654".getBytes());
+        return cookieRememberMeManager;
     }
 
     @Bean

@@ -50,6 +50,12 @@ public class UserController {
         return "intercept";
     }
 
+    //授权拦截
+    @RequestMapping("/unathur")
+    public String unathur() {
+        return "unathur";
+    }
+
     //用户登录
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
     public String userLogin(@RequestParam String username, @RequestParam String password,
@@ -69,9 +75,10 @@ public class UserController {
 
             List<ModFile> allModFiles = modFileService.getAllModFiles();
             model.addAttribute("allModFiles", allModFiles);
-            session.setAttribute("userInfo", subject.getPrincipal());
 
             User principal = (User) subject.getPrincipal();
+            session.setAttribute("userInfo", principal);
+            //获取登录地点
             IpLocation ipLocation = IpUtils.getLocation(principal.getLatestIpAddress());
             session.setAttribute("ipLocation", ipLocation);
 

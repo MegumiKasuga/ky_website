@@ -1,14 +1,20 @@
 package org.fairingstudio.kuayue_website.realm;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserRealm extends AuthorizingRealm {
 
@@ -18,7 +24,16 @@ public class UserRealm extends AuthorizingRealm {
     //自定义授权方法
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+
+        //获取当前登录的用户信息
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        //设置角色（用Set集合避免重复）
+        Set<String> roles = new HashSet<>();
+        roles.add(user.getRole());
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
+
+        return info;
     }
 
     //自定义登录认证方法

@@ -23,7 +23,7 @@ public class User {
 
     private String password;
 
-    private Integer role;
+    private String role;
 
     @TableField("sign_up_time")
     private Date signUpTime;
