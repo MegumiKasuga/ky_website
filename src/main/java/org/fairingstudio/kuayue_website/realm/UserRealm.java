@@ -25,6 +25,8 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
+        //subject对象的principals属性只有在用户通过登录验证之后才赋值
+        //因此假如用户未登录是不会进入授权方法进行角色与权限验证的，而是直接进行登录拦截。
         //获取当前登录的用户信息
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();

@@ -31,6 +31,8 @@ public class ShiroConfig {
         Map<String,String> map = new LinkedHashMap<>();
 
         /*=====设置各请求URL权限=====*/
+        //各请求URL应分别单独设置验证与授权条件，如果用*代替则可能出现条件混淆导致只有一部分配置生效。
+
         //admin目录下的页面必须登录才可以访问
         map.put("/admin/user", "authc");
         map.put("/admin/logout", "authc");
