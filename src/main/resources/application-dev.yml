@@ -25,3 +25,7 @@ mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#shiro:
+#  loginUrl: /intercept
+#  unauthorizedUrl: /unathur

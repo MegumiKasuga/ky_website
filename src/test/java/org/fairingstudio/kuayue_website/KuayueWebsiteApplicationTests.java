@@ -6,6 +6,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.dao.UserDao;
 import org.fairingstudio.kuayue_website.entity.IpLocation;
+import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
 import org.fairingstudio.kuayue_website.util.IpUtils;
 import org.junit.jupiter.api.Test;
@@ -59,6 +60,25 @@ class KuayueWebsiteApplicationTests {
 
         IpLocation ipLocation = IpUtils.getLocation("202.108.22.5");
         System.out.println("ipLocation = " + ipLocation);
+    }
+
+    @Test
+    void stringTest01 () {
+
+        String s = "http://127.0.0.1:8080/admin/modFileManagement";
+
+        s = s.substring(s.indexOf("/admin"));
+
+        System.out.println("s = " + s);
+    }
+
+    @Test
+    void userTest01 () {
+
+        User userByName = userService.getUserByName("lisi");
+        if (userByName != null) {
+            System.out.println("userByName = " + userByName);
+        }
     }
 
     @Test

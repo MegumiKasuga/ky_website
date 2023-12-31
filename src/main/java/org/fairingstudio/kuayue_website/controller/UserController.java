@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +43,7 @@ public class UserController {
 
     @RequestMapping("/admin/user")
     public String userPage() {
-        return "/admin/user";
+        return "admin/user";
     }
 
     //登录拦截
@@ -58,25 +60,26 @@ public class UserController {
 
     //用户登录
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
-    public String userLogin(@RequestParam String username, @RequestParam String password,
-                            Model model, HttpSession session,
-                            RedirectAttributes attributes, HttpServletRequest request) {
+    public String userLogin(@RequestParam String username,
+                            @RequestParam String password,
+                            @RequestParam(defaultValue = "true") boolean rememberMe,
+                            HttpSession session,
+                            HttpServletRequest request,
+                            RedirectAttributes attributes) {
 
         //获取subject对象
         Subject subject = SecurityUtils.getSubject();
         //封装请求参数到token
-        AuthenticationToken token = new UsernamePasswordToken(username, password);
+        AuthenticationToken token = new UsernamePasswordToken(username, password, rememberMe);
         //调用login方法进行登录认证
         try {
             //登录验证
             subject.login(token);
+            User principal = (User) subject.getPrincipal();
+
             //更新用户登录信息
             updateLoginInfo(username, request);
-
-            List<ModFile> allModFiles = modFileService.getAllModFiles();
-            model.addAttribute("allModFiles", allModFiles);
-
-            User principal = (User) subject.getPrincipal();
+            //将用户信息放入session对象
             session.setAttribute("userInfo", principal);
             //获取登录地点
             IpLocation ipLocation = IpUtils.getLocation(principal.getLatestIpAddress());
@@ -126,4 +129,16 @@ redirectAttributes.addAttribute("key", value);
 
 redirectAttributes.addFlashAttribute("key", value);
 这种方法是隐藏了参数，链接地址上不直接暴露，但是能且只能在重定向的 “页面” 获取 param 参数值。其原理就是将设置的属性放到 session 中，session中的属性在重定向到目标页面后马上销毁。
+*/
+
+/*
+//如果勾选了记住我
+if(rememberMe){
+    //创建一个cookie对象，键为"boot_rememberMe"，值为用户名
+    Cookie cookie = new Cookie("rememberMe", username);
+    //设置cookie过期时间
+    cookie.setMaxAge(60 * 60 * 24 * 7);
+    //将此cookie对象添加到响应对象中
+    response.addCookie(cookie);
+}
 */

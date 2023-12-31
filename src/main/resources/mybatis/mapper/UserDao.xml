@@ -23,11 +23,11 @@
         select * from ky_user where username = #{username}
     </select>
 
-    <insert id="updateLoginInfo">
+    <update id="updateLoginInfo">
         update ky_user
         set latest_ip_address = #{latestIpAddress}, latest_login_time = #{latestLoginTime}
         where username = #{username}
-    </insert>
+    </update>
 
 </mapper>
 
