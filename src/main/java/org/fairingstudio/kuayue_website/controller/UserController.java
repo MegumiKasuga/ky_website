@@ -2,6 +2,7 @@ package org.fairingstudio.kuayue_website.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.IpLocation;
 import org.fairingstudio.kuayue_website.entity.ModFile;
@@ -62,9 +63,9 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, path = "/userLogin")
     public String userLogin(@RequestParam String username,
                             @RequestParam String password,
-                            @RequestParam(defaultValue = "true") boolean rememberMe,
-                            HttpSession session,
+                            @RequestParam(defaultValue = "false") boolean rememberMe,
                             HttpServletRequest request,
+                            HttpServletResponse response,
                             RedirectAttributes attributes) {
 
         //获取subject对象
@@ -76,11 +77,22 @@ public class UserController {
             //登录验证
             subject.login(token);
             User principal = (User) subject.getPrincipal();
+            //获取subject对象提供的session
+            Session session = subject.getSession();
+
+            if(rememberMe){
+                //创建一个cookie对象，键为"JSESSIONID"，值为session的id
+                Cookie cookie = new Cookie("JSESSIONID", (String) session.getId());
+                //设置cookie过期时间
+                cookie.setMaxAge(60 * 60 * 24 * 7);
+                //将此cookie对象添加到响应对象中
+                response.addCookie(cookie);
+            }
 
             //更新用户登录信息
             updateLoginInfo(username, request);
             //将用户信息放入session对象
-            session.setAttribute("userInfo", principal);
+            session.setAttribute("user", principal);
             //获取登录地点
             IpLocation ipLocation = IpUtils.getLocation(principal.getLatestIpAddress());
             session.setAttribute("ipLocation", ipLocation);

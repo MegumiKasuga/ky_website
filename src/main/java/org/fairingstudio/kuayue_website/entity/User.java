@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -14,7 +15,8 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @TableName("ky_user")
-public class User {
+//实体类必须实现序列化接口，不然无法创建cookie对象
+public class User implements Serializable {
 
     private Integer id;
 

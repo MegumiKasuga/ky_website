@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../../static/css/gallery-page.css" th:href="@{/css/gallery-page.css}">
     <link rel="stylesheet" href="../../static/css/wiki-page.css" th:href="@{/css/wiki-page.css}">
-    <title th:text="${session.userInfo.nickname}+'的主页'">用户主页</title>
+    <title th:text="${session.user.nickname}+'的主页'">用户主页</title>
 </head>
 <body>
 
@@ -40,7 +40,7 @@
                 <div style="float: right">
                     <div class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                            <span th:text="${session.userInfo.nickname}">用户昵称</span>
+                            <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>
@@ -54,7 +54,7 @@
 
 
 
-    <h2 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">用户信息：<span th:text="${session.userInfo}"></span></h2>
+    <h2 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">用户信息：<span th:text="${session.user}"></span></h2>
     <h2 style="margin-top: 3em; margin-left: 1em">上次登录位置：<span th:text="${session.ipLocation}"></span></h2>
 
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>

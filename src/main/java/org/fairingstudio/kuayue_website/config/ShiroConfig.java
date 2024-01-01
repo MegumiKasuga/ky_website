@@ -69,7 +69,7 @@ public class ShiroConfig {
         //admin目录下的页面必须登录才可以访问
         map.put("/admin/user", "user");
         map.put("/admin/logout", "user");
-
+        //map.put("/wiki", "user");
         //mod文件管理页需管理员角色才可访问
         map.put("/admin/modFileManagement","roles[1]");
 
@@ -111,8 +111,9 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-
-        // 为了解决输入网址地址栏出现 jsessionid 的问题
+        //设置session对象失效时间为一周
+        sessionManager.setGlobalSessionTimeout(1000 * 60 * 60 * 24 * 7);
+        //解决输入网址地址栏自动添加jsessionid导致400错误的问题
         sessionManager.setSessionIdUrlRewritingEnabled(false);
         return sessionManager;
     }

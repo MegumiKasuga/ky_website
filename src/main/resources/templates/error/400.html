@@ -39,12 +39,12 @@
 
             <div class="col-3 h-100 no_padding no_border no_background_color">
                 <div style="float: right">
-                    <a class="nav_bar_button" href="../login.html" th:if="${session.userInfo}==null" th:href="@{/login}"><strong>登录</strong></a>
-                    <span class="nav_bar_button" th:if="${session.userInfo}==null">|</span>
-                    <a class="nav_bar_button" href="../login.html" th:if="${session.userInfo}==null" th:href="@{/login}"><strong>注册</strong></a>
-                    <div th:if="${session.userInfo}!=null" class="dropdown">
+                    <a class="nav_bar_button" href="../login.html" th:if="${session.user}==null" th:href="@{/login}"><strong>登录</strong></a>
+                    <span class="nav_bar_button" th:if="${session.user}==null">|</span>
+                    <a class="nav_bar_button" href="../login.html" th:if="${session.user}==null" th:href="@{/login}"><strong>注册</strong></a>
+                    <div th:if="${session.user}!=null" class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                            <span th:text="${session.userInfo.nickname}">用户昵称</span>
+                            <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>

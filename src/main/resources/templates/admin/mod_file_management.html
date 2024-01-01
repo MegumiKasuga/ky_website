@@ -40,7 +40,7 @@
                 <div style="float: right">
                     <div class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                            <span th:text="${session.userInfo.nickname}">用户昵称</span>
+                            <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>
