@@ -2,6 +2,7 @@ package org.fairingstudio.kuayue_website.util;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import org.lionsoul.ip2region.xdb.Searcher;
 import sun.nio.ch.IOUtil;
 
 @Slf4j
-//@UtilityClass
+@UtilityClass
 public class IpUtils {
 
     /**

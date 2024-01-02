@@ -1,5 +1,9 @@
 package org.fairingstudio.kuayue_website.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
+import cn.hutool.captcha.LineCaptcha;
+import cn.hutool.captcha.ShearCaptcha;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
@@ -21,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -64,28 +70,37 @@ public class UserController {
     public String userLogin(@RequestParam String username,
                             @RequestParam String password,
                             @RequestParam(defaultValue = "false") boolean rememberMe,
+                            @RequestParam String code,
                             HttpServletRequest request,
                             HttpServletResponse response,
                             RedirectAttributes attributes) {
 
         //获取subject对象
         Subject subject = SecurityUtils.getSubject();
-        //封装请求参数到token
+
+        //获取subject对象提供的session
+        Session session = subject.getSession();
+        //判断验证码是否正确
+        String sessionCode = (String) session.getAttribute("code");
+        if (!sessionCode.equals(code)) {
+            attributes.addFlashAttribute("message", "验证码错误！");
+            return "redirect:/login";
+        }
+
+        //若验证码正确，封装请求参数到token
         AuthenticationToken token = new UsernamePasswordToken(username, password, rememberMe);
         //调用login方法进行登录认证
         try {
             //登录验证
             subject.login(token);
             User principal = (User) subject.getPrincipal();
-            //获取subject对象提供的session
-            Session session = subject.getSession();
-
+            //如果勾选了自动登录
             if(rememberMe){
                 //创建一个cookie对象，键为"JSESSIONID"，值为session的id
                 Cookie cookie = new Cookie("JSESSIONID", (String) session.getId());
-                //设置cookie过期时间
+                //设置cookie过期时间为一周
                 cookie.setMaxAge(60 * 60 * 24 * 7);
-                //将此cookie对象添加到响应对象中
+                //将此cookie对象添加到响应对象中覆盖掉原来在会话结束就会自动失效的jsessionid
                 response.addCookie(cookie);
             }
 
@@ -112,6 +127,22 @@ public class UserController {
             attributes.addFlashAttribute("message", "密码错误！");
             return "redirect:/login";
         }
+    }
+
+    //获取图片验证码
+    @RequestMapping("/login/getCode")
+    public void getCode(HttpServletResponse response) throws IOException {
+
+        Session session = SecurityUtils.getSubject().getSession();
+        //构造验证码对象
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(65, 25, 4, 10);
+        //放入session
+        session.setAttribute("code", lineCaptcha.getCode());
+        //输出
+        ServletOutputStream outputStream = response.getOutputStream();
+        lineCaptcha.write(outputStream);
+        //关闭输出流
+        outputStream.close();
     }
 
     //注销

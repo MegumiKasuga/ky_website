@@ -41,7 +41,7 @@
                 <div style="float: right">
                     <a class="nav_bar_button" href="../login.html" th:if="${session.user}==null" th:href="@{/login}"><strong>登录</strong></a>
                     <span class="nav_bar_button" th:if="${session.user}==null">|</span>
-                    <a class="nav_bar_button" href="../login.html" th:if="${session.user}==null" th:href="@{/login}"><strong>注册</strong></a>
+                    <a class="nav_bar_button" href="../login.html" th:if="${session.user}==null" th:href="@{/signUp}"><strong>注册</strong></a>
                     <div th:if="${session.user}!=null" class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
                             <span th:text="${session.user.nickname}">用户昵称</span>

@@ -29,7 +29,7 @@
         </div>
     </nav>
 
-    <div class="container-sm" style="margin-top: 8em">
+    <div class="container-sm" style="margin-top: 5em; margin-bottom: 5em">
         <div class="bg-light animate__animated animate__fadeIn" id="loginBar">
             <div style="text-align: center">
                 <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
@@ -41,10 +41,18 @@
                     <input type="text" id="usernameInput" class="form-control" placeholder="请输入用户名" name="username" required>
                     <div class="invalid-feedback">请输入用户名！</div>
                 </div>
-                <div class="mb-5 form-group">
+                <div class="mb-3 form-group">
                     <label for="passwordInput" class="form-label m-xiaokai">密码</label>
                     <input type="password" id="passwordInput" class="form-control" placeholder="请输入密码" name="password" required>
                     <div class="invalid-feedback">请输入密码！</div>
+                </div>
+                <div class="mb-2 form-group" id="imgCode">
+                    <label for="code" class="form-label m-xiaokai">验证码</label>
+                    <div class="input-group">
+                        <input type="text" placeholder="请输入验证码" name="code" autocomplete="off" id="code" class="form-control" required>
+                        <img class="input-group-text" th:src="@{/login/getCode}" onclick="this.src = this.src + '?'">
+                        <div class="invalid-feedback">请输入验证码！</div>
+                    </div>
                 </div>
                 <div class="mb-5 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" value="true">
