@@ -34,4 +34,11 @@ public class UserServiceImpl implements UserService {
         int nums = userDao.updateLoginInfo(username, latestIpAddress, latestLoginTime);
         return nums;
     }
+
+    @Override
+    public Integer getCountByUsername(String username) {
+
+        Integer count = userDao.countByUsername(username);
+        return count;
+    }
 }

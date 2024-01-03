@@ -37,32 +37,37 @@
     </div>
     <form action="index.html" th:action="@{/userLogin}" method="post" class="needs-validation" novalidate>
       <div class="mb-3 form-group">
-        <label for="usernameInput" class="form-label m-xiaokai">用户名</label>
-        <input type="text" id="usernameInput" class="form-control" placeholder="请输入用户名" name="username" required>
+        <label for="usernameInput" class="form-label m-xiaokai">用户名<span style="color: red;">*</span></label>
+        <input type="text" id="usernameInput" class="form-control" placeholder="3-16位,可使用字母,数字,下划线与负号" name="username" required>
         <div class="invalid-feedback">请输入用户名！</div>
+        <div id="usernameCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-3 form-group">
-        <label for="passwordInput" class="form-label m-xiaokai">密码</label>
+        <label for="passwordInput" class="form-label m-xiaokai">密码<span style="color: red;">*</span></label>
         <input type="password" id="passwordInput" class="form-control" placeholder="请输入密码" name="password" required>
         <div class="invalid-feedback">请输入密码！</div>
+        <div id="passwordCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-3 form-group">
-        <label for="passwordConfirmInput" class="form-label m-xiaokai">确认密码</label>
+        <label for="passwordConfirmInput" class="form-label m-xiaokai">确认密码<span style="color: red;">*</span></label>
         <input type="password" id="passwordConfirmInput" class="form-control" placeholder="请确认密码" required>
         <div class="invalid-feedback">请确认密码！</div>
+        <div id="passwordConfirmCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-3 form-group">
-        <label for="emailInput" class="form-label m-xiaokai">邮箱</label>
+        <label for="emailInput" class="form-label m-xiaokai">邮箱<span style="color: red;">*</span></label>
         <input type="text" id="emailInput" class="form-control" placeholder="请输入邮箱" name="email" required>
         <div class="invalid-feedback">请输入邮箱！</div>
+        <div id="emailCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-3 form-group">
-        <label for="nicknameInput" class="form-label m-xiaokai">昵称</label>
+        <label for="nicknameInput" class="form-label m-xiaokai">昵称<span style="color: red;">*</span></label>
         <input type="text" id="nicknameInput" class="form-control" placeholder="请输入昵称" name="nickname" required>
         <div class="invalid-feedback">请输入昵称！</div>
+        <div id="nicknameCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-5 form-group" id="imgCode">
-        <label for="code" class="form-label m-xiaokai">验证码</label>
+        <label for="code" class="form-label m-xiaokai">验证码<span style="color: red;">*</span></label>
         <div class="input-group">
           <input type="text" placeholder="请输入验证码" name="code" autocomplete="off" id="code" class="form-control" required>
           <img class="input-group-text" th:src="@{/login/getCode}" onclick="this.src = this.src + '?'">
@@ -70,7 +75,7 @@
         </div>
       </div>
       <div class="d-grid gap-2 col-6 mx-auto mb-3">
-        <button type="submit" class="btn btn-dark">注册</button>
+        <button id="submitBtn" type="submit" class="btn btn-dark">注册</button>
       </div>
       <div id="failure-info" class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(signUpMessage)}" th:text="${signUpMessage}">注册失败！</div>
     </form>
@@ -113,23 +118,54 @@
     }, false);
   })();
 
+  //点击输入栏隐藏警告框
   $('.form-control').click(function () {
     console.log('click form-control!')
     $('#failure-info').hide();
   })
-</script>
 
-<script type="text/javascript" th:inline="javascript">
-  /* 仅请求转发可用，重定向时无法获取message的值。
-  let failureMsg = [[${message}]];
-  if (failureMsg === 1){
-      document.getElementById("failure-info").innerText = "用户名不存在！";
-  } else if (failureMsg === 2) {
-      document.getElementById("failure-info").innerText = "密码错误！";
-  } else {
-      document.getElementById("failure-info").hidden = true;
+  //验证用户名
+  $('#usernameInput').blur(function () {
+    checkUsername();
+  });
+
+  function checkUsername() {
+
+    let username = $("#usernameInput").val();
+    console.log("username: " + username);
+    //判空
+    if (username == null || username.length === 0) {
+      $("#usernameCheckInfo").text("");
+      return false;
+    }
+
+    //检查合法性
+    //用户名正则，3到16位（字母，数字，下划线，减号）
+    let regUsername = /^[a-zA-Z0-9_-]{3,16}$/;
+    if (!regUsername.test(username)) {
+      $("#usernameCheckInfo").text("用户名不合法！用户名应为3-16位，可包含大小写字母，数字，下划线与负号。").css("color","red");
+      return false;
+    }
+
+    //验证用户名是否重复
+    $.ajax({
+      url: "checkUsername",
+      data: {username: username},
+      type: "post",
+      dataType: "text",
+      success: function (resp) {
+        if (resp === '1'){
+          console.log("该用户名已被使用");
+          $("#usernameCheckInfo").text("该用户名已被使用！").css("color","red");
+          return false;
+        } else {
+          console.log("用户名可以使用")
+          $("#usernameCheckInfo").text("用户名可以使用").css("color","green");
+          return true;
+        }
+      }
+    })
   }
-  */
 </script>
 
 <style>

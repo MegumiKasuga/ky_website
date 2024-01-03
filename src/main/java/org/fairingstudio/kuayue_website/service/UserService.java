@@ -10,4 +10,6 @@ public interface UserService {
     User getUserByName(String name);
 
     int updateLoginInfo(String username, String latestIpAddress, Date latestLoginTime);
+
+    Integer getCountByUsername(String username);
 }
