@@ -35,16 +35,16 @@
       <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
       <span style="margin-left: 5px; letter-spacing: 2px; font-size: x-large; font-weight: 550">用户注册</span>
     </div>
-    <form action="index.html" th:action="@{/userLogin}" method="post" class="needs-validation" novalidate>
+    <form action="index.html" th:action="@{/userSignUp}" method="post" class="needs-validation" novalidate>
       <div class="mb-3 form-group">
         <label for="usernameInput" class="form-label m-xiaokai">用户名<span style="color: red;">*</span></label>
         <input type="text" id="usernameInput" class="form-control" placeholder="3-16位,可使用字母,数字,下划线与负号" name="username" required>
-        <div class="invalid-feedback">请输入用户名！</div>
+<!--        <div class="invalid-feedback">请输入用户名！</div>-->
         <div id="usernameCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
       <div class="mb-3 form-group">
         <label for="passwordInput" class="form-label m-xiaokai">密码<span style="color: red;">*</span></label>
-        <input type="password" id="passwordInput" class="form-control" placeholder="请输入密码" name="password" required>
+        <input type="password" id="passwordInput" class="form-control" placeholder="6-16位,可使用字母,数字与特殊符号" name="password" required>
         <div class="invalid-feedback">请输入密码！</div>
         <div id="passwordCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
@@ -62,7 +62,7 @@
       </div>
       <div class="mb-3 form-group">
         <label for="nicknameInput" class="form-label m-xiaokai">昵称<span style="color: red;">*</span></label>
-        <input type="text" id="nicknameInput" class="form-control" placeholder="请输入昵称" name="nickname" required>
+        <input type="text" id="nicknameInput" class="form-control" placeholder="1-16位,可使用字母,数字,中文字符" name="nickname" required>
         <div class="invalid-feedback">请输入昵称！</div>
         <div id="nicknameCheckInfo" style="font-size: small" class="m-xiaokai"></div>
       </div>
@@ -97,75 +97,14 @@
 <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+<script src="../static/js/signup_page.js" th:src="@{/js/signup_page.js}"></script>
 
 <script>
-  // 如果验证不通过禁止提交表单
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // 获取表单验证样式
-      let forms = document.getElementsByClassName('needs-validation');
-      // 循环并禁止提交
-      let validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-
   //点击输入栏隐藏警告框
   $('.form-control').click(function () {
     console.log('click form-control!')
     $('#failure-info').hide();
   })
-
-  //验证用户名
-  $('#usernameInput').blur(function () {
-    checkUsername();
-  });
-
-  function checkUsername() {
-
-    let username = $("#usernameInput").val();
-    console.log("username: " + username);
-    //判空
-    if (username == null || username.length === 0) {
-      $("#usernameCheckInfo").text("");
-      return false;
-    }
-
-    //检查合法性
-    //用户名正则，3到16位（字母，数字，下划线，减号）
-    let regUsername = /^[a-zA-Z0-9_-]{3,16}$/;
-    if (!regUsername.test(username)) {
-      $("#usernameCheckInfo").text("用户名不合法！用户名应为3-16位，可包含大小写字母，数字，下划线与负号。").css("color","red");
-      return false;
-    }
-
-    //验证用户名是否重复
-    $.ajax({
-      url: "checkUsername",
-      data: {username: username},
-      type: "post",
-      dataType: "text",
-      success: function (resp) {
-        if (resp === '1'){
-          console.log("该用户名已被使用");
-          $("#usernameCheckInfo").text("该用户名已被使用！").css("color","red");
-          return false;
-        } else {
-          console.log("用户名可以使用")
-          $("#usernameCheckInfo").text("用户名可以使用").css("color","green");
-          return true;
-        }
-      }
-    })
-  }
 </script>
 
 <style>

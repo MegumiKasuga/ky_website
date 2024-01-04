@@ -30,4 +30,11 @@ public class SignUpController {
             return "0";
         }
     }
+
+    @PostMapping("/userSignUp")
+    public String userSignUp() {
+        System.out.println("执行了用户注册的控制器方法。");
+
+        return "login";
+    }
 }
