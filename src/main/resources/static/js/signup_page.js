@@ -113,7 +113,7 @@ $('#passwordConfirmInput').blur(function () {
 function checkPasswordConfirm() {
     let password = $("#passwordInput").val();
     let passwordConfirm = $("#passwordConfirmInput").val();
-    console.log("password: " + password + ";passwordConfirm: " + passwordConfirm);
+    //console.log("password: " + password + ";passwordConfirm: " + passwordConfirm);
 
     if (passwordConfirm == null || passwordConfirm.length === 0) {
         $("#passwordConfirmCheckInfo").text("确认密码不能为空！").css("color","red");
