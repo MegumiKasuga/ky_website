@@ -17,6 +17,8 @@
         <result column="sign" property="sign"/>
         <result column="latest_ip_address" property="latestIpAddress"/>
         <result column="latest_login_time" property="latestLoginTime"/>
+        <result column="sign_up_ip_address" property="signUpIpAddress"/>
+        <result column="score" property="score"/>
     </resultMap>
 
     <select id="selectUserByName" resultMap="userMap">
@@ -32,6 +34,15 @@
     <select id="countByUsername" resultType="java.lang.Integer">
         select count(*) from ky_user where username = #{username}
     </select>
+
+    <insert id="insertUser">
+        insert into ky_user
+            (id,username,password,role,sign_up_time,email,avatar,update_time,nickname,sign,
+             latest_ip_address,latest_login_time,sign_up_ip_address,score)
+        values
+            (#{id},#{username},#{password},#{role},#{signUpTime},#{email},#{avatar},#{updateTime},#{nickname},#{sign},
+             #{latestIpAddress},#{latestLoginTime},#{signUpIpAddress},#{score})
+    </insert>
 
 </mapper>
 

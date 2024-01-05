@@ -6,6 +6,7 @@ import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public int updateLoginInfo(String username, String latestIpAddress, Date latestLoginTime) {
 
         int nums = userDao.updateLoginInfo(username, latestIpAddress, latestLoginTime);
@@ -40,5 +42,19 @@ public class UserServiceImpl implements UserService {
 
         Integer count = userDao.countByUsername(username);
         return count;
+    }
+
+    @Override
+    @Transactional
+    public int addUser(User user) {
+        //设置用户角色为普通用户
+        user.setRole("2");
+        //初始积分为5
+        user.setScore(5);
+        Date currentDate = new Date(System.currentTimeMillis());
+        user.setSignUpTime(currentDate);
+
+        int nums = userDao.insertUser(user);
+        return nums;
     }
 }

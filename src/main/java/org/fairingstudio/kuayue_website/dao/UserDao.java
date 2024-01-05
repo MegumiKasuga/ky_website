@@ -14,4 +14,6 @@ public interface UserDao extends BaseMapper<User> {
     int updateLoginInfo(String username, String latestIpAddress, Date latestLoginTime);
 
     Integer countByUsername(String username);
+
+    int insertUser(User user);
 }

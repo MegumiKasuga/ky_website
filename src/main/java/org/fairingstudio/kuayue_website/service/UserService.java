@@ -12,4 +12,6 @@ public interface UserService {
     int updateLoginInfo(String username, String latestIpAddress, Date latestLoginTime);
 
     Integer getCountByUsername(String username);
+
+    int addUser(User user);
 }

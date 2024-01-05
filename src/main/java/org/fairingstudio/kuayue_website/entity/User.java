@@ -46,4 +46,9 @@ public class User implements Serializable {
 
     @TableField("latest_login_time")
     private Date latestLoginTime;
+
+    @TableField("sign_up_ip_address")
+    private String signUpIpAddress;
+
+    private Integer score;
 }
