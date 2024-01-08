@@ -29,7 +29,7 @@
         </div>
     </nav>
 
-    <div class="container-sm" style="margin-top: 5em; margin-bottom: 5em">
+    <div th:if="${session.user}==null" class="container-sm" style="margin-top: 5em; margin-bottom: 5em">
         <div class="bg-light animate__animated animate__fadeIn" id="loginBar">
             <div style="text-align: center">
                 <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
@@ -63,6 +63,24 @@
                 </div>
                 <div id="failure-info" class="alert alert-danger" role="alert" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
             </form>
+        </div>
+    </div>
+
+    <div th:if="${session.user}!=null" class="container-sm" style="margin-top: 5em; margin-bottom: 5em">
+        <div class="bg-light animate__animated animate__fadeIn" id="userMenuBar">
+            <div style="text-align: center">
+                <img src="../static/images/kuayue_logo2.png" th:src="@{/images/kuayue_logo2.png}" style="max-height: 70px">
+                <span style="margin-left: 5px; letter-spacing: 2px; font-size: x-large; font-weight: 550">您已登录</span>
+                <div class="dropdown">
+                    <a class="user_menu_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                        <span th:text="${session.user.nickname}">用户昵称</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" th:href="@{/admin/user}" class="dropdown-item">个人主页</a></li>
+                        <li><a href="#" th:href="@{/admin/logout}" class="dropdown-item">退出登录</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -122,15 +140,7 @@
     </script>
 
     <style>
-        #loginBar {
-            max-width: 400px;
-            border-radius: 10px;
-            padding-top: 1em;
-            padding-bottom: 1em;
-            padding-left: 1em;
-            padding-right: 1em;
-            margin: 0 auto;
-        }
+
     </style>
 </body>
 </html>

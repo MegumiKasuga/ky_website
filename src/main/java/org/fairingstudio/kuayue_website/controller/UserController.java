@@ -53,6 +53,9 @@ public class UserController {
         return "admin/user";
     }
 
+    @RequestMapping("/success_jump")
+    public String successJumpPage() {return "success_jump";}
+
     //登录拦截
     @RequestMapping("/intercept")
     public String intercept() {
@@ -112,7 +115,8 @@ public class UserController {
             IpLocation ipLocation = IpUtils.getLocation(principal.getLatestIpAddress());
             session.setAttribute("ipLocation", ipLocation);
 
-            return "admin/user";
+            attributes.addFlashAttribute("successMessage", "login");
+            return "redirect:/admin/user";
 
         } catch (UnknownAccountException e) {
 

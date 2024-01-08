@@ -20,3 +20,24 @@ body {
     color: forestgreen;
     transition-duration: .2s;
 }
+
+.user_menu_bar_button {
+    color: black;
+    transition-duration: .2s;
+    text-decoration: none;
+}
+
+.user_menu_bar_button:hover {
+    color: gray;
+    transition-duration: .2s;
+}
+
+#loginBar,#userMenuBar{
+    max-width: 400px;
+    border-radius: 10px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 0 auto;
+}

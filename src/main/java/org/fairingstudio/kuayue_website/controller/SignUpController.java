@@ -84,7 +84,7 @@ public class SignUpController {
             attributes.addFlashAttribute("signUpMessage", "注册失败！请联系管理员");
             return "redirect:/signUp";
         }
-        attributes.addFlashAttribute("signUpMessage", "注册成功！");
+        attributes.addFlashAttribute("successMessage", "signUp");
         return "redirect:/login";
     }
 
