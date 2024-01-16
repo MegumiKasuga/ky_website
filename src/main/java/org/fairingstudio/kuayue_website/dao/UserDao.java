@@ -16,4 +16,6 @@ public interface UserDao extends BaseMapper<User> {
     Integer countByUsername(String username);
 
     int insertUser(User user);
+
+    Integer countByIpAddress(String ipAddress);
 }

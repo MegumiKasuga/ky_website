@@ -59,14 +59,19 @@
     </nav>
 
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
-        <div th:if="${successMessage == 'login'}" class="alert alert-success" role="alert">
-
-            <h2>恭喜您，登录成功！</h2>
-            <a href="#" class="alert-link">an example link</a>
+        <div th:if="${successMessage == 'login'}" class="alert alert-success row align-items-center" role="alert">
+            <i class="fa fa-check-circle col-2" style="font-size: 300%; margin: 1em"></i>
+            <div class="col-6">
+                <h2>欢迎回来，<span th:text="${session.user.nickname}">登录成功</span>！</h2>
+                <p>5秒后将自动跳转到个人主页，或点击<a href="#" th:href="@{/admin/user}" class="alert-link">这里</a>直接跳转。</p>
+            </div>
         </div>
-        <div th:if="${successMessage == 'signUp'}" class="alert alert-success" role="alert">
-            <h2>恭喜您，注册成功！</h2>
-            <a href="#" class="alert-link">an example link</a>
+        <div th:if="${successMessage == 'signUp'}" class="alert alert-success row align-items-center" role="alert">
+            <i class="fa fa-check-circle col-2" style="font-size: 300%; margin: 1em"></i>
+            <div class="col-6">
+                <h2>恭喜您，注册成功！</h2>
+                <p>5秒后将自动跳转到登录页面，或点击<a href="#" th:href="@{/login}" class="alert-link">这里</a>直接跳转。</p>
+            </div>
         </div>
     </div>
 

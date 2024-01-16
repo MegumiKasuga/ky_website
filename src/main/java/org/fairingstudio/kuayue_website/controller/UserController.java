@@ -116,7 +116,7 @@ public class UserController {
             session.setAttribute("ipLocation", ipLocation);
 
             attributes.addFlashAttribute("successMessage", "login");
-            return "redirect:/admin/user";
+            return "redirect:/success_jump";
 
         } catch (UnknownAccountException e) {
 

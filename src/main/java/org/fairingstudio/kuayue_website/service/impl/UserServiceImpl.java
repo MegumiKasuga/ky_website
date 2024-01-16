@@ -57,4 +57,13 @@ public class UserServiceImpl implements UserService {
         int nums = userDao.insertUser(user);
         return nums;
     }
+
+    @Override
+    public boolean getCountByIpAddress(String ipAddress) {
+
+        Integer nums = userDao.countByIpAddress(ipAddress);
+        return nums > 1;
+    }
+
+
 }

@@ -44,6 +44,9 @@
              #{latestIpAddress},#{latestLoginTime},#{signUpIpAddress},#{score})
     </insert>
 
+    <select id="countByIpAddress" resultType="java.lang.Integer">
+        select count(*) from ky_user where sign_up_ip_address = #{ipAddress}
+    </select>
 </mapper>
 
 

@@ -14,4 +14,6 @@ public interface UserService {
     Integer getCountByUsername(String username);
 
     int addUser(User user);
+
+    boolean getCountByIpAddress(String ipAddress);
 }

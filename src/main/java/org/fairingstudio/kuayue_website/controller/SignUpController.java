@@ -69,6 +69,12 @@ public class SignUpController {
             attributes.addFlashAttribute("signUpMessage","都说了用户名重复了！");
             return "redirect:/signUp";
         }
+        //检查ip地址是否重复注册
+        String ipAddress = IpUtils.getIpAddress(request);
+        if (userService.getCountByIpAddress(ipAddress)) {
+            attributes.addFlashAttribute("signUpMessage","同一IP地址最多注册一个账号！");
+            return "redirect:/signUp";
+        }
 
         //创建用户对象
         User user = new User();
@@ -76,7 +82,7 @@ public class SignUpController {
         user.setPassword(ShiroMD5Utils.shiroMD5Code(password));
         user.setEmail(email);
         user.setNickname(nickname);
-        user.setSignUpIpAddress(IpUtils.getIpAddress(request));
+        user.setSignUpIpAddress(ipAddress);
         //添加用户业务
         int nums = userService.addUser(user);
         System.out.println("nums = " + nums);
@@ -85,7 +91,7 @@ public class SignUpController {
             return "redirect:/signUp";
         }
         attributes.addFlashAttribute("successMessage", "signUp");
-        return "redirect:/login";
+        return "redirect:/success_jump";
     }
 
     @RequestMapping("/getSignUpCode")
