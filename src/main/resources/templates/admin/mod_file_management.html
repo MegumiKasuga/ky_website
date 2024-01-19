@@ -73,11 +73,15 @@
                     </thead>
                     <tbody>
                     <tr th:each="file : ${allModFiles}">
-                        <td th:text="${file.id}">1</td>
-                        <td th:text="${file.modFileName}">aa.txt</td>
-                        <td th:text="${file.MCVersion}">uuid.txt</td>
-                        <td th:text="${file.downloadCounts}">.txt</td>
+                        <td th:text="${file.id}">forge</td>
+                        <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                        <td th:text="${file.MCVersion}">1.20.1</td>
+                        <td th:text="${file.downloadCounts}">776</td>
+                        <td>
+                            <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                        </td>
                     </tr>
+                    <!--/*-->
                     <tr>
                         <td>forge</td>
                         <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
@@ -87,6 +91,7 @@
                             <a href="#" class="download_button" style="text-decoration: none">下载</a>
                         </td>
                     </tr>
+                    <!--*/-->
                     </tbody>
                 </table>
             </div>

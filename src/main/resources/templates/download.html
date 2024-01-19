@@ -43,6 +43,7 @@
                     <span class="nav_bar_button" th:if="${session.user}==null">|</span>
                     <a class="nav_bar_button" href="login.html" th:if="${session.user}==null" th:href="@{/signUp}"><strong>注册</strong></a>
                     <div th:if="${session.user}!=null" class="dropdown">
+                        <img src="../static/images/kuayue_logo2.png" th:src="@{${session.user.avatar}}" class="" style="max-width: 35px">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
                             <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
@@ -75,11 +76,15 @@
                     </thead>
                     <tbody>
                         <tr th:each="file : ${allModFiles}">
-                            <td th:text="${file.id}">1</td>
-                            <td th:text="${file.modFileName}">aa.txt</td>
-                            <td th:text="${file.MCVersion}">uuid.txt</td>
-                            <td th:text="${file.downloadCounts}">.txt</td>
+                            <td th:text="${file.id}">forge</td>
+                            <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                            <td th:text="${file.MCVersion}">1.20.1</td>
+                            <td th:text="${file.downloadCounts}">776</td>
+                            <td>
+                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            </td>
                         </tr>
+                        <!--/*-->
                         <tr>
                             <td>forge</td>
                             <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
@@ -98,69 +103,7 @@
                                 <a href="#" class="download_button" style="text-decoration: none">下载</a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.5-izayoi_sakuya-rc2.jar</td>
-                            <td>1.18.2</td>
-                            <td>392</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.4m-izayoi_sakuya-rc1.jar</td>
-                            <td>1.20.2</td>
-                            <td>143</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.4n-izayoi_sakuya-rc1.jar</td>
-                            <td>1.19.2</td>
-                            <td>119</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.4-izayoi_sakuya-rc1.jar</td>
-                            <td>1.18.2</td>
-                            <td>79</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.2n-izayoi_sakuya-rc2.jar</td>
-                            <td>1.19.2</td>
-                            <td>114</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.1n-izayoi_sakuya-rc12.jar</td>
-                            <td>1.19.2</td>
-                            <td>144</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>forge</td>
-                            <td>kuayue-0.3.1n-izayoi_sakuya-rc5.jar</td>
-                            <td>1.19.2</td>
-                            <td>78</td>
-                            <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
-                            </td>
-                        </tr>
+                        <!--*/-->
                     </tbody>
                 </table>
             </div>

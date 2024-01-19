@@ -1,6 +1,8 @@
 package org.fairingstudio.kuayue_website.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +20,7 @@ import java.util.Date;
 //实体类必须实现序列化接口，不然无法创建cookie对象
 public class User implements Serializable {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @TableField("username")

@@ -84,9 +84,15 @@ public class UserController {
         //获取subject对象提供的session
         Session session = subject.getSession();
         //判断验证码是否正确
-        String sessionCode = (String) session.getAttribute("code");
-        if (!sessionCode.equals(code)) {
-            attributes.addFlashAttribute("message", "验证码错误！");
+        try {
+            String sessionCode = (String) session.getAttribute("code");
+            if (!sessionCode.equals(code)) {
+                attributes.addFlashAttribute("message", "验证码错误！");
+                return "redirect:/login";
+            }
+        } catch (Exception e) {
+            System.out.println("e : " + e);
+            attributes.addFlashAttribute("message", "验证码获取异常！");
             return "redirect:/login";
         }
 

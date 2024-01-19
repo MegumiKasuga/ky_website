@@ -83,6 +83,7 @@ public class SignUpController {
         user.setEmail(email);
         user.setNickname(nickname);
         user.setSignUpIpAddress(ipAddress);
+        user.setAvatar("/images/avatar/ayaka1.png");
         //添加用户业务
         int nums = userService.addUser(user);
         System.out.println("nums = " + nums);

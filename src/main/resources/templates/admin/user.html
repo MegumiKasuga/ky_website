@@ -31,7 +31,7 @@
                     <li><a href="#" th:href="@{/bbs_entrance}" class="dropdown-item" target="_blank">论坛</a></li>
                 </ul>
             </div>
-            <div class="col-2 h-100 no_padding no_border no_background_color nav_bar_button">
+            <div th:if="${session.user.role} == '1'" class="col-2 h-100 no_padding no_border no_background_color nav_bar_button">
                 <a href="../download.html" th:href="@{/admin/modFileManagement}" class="no_text_decoration"><span class="nav_bar_button">MOD文件管理</span></a>
             </div>
             <div class="col-3"></div>
@@ -52,9 +52,78 @@
         </div>
     </nav>
 
-
-    <h2 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">用户信息：<span th:text="${session.user}"></span></h2>
-    <h2 style="margin-top: 3em; margin-left: 1em">上次登录位置：<span th:text="${session.ipLocation}"></span></h2>
+    <div class="container px-4 py-5 bg-light animate__animated animate__fadeIn" id="icon-grid" style="margin-top: 5em; border-radius: 10px">
+        <div class="p-5 mb-4 rounded-3 align-items-md-stretch">
+            <img src="../../static/images/avatar/ayaka1.png" th:src="@{${session.user.avatar}}" class="img-thumbnail"
+                 style="max-width: 200px; margin: auto; display: block">
+            <h5 style="text-align: center; margin-top: 0.5em" th:text="${session.user.nickname}">用户昵称</h5>
+        </div>
+        <h2 class="pb-2">用户信息</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">uid</h3><hr>
+                    <p th:text="${session.user.id}">用户id</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">用户名</h3><hr>
+                    <p th:text="${session.user.username}">用户名</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">用户组</h3><hr>
+                    <p th:text="${session.user.role eq '1'} ? '管理员' : '注册用户'">用户组</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">用户积分</h3><hr>
+                    <p th:text="${session.user.score}">用户积分</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">邮箱</h3><hr>
+                    <p th:text="${session.user.email}">邮箱</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">注册时间</h3><hr>
+                    <p th:text="${session.user.signUpTime}">注册时间</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">注册IP地址</h3><hr>
+                    <p th:text="${session.user.signUpIpAddress}">注册IP地址</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">上次登录时间</h3><hr>
+                    <p th:text="${session.user.latestLoginTime}">上次登录时间</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">上次登录IP地址</h3><hr>
+                    <p th:text="${session.user.latestIpAddress}">上次登录IP地址</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div>
+                    <h3 class="fw-bold mb-0 fs-4">上次登录地点</h3><hr>
+                    <p th:text="${session.ipLocation.country}+'-'+${session.ipLocation.province}+'-'+${session.ipLocation.city}+'-'+${session.ipLocation.isp}">
+                        上次登录地点
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>

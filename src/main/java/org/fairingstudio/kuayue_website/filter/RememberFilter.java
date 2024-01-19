@@ -56,7 +56,7 @@ public class RememberFilter implements Filter {
         HttpSession session = req.getSession();
 
         //如果session对象中的用户信息不为空，代表用户处于登录状态，直接返回
-        if (session.getAttribute("userInfo") != null) {
+        if (session.getAttribute("user") != null) {
             filterChain.doFilter(request,response);
             return;
         }
@@ -94,7 +94,7 @@ public class RememberFilter implements Filter {
                 }else if (value.equals(user.getUsername())){
                     //如果cookie中用户名与token中用户名一致
                     //则将用户信息放入session对象
-                    session.setAttribute("userInfo", user);
+                    session.setAttribute("user", user);
                     log.info("从cookie中获取user放入session");
                 }
             }
