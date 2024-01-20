@@ -10,4 +10,6 @@ public interface ModFileDao {
 
     List<ModFile> selectAllModFiles();
 
+    List<ModFile> selectModFilesByUserId(Integer userId);
+
 }

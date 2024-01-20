@@ -14,12 +14,17 @@
         <result column="upload_time" property="uploadTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="user_id" property="userId"/>
+        <result column="path" property="path"/>
     </resultMap>
 
     <select id="selectAllModFiles" resultMap="modFileMap">
         select * from ky_mod_file
     </select>
 
+    <!--根据用户id查询当前用户的文件列表-->
+    <select id="selectModFilesByUserId" parameterType="Integer" resultMap="modFileMap">
+        select * from ky_mod_file where user_id = #{userId}
+    </select>
 </mapper>
 
 

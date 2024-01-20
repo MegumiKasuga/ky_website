@@ -8,7 +8,10 @@ import org.fairingstudio.kuayue_website.service.UserFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -29,5 +32,16 @@ public class ModFileManagementController {
         model.addAttribute("allModFiles", allModFiles);
 
         return "admin/mod_file_management";
+    }
+
+    //上传文件处理 并保存文件信息到数据库中
+    @PostMapping("/fileUpload")
+    public String fileUpload(@RequestParam String MCVersion,
+                             @RequestParam MultipartFile uploadedFile) {
+
+        //获取文件原始名称
+        String originalFileName = uploadedFile.getOriginalFilename();
+
+        return "redirect:admin/mod_file_management";
     }
 }

@@ -40,6 +40,7 @@
                 <div style="float: right">
                     <div class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                            <img src="../../static/images/avatar/ayaka1.png" th:src="@{${session.user.avatar}}" style="max-width: 30px">
                             <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -52,11 +53,11 @@
         </div>
     </nav>
 
-    <div class="container px-4 py-5 bg-light animate__animated animate__fadeIn" id="icon-grid" style="margin-top: 5em; border-radius: 10px">
-        <div class="p-5 mb-4 rounded-3 align-items-md-stretch">
+    <div class="container px-4 py-5 bg-light animate__animated animate__fadeIn" id="icon-grid" style="margin-top: 5em; margin-bottom: 5em; border-radius: 10px">
+        <div class="p-5 mb-4 rounded-3 align-items-md-stretch" style="background-color: #7093DB">
             <img src="../../static/images/avatar/ayaka1.png" th:src="@{${session.user.avatar}}" class="img-thumbnail"
                  style="max-width: 200px; margin: auto; display: block">
-            <h5 style="text-align: center; margin-top: 0.5em" th:text="${session.user.nickname}">用户昵称</h5>
+            <h5 style="text-align: center; margin-top: 0.5em; color: whitesmoke" th:text="${session.user.nickname}">用户昵称</h5>
         </div>
         <h2 class="pb-2">用户信息</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">

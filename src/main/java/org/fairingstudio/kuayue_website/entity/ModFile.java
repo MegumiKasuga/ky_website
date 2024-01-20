@@ -1,6 +1,8 @@
 package org.fairingstudio.kuayue_website.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +18,7 @@ import java.util.Date;
 @TableName("ky_mod_file")
 public class ModFile {
 
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     @TableField("mod_file_name")
@@ -41,4 +44,6 @@ public class ModFile {
 
     @TableField("user_id")
     private Integer userId;
+
+    private String path;
 }

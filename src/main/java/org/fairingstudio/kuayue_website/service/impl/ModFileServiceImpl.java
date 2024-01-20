@@ -19,4 +19,11 @@ public class ModFileServiceImpl implements ModFileService {
         List<ModFile> modFiles = modFileDao.selectAllModFiles();
         return modFiles;
     }
+
+    @Override
+    public List<ModFile> getModFilesByUserId(Integer userId) {
+
+        List<ModFile> modFiles = modFileDao.selectModFilesByUserId(userId);
+        return modFiles;
+    }
 }

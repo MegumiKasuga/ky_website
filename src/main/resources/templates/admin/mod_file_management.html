@@ -40,6 +40,7 @@
                 <div style="float: right">
                     <div class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                            <img src="../../static/images/avatar/ayaka1.png" th:src="@{${session.user.avatar}}" style="max-width: 30px">
                             <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">
@@ -52,13 +53,36 @@
         </div>
     </nav>
 
-    <h1 style="color: whitesmoke; margin-top: 3em; margin-left: 1em">MOD文件管理</h1>
+    <div class="container-sm animate__animated animate__fadeIn" style="margin-top: 5em">
+        <div class="row">
+            <div class="col-10 bg-light" style="border-radius: 10px">
+                <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">上传MOD文件</h2>
+                <hr>
+                <form action="/fileUpload" method="post" enctype="multipart/form-data" style="margin-bottom: 0.5em">
+                    <div class="mb-3 form-group">
+                        <label for="selMenu" class="form-label">选择MC版本：</label>
+                        <select class="form-select" id="selMenu" name="MCVersion" style="max-width: 450px">
+                            <option>1.20.1</option>
+                            <option>1.19.2</option>
+                            <option>1.18.2</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <input type="file" name="uploadedFile">
+                    </div>
+                    <div class="mb-3 form-group">
+                        <button type="submit" class="btn btn-dark">上传文件</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
+    <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 5em; margin-bottom: 10em">
         <div class="row">
             <div class="col-10 bg-light" style="border-radius: 10px">
                 <div>
-                    <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
+                    <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h2>
                 </div>
                 <hr>
                 <table class="table">
@@ -72,13 +96,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="file : ${allModFiles}">
+                    <tr th:each="file, fileStat : ${allModFiles}">
                         <td th:text="${file.id}">forge</td>
                         <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
                         <td th:text="${file.MCVersion}">1.20.1</td>
                         <td th:text="${file.downloadCounts}">776</td>
                         <td>
                             <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            <a href="#" class="download_button" style="text-decoration: none">修改</a>
+                            <a href="#" class="download_button" style="text-decoration: none">删除</a>
                         </td>
                     </tr>
                     <!--/*-->
@@ -89,6 +115,8 @@
                         <td>776</td>
                         <td>
                             <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            <a href="#" class="download_button" style="text-decoration: none">修改</a>
+                            <a href="#" class="download_button" style="text-decoration: none">删除</a>
                         </td>
                     </tr>
                     <!--*/-->
