@@ -7,6 +7,7 @@
     <resultMap id="modFileMap" type="org.fairingstudio.kuayue_website.entity.ModFile">
         <id column="id" property="id"/>
         <result column="mod_file_name" property="modFileName"/>
+        <result column="format_mod_file_name" property="formatModFileName"/>
         <result column="mc_version" property="MCVersion"/>
         <result column="file_size" property="fileSize"/>
         <result column="download_counts" property="downloadCounts"/>
@@ -25,6 +26,14 @@
     <select id="selectModFilesByUserId" parameterType="Integer" resultMap="modFileMap">
         select * from ky_mod_file where user_id = #{userId}
     </select>
+
+    <insert id="insertModFile" parameterType="org.fairingstudio.kuayue_website.entity.ModFile" useGeneratedKeys="true" keyProperty="id">
+        insert into ky_mod_file
+            (id, mod_file_name, format_mod_file_name, mc_version, file_size, download_counts,
+             likes_counts, upload_time, user_id, update_time, path)
+        values (#{id}, #{modFileName}, #{formatModFileName}, #{MCVersion}, #{fileSize}, #{downloadCounts},
+                #{likesCounts}, #{uploadTime}, #{userId}, #{updateTime}, #{path})
+    </insert>
 </mapper>
 
 

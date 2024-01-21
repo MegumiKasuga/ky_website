@@ -9,4 +9,6 @@ public interface ModFileService {
     List<ModFile> getAllModFiles();
 
     List<ModFile> getModFilesByUserId(Integer userId);
+
+    int saveModFile(ModFile modFile);
 }

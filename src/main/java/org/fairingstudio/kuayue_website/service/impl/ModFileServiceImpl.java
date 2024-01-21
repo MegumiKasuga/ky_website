@@ -4,8 +4,10 @@ import org.fairingstudio.kuayue_website.dao.ModFileDao;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,5 +27,17 @@ public class ModFileServiceImpl implements ModFileService {
 
         List<ModFile> modFiles = modFileDao.selectModFilesByUserId(userId);
         return modFiles;
+    }
+
+    @Override
+    @Transactional
+    public int saveModFile(ModFile modFile) {
+
+        modFile.setDownloadCounts(0);
+        modFile.setLikesCounts(0);
+        modFile.setUploadTime(new Date());
+
+        int num = modFileDao.insertModFile(modFile);
+        return num;
     }
 }
