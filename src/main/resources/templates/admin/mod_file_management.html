@@ -58,7 +58,7 @@
             <div class="col-10 bg-light" style="border-radius: 10px">
                 <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">上传MOD文件</h2>
                 <hr>
-                <form th:action="@{/admin/fileUpload}" method="post" enctype="multipart/form-data" style="margin-bottom: 0.5em">
+                <form th:action="@{/admin/modUpload}" method="post" enctype="multipart/form-data" style="margin-bottom: 0.5em">
                     <div class="mb-3 form-group">
                         <label for="selMenu" class="form-label">选择MC版本：</label>
                         <select class="form-select" id="selMenu" name="MCVersion" style="max-width: 450px">
@@ -113,7 +113,7 @@
                         <td th:text="${file.MCVersion}">1.20.1</td>
                         <td th:text="${file.downloadCounts}">776</td>
                         <td>
-                            <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            <a href="#" th:href="@{/admin/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
                             <a href="#" class="download_button" style="text-decoration: none">修改</a>
                             <a href="#" class="download_button" style="text-decoration: none">删除</a>
                         </td>

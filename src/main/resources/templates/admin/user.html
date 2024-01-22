@@ -94,7 +94,7 @@
             <div class="col d-flex align-items-start">
                 <div>
                     <h3 class="fw-bold mb-0 fs-4">注册时间</h3><hr>
-                    <p th:text="${session.user.signUpTime}">注册时间</p>
+                    <p th:text="${#dates.format(session.user.signUpTime, 'yyyy-MM-dd HH:mm:ss')}">注册时间</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -106,7 +106,7 @@
             <div class="col d-flex align-items-start">
                 <div>
                     <h3 class="fw-bold mb-0 fs-4">上次登录时间</h3><hr>
-                    <p th:text="${session.user.latestLoginTime}">上次登录时间</p>
+                    <p th:text="${#dates.format(session.user.latestLoginTime, 'yyyy-MM-dd HH:mm:ss')}">上次登录时间</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">

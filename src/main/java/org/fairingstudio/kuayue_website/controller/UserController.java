@@ -194,4 +194,16 @@ if(rememberMe){
     //将此cookie对象添加到响应对象中
     response.addCookie(cookie);
 }
+
+shiro实现免登录功能需要同时创建并在浏览器保留两个cookie对象：RememberMe对象与JSESSIONID对象。
+
+RememberMe对象通过ShiroConfig配置类配置并添加至安全管理器。
+特别需要注意RememberMe对象保存的实体类必须实现序列化接口，不然会抛出异常无法创建cookie对象。
+只有成功创建RememberMe对象后，再次访问需要登录或授权的页面时才不会被shiro拦截。
+
+JSESSIONID对象则需要通过设置实现在会话结束后的长期保留。
+这样才能在再次建立会话时，将服务器中session对象中的用户信息与浏览器中的JSESSIONID对象的用户信息匹配。
+从而实现默认登录功能。
+不然即使shiro不对页面进行拦截，用户访问需登录页面时仍然处于未登录状态从而导致报错。
+详见： https://blog.csdn.net/wgx_0504/article/details/127165318
 */

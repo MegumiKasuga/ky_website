@@ -45,8 +45,8 @@ public class ModFileManagementController {
     }
 
     //上传文件处理 并保存文件信息到数据库中
-    @PostMapping("/fileUpload")
-    public String fileUpload(@RequestParam String MCVersion,
+    @PostMapping("/modUpload")
+    public String modUpload(@RequestParam String MCVersion,
                              @RequestParam MultipartFile uploadedFile,
                              RedirectAttributes attributes,
                              HttpSession session) throws IOException {
@@ -105,6 +105,17 @@ public class ModFileManagementController {
             return "redirect:modFileManagement";
         }
         attributes.addFlashAttribute("uploadSuccessMessage", "文件上传成功！");
+        return "redirect:modFileManagement";
+    }
+
+    //文件下载
+    @RequestMapping("/modDownload")
+    public String modDownload(@RequestParam Integer id) {
+
+        //获取文件信息
+        ModFile modById = modFileService.getModById(id);
+        System.out.println("modById = " + modById);
+
         return "redirect:modFileManagement";
     }
 }

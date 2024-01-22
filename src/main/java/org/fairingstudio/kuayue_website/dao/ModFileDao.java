@@ -13,4 +13,6 @@ public interface ModFileDao {
     List<ModFile> selectModFilesByUserId(Integer userId);
 
     int insertModFile(ModFile modFile);
+
+    ModFile selectModById(Integer id);
 }

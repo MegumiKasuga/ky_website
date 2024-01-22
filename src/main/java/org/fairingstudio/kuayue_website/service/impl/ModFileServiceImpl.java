@@ -40,4 +40,11 @@ public class ModFileServiceImpl implements ModFileService {
         int num = modFileDao.insertModFile(modFile);
         return num;
     }
+
+    @Override
+    public ModFile getModById(Integer id) {
+
+        ModFile modFile = modFileDao.selectModById(id);
+        return modFile;
+    }
 }
