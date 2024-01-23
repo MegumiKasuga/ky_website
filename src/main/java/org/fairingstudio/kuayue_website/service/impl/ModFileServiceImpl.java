@@ -47,4 +47,12 @@ public class ModFileServiceImpl implements ModFileService {
         ModFile modFile = modFileDao.selectModById(id);
         return modFile;
     }
+
+    @Override
+    @Transactional
+    public int updateModFile(ModFile modFile) {
+
+        int num = modFileDao.updateModFile(modFile);
+        return num;
+    }
 }

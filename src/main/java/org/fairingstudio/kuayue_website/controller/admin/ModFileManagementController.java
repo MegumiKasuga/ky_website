@@ -1,6 +1,7 @@
 package org.fairingstudio.kuayue_website.controller.admin;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.web.session.HttpServletSession;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.User;
@@ -17,10 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +41,6 @@ public class ModFileManagementController {
     @RequestMapping("/modFileManagement")
     public String modFileManagement(Model model) {
 
-        System.out.println("执行了/admin/modFileManagement请求的控制器方法");
         //不要和UserFile混淆，错误地注入UserFileService会使得拿到的属性和前端页面渲染的不一致导致报错。
         List<ModFile> allModFiles = modFileService.getAllModFiles();
         model.addAttribute("allModFiles", allModFiles);
@@ -108,13 +112,20 @@ public class ModFileManagementController {
         return "redirect:modFileManagement";
     }
 
-    //文件下载
-    @RequestMapping("/modDownload")
-    public String modDownload(@RequestParam Integer id) {
+    //删除mod文件
+    @PostMapping("/modDelete")
+    public String modDelete(@RequestParam Integer id) throws FileNotFoundException {
 
-        //获取文件信息
-        ModFile modById = modFileService.getModById(id);
-        System.out.println("modById = " + modById);
+        //根据id查询文件信息
+        ModFile modFile = modFileService.getModById(id);
+        //删除文件
+        String realPath = ResourceUtils.getURL("classpath:").getPath() + "/static" + modFile.getPath();
+        File file = new File(realPath, modFile.getFormatModFileName());
+        if (file.exists()) {
+            file.delete(); //立即删除
+        }
+        //删除数据库中文件记录
+
 
         return "redirect:modFileManagement";
     }

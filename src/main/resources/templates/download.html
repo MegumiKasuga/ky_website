@@ -81,7 +81,7 @@
                             <td th:text="${file.MCVersion}">1.20.1</td>
                             <td th:text="${file.downloadCounts}">776</td>
                             <td>
-                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                                <a href="#" th:href="@{/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
                             </td>
                         </tr>
                         <!--/*-->

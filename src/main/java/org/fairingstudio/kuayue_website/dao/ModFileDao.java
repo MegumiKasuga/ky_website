@@ -15,4 +15,6 @@ public interface ModFileDao {
     int insertModFile(ModFile modFile);
 
     ModFile selectModById(Integer id);
+
+    int updateModFile(ModFile modFile);
 }

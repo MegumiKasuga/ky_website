@@ -38,6 +38,15 @@
     <select id="selectModById" parameterType="Integer" resultType="org.fairingstudio.kuayue_website.entity.ModFile">
         select * from ky_mod_file where id = #{id}
     </select>
+
+    <update id="updateModFile" parameterType="org.fairingstudio.kuayue_website.entity.ModFile">
+        update ky_mod_file
+        set mod_file_name = #{modFileName},
+            mc_version = #{MCVersion},
+            download_counts = #{downloadCounts},
+            update_time = #{updateTime}
+        where id = #{id}
+    </update>
 </mapper>
 
 

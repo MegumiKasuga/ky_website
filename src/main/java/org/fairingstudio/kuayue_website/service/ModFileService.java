@@ -13,4 +13,6 @@ public interface ModFileService {
     int saveModFile(ModFile modFile);
 
     ModFile getModById(Integer id);
+
+    int updateModFile(ModFile modFile);
 }

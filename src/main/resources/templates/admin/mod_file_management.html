@@ -113,9 +113,9 @@
                         <td th:text="${file.MCVersion}">1.20.1</td>
                         <td th:text="${file.downloadCounts}">776</td>
                         <td>
-                            <a href="#" th:href="@{/admin/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
+                            <a href="#" th:href="@{/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
                             <a href="#" class="download_button" style="text-decoration: none">修改</a>
-                            <a href="#" class="download_button" style="text-decoration: none">删除</a>
+                            <a id="deleteBtn" href="#" th:href="@{/modDelete(id = ${file.id})}" class="download_button" style="text-decoration: none">删除</a>
                         </td>
                     </tr>
                     <!--/*-->
