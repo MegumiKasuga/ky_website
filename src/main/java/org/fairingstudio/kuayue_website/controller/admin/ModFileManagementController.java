@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,8 +51,9 @@ public class ModFileManagementController {
 
     //上传文件处理 并保存文件信息到数据库中
     @PostMapping("/modUpload")
-    public String modUpload(@RequestParam String MCVersion,
-                             @RequestParam MultipartFile uploadedFile,
+    public String modUpload(@RequestParam String env,
+                            @RequestParam String MCVersion,
+                            @RequestParam MultipartFile uploadedFile,
                              RedirectAttributes attributes,
                              HttpSession session) throws IOException {
         //获取文件大小
@@ -94,6 +96,7 @@ public class ModFileManagementController {
         uploadedFile.transferTo(new File(dateDir, formatModFileName));
         //将文件信息放入数据库中
         ModFile modFile = new ModFile();
+        modFile.setEnv(env);
         modFile.setMCVersion(MCVersion);
 
         modFile.setModFileName(modFileName);
@@ -113,8 +116,9 @@ public class ModFileManagementController {
     }
 
     //删除mod文件
-    @PostMapping("/modDelete")
-    public String modDelete(@RequestParam Integer id) throws FileNotFoundException {
+    @GetMapping("/modDelete")
+    public String modDelete(@RequestParam(value = "id") Integer id,
+                            RedirectAttributes attributes) throws FileNotFoundException {
 
         //根据id查询文件信息
         ModFile modFile = modFileService.getModById(id);
@@ -122,11 +126,43 @@ public class ModFileManagementController {
         String realPath = ResourceUtils.getURL("classpath:").getPath() + "/static" + modFile.getPath();
         File file = new File(realPath, modFile.getFormatModFileName());
         if (file.exists()) {
-            file.delete(); //立即删除
+            file.delete();//立即删除
         }
         //删除数据库中文件记录
+        int num = modFileService.deleteModFile(id);
+        if (num != 1) {
+            attributes.addFlashAttribute("fileDeleteMessage", "文件删除失败！");
+            return "redirect:modFileManagement";
+        }
+        attributes.addFlashAttribute("fileDeleteMessage", "文件删除成功！");
+        return "redirect:modFileManagement";
+    }
 
+    //修改mod文件
+    @GetMapping("/modModify")
+    public String modModify(@RequestParam Integer id,
+                            @RequestParam String modFileName,
+                            @RequestParam String env,
+                            @RequestParam String MCVersion,
+                            RedirectAttributes attributes) {
 
+        //根据id查询文件信息
+        ModFile modFile = modFileService.getModById(id);
+        //修改mod文件对象中的属性
+        modFile.setModFileName(modFileName);
+        modFile.setEnv(env);
+        modFile.setMCVersion(MCVersion);
+        modFile.setUpdateTime(new Date());
+
+        //保存至数据库
+        int num = modFileService.updateModFile(modFile);
+
+        if (num != 1) {
+            attributes.addFlashAttribute("fileModifyMessage", "修改文件失败！");
+            return "redirect:modFileManagement";
+        }
+
+        attributes.addFlashAttribute("fileModifyMessage", "修改文件成功！");
         return "redirect:modFileManagement";
     }
 }

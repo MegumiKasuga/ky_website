@@ -27,6 +27,8 @@ public class ModFile {
     @TableField("format_mod_file_name")
     private String formatModFileName;
 
+    private String env;
+
     @TableField("mc_version")
     private String MCVersion;
 

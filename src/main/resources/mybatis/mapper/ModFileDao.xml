@@ -8,6 +8,7 @@
         <id column="id" property="id"/>
         <result column="mod_file_name" property="modFileName"/>
         <result column="format_mod_file_name" property="formatModFileName"/>
+        <result column="env" property="env"/>
         <result column="mc_version" property="MCVersion"/>
         <result column="file_size" property="fileSize"/>
         <result column="download_counts" property="downloadCounts"/>
@@ -29,9 +30,9 @@
 
     <insert id="insertModFile" parameterType="org.fairingstudio.kuayue_website.entity.ModFile" useGeneratedKeys="true" keyProperty="id">
         insert into ky_mod_file
-            (id, mod_file_name, format_mod_file_name, mc_version, file_size, download_counts,
+            (id, mod_file_name, format_mod_file_name, env, mc_version, file_size, download_counts,
              likes_counts, upload_time, user_id, update_time, path)
-        values (#{id}, #{modFileName}, #{formatModFileName}, #{MCVersion}, #{fileSize}, #{downloadCounts},
+        values (#{id}, #{modFileName}, #{formatModFileName}, #{env}, #{MCVersion}, #{fileSize}, #{downloadCounts},
                 #{likesCounts}, #{uploadTime}, #{userId}, #{updateTime}, #{path})
     </insert>
 
@@ -42,11 +43,16 @@
     <update id="updateModFile" parameterType="org.fairingstudio.kuayue_website.entity.ModFile">
         update ky_mod_file
         set mod_file_name = #{modFileName},
+            env = #{env},
             mc_version = #{MCVersion},
             download_counts = #{downloadCounts},
             update_time = #{updateTime}
         where id = #{id}
     </update>
+
+    <delete id="deleteModById" parameterType="Integer">
+        delete from ky_mod_file where id = #{id}
+    </delete>
 </mapper>
 
 

@@ -1,6 +1,10 @@
 package org.fairingstudio.kuayue_website.controller;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.LineCaptcha;
 import org.apache.commons.io.IOUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
@@ -43,6 +47,7 @@ public class DownloadController {
     //mod文件下载
     @RequestMapping("/modDownload")
     public void modDownload(@RequestParam Integer id,
+                            HttpSession session,
                             HttpServletResponse response) throws IOException {
 
         //获取文件信息
@@ -71,5 +76,21 @@ public class DownloadController {
         IOUtils.closeQuietly(fileInputStream);
         IOUtils.closeQuietly(outputStream);
 
+    }
+
+    //获取MOD下载图片验证码
+    @RequestMapping("/getModDownloadCode")
+    public void getCode(HttpServletResponse response) throws IOException {
+
+        Session session = SecurityUtils.getSubject().getSession();
+        //构造验证码对象
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(65, 25, 4, 10);
+        //放入session
+        session.setAttribute("modDownloadCode", lineCaptcha.getCode());
+        //输出
+        ServletOutputStream outputStream = response.getOutputStream();
+        lineCaptcha.write(outputStream);
+        //关闭输出流
+        outputStream.close();
     }
 }

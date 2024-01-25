@@ -55,13 +55,20 @@
 
     <div class="container-sm animate__animated animate__fadeIn" style="margin-top: 5em">
         <div class="row">
-            <div class="col-10 bg-light" style="border-radius: 10px">
+            <div class="col-11 bg-light" style="border-radius: 10px">
                 <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">上传MOD文件</h2>
                 <hr>
                 <form th:action="@{/admin/modUpload}" method="post" enctype="multipart/form-data" style="margin-bottom: 0.5em">
                     <div class="mb-3 form-group">
-                        <label for="selMenu" class="form-label">选择MC版本：</label>
-                        <select class="form-select" id="selMenu" name="MCVersion" style="max-width: 450px">
+                        <label for="selEnv" class="form-label">选择运行环境：</label>
+                        <select class="form-select" id="selEnv" name="env" style="max-width: 450px">
+                            <option>forge</option>
+                            <option>fabric</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 form-group">
+                        <label for="selVersion" class="form-label">选择MC版本：</label>
+                        <select class="form-select" id="selVersion" name="MCVersion" style="max-width: 450px">
                             <option>1.20.1</option>
                             <option>1.19.2</option>
                             <option>1.18.2</option>
@@ -91,7 +98,7 @@
 
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 5em; margin-bottom: 10em">
         <div class="row">
-            <div class="col-10 bg-light" style="border-radius: 10px">
+            <div class="col-11 bg-light" style="border-radius: 10px">
                 <div>
                     <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h2>
                 </div>
@@ -99,6 +106,7 @@
                 <table class="table">
                     <thead class="table-dark">
                     <tr>
+                        <th>ID</th>
                         <th>运行环境</th>
                         <th>MOD文件名</th>
                         <th>MC版本</th>
@@ -108,18 +116,30 @@
                     </thead>
                     <tbody>
                     <tr th:each="file, fileStat : ${allModFiles}">
-                        <td th:text="${file.id}">forge</td>
+                        <td th:text="${file.id}">114</td>
+                        <td th:text="${file.env}">forge</td>
                         <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
                         <td th:text="${file.MCVersion}">1.20.1</td>
                         <td th:text="${file.downloadCounts}">776</td>
                         <td>
                             <a href="#" th:href="@{/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
-                            <a href="#" class="download_button" style="text-decoration: none">修改</a>
-                            <a id="deleteBtn" href="#" th:href="@{/modDelete(id = ${file.id})}" class="download_button" style="text-decoration: none">删除</a>
+
+                            <a href="javascript:;" class="download_button" style="text-decoration: none"
+                               data-bs-toggle="modal" data-bs-target="#modifyModal"
+                               th:data-bs-id="${file.id}" data-bs-id="modify-mod-id"
+                               th:data-bs-name="${file.modFileName}" data-bs-name="mod-name"
+                               th:data-bs-version="${file.MCVersion}" data-bs-version="mod-version"
+                               th:data-bs-env="${file.env}" data-bs-env="mod-env">修改</a>
+
+<!--                            <a th:onclick="'deleteMod(' + ${file.id} + ')'" href="javascript:;" class="download_button" style="text-decoration: none">删除</a>-->
+                            <a href="javascript:;" class="download_button" style="text-decoration: none"
+                               data-bs-toggle="modal" data-bs-target="#deleteModal"
+                               th:data-bs-whatever="${file.id}" data-bs-whatever="delete-mod-id">删除</a>
                         </td>
                     </tr>
                     <!--/*-->
                     <tr>
+                        <td>114</td>
                         <td>forge</td>
                         <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
                         <td>1.20.1</td>
@@ -137,6 +157,68 @@
         </div>
     </div>
 
+<!--    MOD文件删除模态弹窗-->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">删除MOD文件</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/modDelete}" method="get">
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" id="delete-mod-id" name="id">
+                            您确定要删除此MOD文件吗？
+                        </div>
+                        <div style="float: right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">确认</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    MOD文件修改模态弹窗-->
+    <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">修改MOD文件</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/modModify}" method="get">
+                        <input type="hidden" class="form-control" id="modify-mod-id" name="id">
+                        <div class="mb-3">
+                            <label for="modify-mod-name" class="col-form-label">文件名</label>
+                            <input type="text" class="form-control" id="modify-mod-name" name="modFileName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modify-mod-env" class="col-form-label">运行环境</label>
+                            <select class="form-select" id="modify-mod-env" name="env" style="max-width: 450px">
+                                <option>forge</option>
+                                <option>fabric</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modify-mod-version" class="col-form-label">MC版本</label>
+                            <select class="form-select" id="modify-mod-version" name="MCVersion" style="max-width: 450px">
+                                <option>1.20.1</option>
+                                <option>1.19.2</option>
+                                <option>1.18.2</option>
+                            </select>
+                        </div>
+                        <div style="float: right">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">提交修改</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
@@ -150,6 +232,39 @@
         $('#success-close').click(function () {
             $('#success-info').hide();
         })
+
+        let deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            let deleteButton = event.relatedTarget;
+            let deleteModId = deleteButton.getAttribute('data-bs-whatever');
+            console.log(deleteModId);
+            let modalBodyInput = deleteModal.querySelector('#delete-mod-id');
+            modalBodyInput.value = deleteModId;
+        })
+
+        let modifyModal = document.getElementById('modifyModal');
+        modifyModal.addEventListener('show.bs.modal', function (event) {
+            let modifyButton = event.relatedTarget;
+            let modId = modifyButton.getAttribute('data-bs-id');
+            let modName = modifyButton.getAttribute('data-bs-name');
+            let modEnv = modifyButton.getAttribute('data-bs-env');
+            let modVersion = modifyButton.getAttribute('data-bs-version');
+            console.log(modId + '+' + modName);
+            let modIdInput = modifyModal.querySelector('#modify-mod-id');
+            let modNameInput = modifyModal.querySelector('#modify-mod-name');
+            let modEnvInput = modifyModal.querySelector('#modify-mod-env');
+            let modVersionInput = modifyModal.querySelector('#modify-mod-version');
+            modIdInput.value = modId;
+            modNameInput.value = modName;
+            modEnvInput.value = modEnv;
+            modVersionInput.value = modVersion;
+        })
+
+        /*function deleteMod(id) {
+            if (window.confirm('确定删除此MOD文件吗？')) {
+                location.href = '[[@{/admin/modDelete?id=}]]' + id;
+            }
+        }*/
     </script>
 </body>
 </html>

@@ -15,4 +15,6 @@ public interface ModFileService {
     ModFile getModById(Integer id);
 
     int updateModFile(ModFile modFile);
+
+    int deleteModFile(Integer id);
 }
