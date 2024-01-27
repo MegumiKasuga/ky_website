@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>废弃前端代码</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{/lib/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/lib/animate/animate.css" th:href="@{/lib/animate/animate.css}">
+    <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.css" th:href="@{/lib/fontawesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{/lib/highlight/agate.min.css}">
+    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{/lib/bootstrap/css/bootstrap.rtl.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+    <h1>废弃前端代码，留存以备测试参考。</h1>
+
+    <!--  吐司消息  -->
+    <div th:unless="${#strings.isEmpty(fileDeleteMessage)}" class="toast-container position-fixed bottom-0 start-50 p-3" style="z-index: 5">
+        <div id="deleteToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                <strong class="me-auto">Kuayue&nbsp;|&nbsp;通知</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <h5 th:if="${fileDeleteMessage} == 'success'" style="text-align: center">MOD文件删除成功！</h5>
+                <h5 th:if="${fileDeleteMessage} == 'failure'" style="color: red; text-align: center">MOD文件删除失败！</h5>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开始下载 -->
+    <!--<div class="modal fade" id="modal2" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    开始下载
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="#modal" data-bs-toggle="modal" role="button">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <!--<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">MOD文件下载</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                开始下载
+            </div>
+        </div>
+    </div>-->
+
+    <!--原生确认框删除按钮-->
+    <!--   <a th:onclick="'deleteMod(' + ${file.id} + ')'" href="javascript:;" class="download_button" style="text-decoration: none">删除</a>-->
+
+    <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
+    <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+
+    <script>
+
+        /*原生确认框删除按钮
+        function deleteMod(id) {
+            if (window.confirm('确定删除此MOD文件吗？')) {
+                location.href = '[[@{/admin/modDelete?id=}]]' + id;
+            }
+        }
+        */
+
+        /*表单非空验证
+        window.addEventListener('load', function() {
+            // 获取表单元素
+            let forms = document.getElementsByClassName('needs-validation');
+            // 循环并禁止提交
+            let validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+        */
+
+        /*前台下载文件异步请求
+        $('#confirmDownload').click(function () {
+          let modDownloadCode = $('#download-mod-code').val().trim();
+          if (modDownloadCode == null || modDownloadCode === "") {
+              $('#modDownloadCodeInfo').text("验证码不能为空！").css("color","red");
+              return;
+          }
+          let modId = $('#download-mod-id').val();
+          console.log('modId = ' + modId);
+
+          $.ajax({
+              url: "modDownload",
+              data: {id: modId, modDownloadCode: modDownloadCode},
+              type: "get",
+              dataType: "text",
+              success: function (resp) {
+                  if (resp == "0"){
+                      console.log("验证码错误！" + resp);
+                      $("#modDownloadCodeInfo").text("验证码错误！").css("color","red");
+                      $("#download-mod-code").val("");
+                      $("#codeImage").src = $("#codeImage").attr('src') + '?';
+                  } else if (resp == "-1"){
+                      console.log("验证码读取异常！" + resp)
+                      $("#modDownloadCodeInfo").text("验证码读取异常！").css("color","red");
+                      $("#download-mod-code").val("");
+                      $("#codeImage").src = $("#codeImage").attr('src') + '?';
+                  } else {
+                      console.log("开始下载！" + resp + typeof resp)
+                      $("#modDownloadCodeInfo").text("开始下载！").css("color","green");
+                      $("#download-mod-code").val("");
+                      $("#codeImage").src = $("#codeImage").attr('src') + '?';
+                  }
+              }
+          })
+        })
+        */
+
+        /*点击确认下载按钮*/
+        /*$('#confirmDownload').mouseup(function () {
+            $("#downloadModal").hide();
+        })*/
+
+        /*用户登录时报错，仅请求转发可用，重定向时无法获取message的值。
+        let failureMsg = [[${message}]];
+        if (failureMsg === 1){
+            document.getElementById("failure-info").innerText = "用户名不存在！";
+        } else if (failureMsg === 2) {
+            document.getElementById("failure-info").innerText = "密码错误！";
+        } else {
+            document.getElementById("failure-info").hidden = true;
+        }
+        */
+    </script>
+</body>
+</html>

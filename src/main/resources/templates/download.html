@@ -64,9 +64,10 @@
                     <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
                 </div>
                 <hr>
-                <table class="table">
+                <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
+                            <th>ID</th>
                             <th>运行环境</th>
                             <th>MOD文件名</th>
                             <th>MC版本</th>
@@ -76,12 +77,18 @@
                     </thead>
                     <tbody>
                         <tr th:each="file : ${allModFiles}">
-                            <td th:text="${file.id}">forge</td>
+                            <td th:text="${file.id}">114</td>
+                            <td th:text="${file.env}">forge</td>
                             <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
                             <td th:text="${file.MCVersion}">1.20.1</td>
                             <td th:text="${file.downloadCounts}">776</td>
                             <td>
-                                <a href="#" th:href="@{/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
+                                <a href="javascript:;" class="download_button" style="text-decoration: none"
+                                   data-bs-toggle="modal" data-bs-target="#downloadModal"
+                                   th:data-bs-id="${file.id}" data-bs-id="download-mod-id"
+                                   th:data-bs-name="${file.modFileName}" data-bs-name="download-mod-name"
+                                   th:data-bs-env="${file.env}" data-bs-env="forge"
+                                   th:data-bs-version="${file.MCVersion}" data-bs-version="1.19.2">下载</a>
                             </td>
                         </tr>
                         <!--/*-->
@@ -102,9 +109,68 @@
         </div>
     </div>
 
-    <footer>
+    <!--    MOD文件下载模态弹窗-->
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">下载MOD文件</h5>
+                    <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                </div>
+                <form class="modal-body" th:action="@{/modDownload}" method="post">
+                    <input type="hidden" class="form-control" id="download-mod-id" name="id">
+                    <div class="mb-3">
+                        <label for="download-mod-name" class="col-form-label">您要下载的MOD</label>
+                        <input type="text" class="form-control" id="download-mod-name" disabled>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-6">
+                            <label for="download-mod-env" class="col-form-label">运行环境</label>
+                            <input type="text" class="form-control" id="download-mod-env" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label for="download-mod-version" class="col-form-label">MC版本</label>
+                            <input type="text" class="form-control" id="download-mod-version" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="download-mod-code" class="col-form-label">验证码</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="请输入验证码" autocomplete="off" name="modDownloadCode"
+                                   id="download-mod-code" class="form-control" required>
+                            <img id="codeImage" class="input-group-text" th:src="@{/getModDownloadCode}" onclick="changeDownloadCode()">
+                        </div>
+                        <div id="modDownloadCodeInfo" class="m-xiaokai" style="font-size: small"></div>
+                    </div>
+                    <div style="float: right">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button id="confirmDownload" type="submit" class="btn btn-primary"
+                                data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal" disabled>确认下载</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    </footer>
+    <!-- 开始下载提示框 -->
+    <div class="modal fade" id="modal2" aria-hidden="true" aria-labelledby="..." tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title col-11">
+                        <img src="../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                        &nbsp;Kuayue
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <h4>开始下载...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer></footer>
 
     <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
         <div type="button" class="btn btn-lg btn-secondary" id="to-top-btn"
@@ -129,6 +195,7 @@
     <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
     <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
+    <script src="../static/js/download_page.js" th:src="@{/js/download_page.js}"></script>
 
     <script>
         <!--返回顶部-->
@@ -138,7 +205,7 @@
 
         let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl)
+            return new bootstrap.Popover(popoverTriggerEl);
         });
 
         <!--滚动侦测-->
@@ -150,10 +217,18 @@
                 }else{
                     $('#toolbar').hide(300);
                 }
-                console.log('Scrolled to waypoint!')
+                console.log('Scrolled to waypoint!');
             }
         });
     </script>
 
 </body>
+    <style>
+        th, td {
+            max-width: 500px; /* 设置每列的最大宽度为500像素 */
+            overflow: hidden; /* 当内容超过指定宽度时隐藏部分内容 */
+            text-overflow: ellipsis; /* 显示省略号(...)来表示被隐藏的文本 */
+            white-space: nowrap; /* 不换行 */
+        }
+    </style>
 </html>

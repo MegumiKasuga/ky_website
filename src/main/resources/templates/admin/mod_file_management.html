@@ -103,7 +103,7 @@
                     <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h2>
                 </div>
                 <hr>
-                <table class="table">
+                <table class="table table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>ID</th>
@@ -122,7 +122,7 @@
                         <td th:text="${file.MCVersion}">1.20.1</td>
                         <td th:text="${file.downloadCounts}">776</td>
                         <td>
-                            <a href="#" th:href="@{/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
+                            <a href="#" th:href="@{/admin/modDownload(id = ${file.id})}" class="download_button" style="text-decoration: none">下载</a>
 
                             <a href="javascript:;" class="download_button" style="text-decoration: none"
                                data-bs-toggle="modal" data-bs-target="#modifyModal"
@@ -131,7 +131,6 @@
                                th:data-bs-version="${file.MCVersion}" data-bs-version="mod-version"
                                th:data-bs-env="${file.env}" data-bs-env="mod-env">修改</a>
 
-<!--                            <a th:onclick="'deleteMod(' + ${file.id} + ')'" href="javascript:;" class="download_button" style="text-decoration: none">删除</a>-->
                             <a href="javascript:;" class="download_button" style="text-decoration: none"
                                data-bs-toggle="modal" data-bs-target="#deleteModal"
                                th:data-bs-whatever="${file.id}" data-bs-whatever="delete-mod-id">删除</a>
@@ -159,10 +158,11 @@
 
 <!--    MOD文件删除模态弹窗-->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">删除MOD文件</h5>
+                    <img src="../../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/admin/modDelete}" method="get">
@@ -180,12 +180,13 @@
         </div>
     </div>
 
-<!--    MOD文件修改模态弹窗-->
+    <!-- MOD文件修改模态弹窗 -->
     <div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">修改MOD文件</h5>
+                    <img src="../../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
                 </div>
                 <div class="modal-body">
                     <form th:action="@{/admin/modModify}" method="get">
@@ -215,6 +216,35 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改完成后吐司消息 -->
+    <div th:unless="${#strings.isEmpty(fileModifyMessage)}" class="toast-container position-fixed bottom-0 start-50 p-3" style="z-index: 5">
+        <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                <strong class="me-auto">Kuayue&nbsp;|&nbsp;通知</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <h5 th:if="${fileModifyMessage} == 'success'" style="text-align: center">MOD文件信息修改成功！</h5>
+                <h5 th:if="${fileModifyfailure} == 'failure'" style="color: red; text-align: center">MOD文件信息修改失败！</h5>
+            </div>
+        </div>
+    </div>
+    <!-- 删除完成后吐司消息 -->
+    <div th:unless="${#strings.isEmpty(fileDeleteMessage)}" class="toast-container position-fixed bottom-0 start-50 p-3" style="z-index: 5">
+        <div id="deleteToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                <strong class="me-auto">Kuayue&nbsp;|&nbsp;通知</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <h5 th:if="${fileDeleteMessage} == 'success'" style="text-align: center">MOD文件删除成功！</h5>
+                <h5 th:if="${fileDeleteMessage} == 'failure'" style="color: red; text-align: center">MOD文件删除失败！</h5>
             </div>
         </div>
     </div>
@@ -259,12 +289,14 @@
             modEnvInput.value = modEnv;
             modVersionInput.value = modVersion;
         })
-
-        /*function deleteMod(id) {
-            if (window.confirm('确定删除此MOD文件吗？')) {
-                location.href = '[[@{/admin/modDelete?id=}]]' + id;
-            }
-        }*/
     </script>
 </body>
+    <style>
+        th, td {
+            max-width: 500px; /* 设置每列的最大宽度为500像素 */
+            overflow: hidden; /* 当内容超过指定宽度时隐藏部分内容 */
+            text-overflow: ellipsis; /* 显示省略号(...)来表示被隐藏的文本 */
+            white-space: nowrap; /* 不换行 */
+        }
+    </style>
 </html>

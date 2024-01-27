@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -131,10 +128,10 @@ public class ModFileManagementController {
         //删除数据库中文件记录
         int num = modFileService.deleteModFile(id);
         if (num != 1) {
-            attributes.addFlashAttribute("fileDeleteMessage", "文件删除失败！");
+            attributes.addFlashAttribute("fileDeleteMessage", "failure");
             return "redirect:modFileManagement";
         }
-        attributes.addFlashAttribute("fileDeleteMessage", "文件删除成功！");
+        attributes.addFlashAttribute("fileDeleteMessage", "success");
         return "redirect:modFileManagement";
     }
 
@@ -158,11 +155,43 @@ public class ModFileManagementController {
         int num = modFileService.updateModFile(modFile);
 
         if (num != 1) {
-            attributes.addFlashAttribute("fileModifyMessage", "修改文件失败！");
+            attributes.addFlashAttribute("fileModifyMessage", "failure");
             return "redirect:modFileManagement";
         }
 
-        attributes.addFlashAttribute("fileModifyMessage", "修改文件成功！");
+        attributes.addFlashAttribute("fileModifyMessage", "success");
         return "redirect:modFileManagement";
+    }
+
+    //mod文件下载
+    @RequestMapping("/modDownload")
+    public void adminModDownload(@RequestParam Integer id, HttpServletResponse response) throws IOException {
+
+        //获取文件信息
+        ModFile modFile = modFileService.getModById(id);
+
+        //更新下载次数
+        modFile.setDownloadCounts(modFile.getDownloadCounts() + 1);
+        int num = modFileService.updateModFile(modFile);
+
+        //根据文件信息中文件名与存储路径获取文件输入流
+        //获取文件真实路径
+        String realPath = ResourceUtils.getURL("classpath:").getPath() + "/static" + modFile.getPath();
+        //获取文件输入流
+        FileInputStream fileInputStream = new FileInputStream(new File(realPath, modFile.getFormatModFileName()));
+
+        //若想要以附件形式下载，需在拿流之前设置响应头
+        //键固定写为content-disposition，值为attachment加上传时文件名
+        response.setHeader("content-disposition", "attachment;filename=" +
+                URLEncoder.encode(modFile.getModFileName(), "UTF-8"));
+
+        //获取响应输出流
+        ServletOutputStream outputStream = response.getOutputStream();
+        //文件拷贝
+        IOUtils.copy(fileInputStream, outputStream);
+        //拷贝完成后关流
+        IOUtils.closeQuietly(fileInputStream);
+        IOUtils.closeQuietly(outputStream);
+
     }
 }

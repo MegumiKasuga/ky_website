@@ -5,6 +5,7 @@ import cn.hutool.captcha.LineCaptcha;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
@@ -15,6 +16,8 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -45,9 +49,9 @@ public class DownloadController {
     }
 
     //mod文件下载
+    //以后可能还会修改，暂时不与管理员下载MOD的方法复用。
     @RequestMapping("/modDownload")
     public void modDownload(@RequestParam Integer id,
-                            HttpSession session,
                             HttpServletResponse response) throws IOException {
 
         //获取文件信息
@@ -84,7 +88,7 @@ public class DownloadController {
 
         Session session = SecurityUtils.getSubject().getSession();
         //构造验证码对象
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(65, 25, 4, 10);
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(80, 25, 4, 10);
         //放入session
         session.setAttribute("modDownloadCode", lineCaptcha.getCode());
         //输出
@@ -92,5 +96,29 @@ public class DownloadController {
         lineCaptcha.write(outputStream);
         //关闭输出流
         outputStream.close();
+    }
+
+    //异步请求检查下载验证码
+    @RequestMapping("/checkModDownloadCode")
+    @ResponseBody
+    public String checkModDownloadCode(@RequestParam String modDownloadCode) {
+
+        //获取subject对象
+        Subject subject = SecurityUtils.getSubject();
+
+        //获取subject对象提供的session
+        Session session = subject.getSession();
+        //判断验证码是否正确
+        try {
+            String sessionCode = (String) session.getAttribute("modDownloadCode");
+            if (!sessionCode.equals(modDownloadCode)) {
+                return "false";
+            }
+        } catch (Exception e) {
+            System.out.println("e : " + e);
+            return "error";
+        }
+
+        return "true";
     }
 }
