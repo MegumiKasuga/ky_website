@@ -10,6 +10,7 @@ import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.fairingstudio.kuayue_website.service.ModFileService;
 import org.fairingstudio.kuayue_website.service.UserFileService;
+import org.fairingstudio.kuayue_website.util.PageObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -39,11 +40,14 @@ public class DownloadController {
     @Resource
     private ModFileService modFileService;
 
+    //分页
     @RequestMapping("/download")
-    public String download(Model model) {
+    public String download(Model model, PageObject pageObject) {
 
-        List<ModFile> allModFiles = modFileService.getAllModFiles();
-        model.addAttribute("allModFiles", allModFiles);
+        pageObject.setSize(3L); //默认每页显示3条记录
+        PageObject modFilesPage = modFileService.getModFilesPage(pageObject);
+        model.addAttribute("modFilesPage", modFilesPage);
+        //System.out.println("modFilesPage = " + modFilesPage);
 
         return "download";
     }

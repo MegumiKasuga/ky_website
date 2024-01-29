@@ -59,13 +59,14 @@
 
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
         <div class="row">
-            <div class="col-10 bg-light" style="border-radius: 10px">
+            <div class="col-11 bg-light" style="border-radius: 10px">
                 <div>
                     <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
                 </div>
                 <hr>
-                <table class="table table-hover">
-                    <thead class="table-dark">
+                <td id="table-container">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
                         <tr>
                             <th>ID</th>
                             <th>运行环境</th>
@@ -74,9 +75,9 @@
                             <th>下载量</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="file : ${allModFiles}">
+                        </thead>
+                        <tbody>
+                        <tr th:each="file : ${modFilesPage.getList()}">
                             <td th:text="${file.id}">114</td>
                             <td th:text="${file.env}">forge</td>
                             <td th:text="${file.modFileName}">kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
@@ -103,8 +104,41 @@
                             </td>
                         </tr>
                         <!--*/-->
-                    </tbody>
-                </table>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th colspan="6">
+                                <div th:if="${modFilesPage.getTotal() > 1}" class="btn-group" style="float: right;">
+                                    <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=1}">首页</a>
+
+                                    <a class="btn btn-dark" th:if="${modFilesPage.isHasPrevious()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}">上一页</a>
+
+                                    <a class="btn btn-light" th:if="${modFilesPage.isHasSecondPreviousPage()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getSecondPreviousPage()}" th:text="${modFilesPage.getSecondPreviousPage()}">1</a>
+
+                                    <a class="btn btn-light" th:if="${modFilesPage.isHasPrevious()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}" th:text="${modFilesPage.getPreviousPage()}">2</a>
+
+                                    <a class="btn btn-light active" href="#" th:if="${modFilesPage.current != null}"
+                                       th:href="@{/download?current=}+${modFilesPage.getCurrent()}" th:text="${modFilesPage.getCurrent()}">3</a>
+
+                                    <a class="btn btn-light" th:if="${modFilesPage.isHasNext()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getNextPage()}" th:text="${modFilesPage.getNextPage()}">4</a>
+
+                                    <a class="btn btn-light" th:if="${modFilesPage.isHasSecondNextPage()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getSecondNextPage()}" th:text="${modFilesPage.getSecondNextPage()}">5</a>
+
+                                    <a class="btn btn-dark" th:if="${modFilesPage.isHasNext()}" href="#"
+                                       th:href="@{/download?current=}+${modFilesPage.getNextPage()}">下一页</a>
+
+                                    <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=}+${modFilesPage.getPages()}">尾页</a>
+                                </div>
+                            </th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -1,12 +1,13 @@
 package org.fairingstudio.kuayue_website.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.fairingstudio.kuayue_website.entity.UserFile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserFileDao {
+public interface UserFileDao extends BaseMapper<UserFile> {
 
     //查询所有文件
     List<UserFile> selectAllFiles();

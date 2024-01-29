@@ -13,6 +13,38 @@
 <body>
     <h1>废弃前端代码，留存以备测试参考。</h1>
 
+    <!--<nav>
+        <ul class="pagination" th:if="${modFilesPage.getTotal() > 1}">
+            <li class="page-item" th:if="${modFilesPage.isHasPrevious()}">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>
+            </li>&nbsp;
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>&nbsp;
+            <li class="page-item" th:if="${modFilesPage.isHasNext()}">
+                <a class="page-link" href="#" th:href="@{/download?}">下一页</a>
+            </li>
+        </ul>
+    </nav>-->
+
+    <!--<nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>-->
+
+    <!--<div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-primary">Left</button>
+        <button type="button" class="btn btn-outline-primary">Middle</button>
+        <button type="button" class="btn btn-outline-primary">Right</button>
+    </div>-->
+
     <!--  吐司消息  -->
     <div th:unless="${#strings.isEmpty(fileDeleteMessage)}" class="toast-container position-fixed bottom-0 start-50 p-3" style="z-index: 5">
         <div id="deleteToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">

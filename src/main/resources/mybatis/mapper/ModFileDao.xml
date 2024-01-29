@@ -53,6 +53,10 @@
     <delete id="deleteModById" parameterType="Integer">
         delete from ky_mod_file where id = #{id}
     </delete>
+
+    <select id="selectModFilePage" resultType="org.fairingstudio.kuayue_website.entity.ModFile">
+        select * from ky_mod_file order by id desc
+    </select>
 </mapper>
 
 

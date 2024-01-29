@@ -1,5 +1,12 @@
 package org.fairingstudio.kuayue_website.deprecated;
 
+import org.fairingstudio.kuayue_website.entity.ModFile;
+import org.fairingstudio.kuayue_website.util.PageObject;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
 @java.lang.Deprecated
 public class Deprecated {
 
@@ -28,5 +35,14 @@ public class Deprecated {
         //关闭输出流
         pw.close();
         return;
+    }*/
+
+    /*@RequestMapping("/download")
+    public String download(Model model, PageObject pageObject) {
+
+        List<ModFile> allModFiles = modFileService.getAllModFiles();
+        model.addAttribute("allModFiles", allModFiles);
+
+        return "download";
     }*/
 }
