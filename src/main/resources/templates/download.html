@@ -60,12 +60,34 @@
     <div id="waypoint" class="container-sm animate__animated animate__fadeIn" style="margin-top: 10em; margin-bottom: 10em">
         <div class="row">
             <div class="col-11 bg-light" style="border-radius: 10px">
+                <div style="margin-top: 1.5em; margin-left: 0.5em">
+                    <input type="hidden" name="current">
+                    <div class="row">
+                        <div class="col-3">
+                            <input id="MCVersionInput" type="hidden" name="MCVersion">
+                            <select id="MCVersionSelect" onchange="versionSelectChange()" class="form-select" aria-label="Default select example">
+                                <option th:value="${null}" selected>所有MC版本</option>
+                                <option value="1.19.2">1.19.2</option>
+                                <option value="1.20.1">1.20.1</option>
+                                <option value="1.18.2">1.18.2</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input id="envInput" type="hidden" name="env">
+                            <select id="envSelect" onchange="envSelectChange()" class="form-select" aria-label="Default select example">
+                                <option th:value="${null}" selected>所有运行环境</option>
+                                <option value="forge">forge</option>
+                                <option value="fabric">fabric</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div>
-                    <h1 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h1>
+                    <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h2>
                 </div>
                 <hr>
-                <td id="table-container">
-                    <table class="table table-hover">
+                <div id="table-container">
+                    <table class="table table-hover" th:fragment="modList">
                         <thead class="table-dark">
                         <tr>
                             <th>ID</th>
@@ -108,31 +130,38 @@
                         <tfoot>
                         <tr>
                             <th colspan="6">
-                                <div th:if="${modFilesPage.getTotal() > 1}" class="btn-group" style="float: right;">
-                                    <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=1}">首页</a>
+                                <div class="btn-group" style="float: right;">
+                                    <a id="firstPage" class="btn btn-outline-dark" href="#" onclick="pageChange(this)"
+                                       th:attr="data-page=1">首页</a>
 
-                                    <a class="btn btn-dark" th:if="${modFilesPage.isHasPrevious()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}">上一页</a>
+                                    <a class="btn btn-dark previousPage" th:if="${modFilesPage.isHasPrevious()}" href="#" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()}-1">上一页</a>
 
-                                    <a class="btn btn-light" th:if="${modFilesPage.isHasSecondPreviousPage()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getSecondPreviousPage()}" th:text="${modFilesPage.getSecondPreviousPage()}">1</a>
+                                    <a id="secondPreviousPage" class="btn btn-light" th:if="${modFilesPage.isHasSecondPreviousPage()}" href="#"
+                                       th:text="${modFilesPage.getSecondPreviousPage()}" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()}-2">1</a>
 
-                                    <a class="btn btn-light" th:if="${modFilesPage.isHasPrevious()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}" th:text="${modFilesPage.getPreviousPage()}">2</a>
+                                    <a class="btn btn-light previousPage" th:if="${modFilesPage.isHasPrevious()}" href="#"
+                                       th:text="${modFilesPage.getPreviousPage()}" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()}-1">2</a>
 
-                                    <a class="btn btn-light active" href="#" th:if="${modFilesPage.current != null}"
-                                       th:href="@{/download?current=}+${modFilesPage.getCurrent()}" th:text="${modFilesPage.getCurrent()}">3</a>
+                                    <a id="currentPage" class="btn btn-light active" href="#" th:if="${modFilesPage.current != null}"
+                                       th:text="${modFilesPage.getCurrent()}" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()}">3</a>
 
-                                    <a class="btn btn-light" th:if="${modFilesPage.isHasNext()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getNextPage()}" th:text="${modFilesPage.getNextPage()}">4</a>
+                                    <a class="btn btn-light nextPage" th:if="${modFilesPage.isHasNext()}" href="#"
+                                       th:text="${modFilesPage.getNextPage()}" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()+1}">4</a>
 
-                                    <a class="btn btn-light" th:if="${modFilesPage.isHasSecondNextPage()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getSecondNextPage()}" th:text="${modFilesPage.getSecondNextPage()}">5</a>
+                                    <a id="secondNextPage" class="btn btn-light" th:if="${modFilesPage.isHasSecondNextPage()}" href="#"
+                                       th:text="${modFilesPage.getSecondNextPage()}" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()}+2">5</a>
 
-                                    <a class="btn btn-dark" th:if="${modFilesPage.isHasNext()}" href="#"
-                                       th:href="@{/download?current=}+${modFilesPage.getNextPage()}">下一页</a>
+                                    <a class="btn btn-dark nextPage" th:if="${modFilesPage.isHasNext()}" href="#" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getCurrent()+1}">下一页</a>
 
-                                    <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=}+${modFilesPage.getPages()}">尾页</a>
+                                    <a id="lastPage" class="btn btn-outline-dark" href="#" onclick="pageChange(this)"
+                                       th:attr="data-page=${modFilesPage.getPages()}">尾页</a>
                                 </div>
                             </th>
                         </tr>
@@ -254,6 +283,42 @@
                 console.log('Scrolled to waypoint!');
             }
         });
+
+        //根据查询条件与页码异步刷新文件列表
+        function loadData() {
+            console.log('version:' + $("[name='MCVersion']").val());
+            console.log('env:' + $("[name='env']").val());
+            console.log('pageNum:' + $("[name='current']").val());
+            $("#table-container").load("/downloadParamQuery",{
+                MCVersion : $("[name='MCVersion']").val(),
+                env : $("[name='env']").val(),
+                current : $("[name='current']").val()
+            });
+        }
+
+        //变更页码
+        function pageChange(obj) {
+            let pageNum =  $(obj).data("page");
+            //按钮页码属性格式必须为th:attr="data-page=XXX"，否则拿不到页码数据。
+            $("[name='current']").val(pageNum);
+            loadData();
+        }
+
+        //版本选择
+        function versionSelectChange() {
+            let MCVersion = $('#MCVersionSelect').val();
+            $('#MCVersionInput').val(MCVersion);
+            $("[name='current']").val(1);
+            loadData();
+        }
+
+        //运行环境选择
+        function envSelectChange() {
+            let env = $('#envSelect').val();
+            $('#envInput').val(env);
+            $("[name='current']").val(1);
+            loadData();
+        }
     </script>
 
 </body>

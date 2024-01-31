@@ -1,12 +1,5 @@
 package org.fairingstudio.kuayue_website.deprecated;
 
-import org.fairingstudio.kuayue_website.entity.ModFile;
-import org.fairingstudio.kuayue_website.util.PageObject;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
-
 @java.lang.Deprecated
 public class Deprecated {
 

@@ -1,5 +1,6 @@
 package org.fairingstudio.kuayue_website.dao;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import javafx.geometry.Point3D;
@@ -23,5 +24,5 @@ public interface ModFileDao extends BaseMapper<ModFile> {
 
     int deleteModById(Integer id);
 
-    Page<ModFile> selectModFilePage(Page<ModFile> page);
+    Page<ModFile> selectModFilePage(Page<ModFile> page, String MCVersion, String env);
 }

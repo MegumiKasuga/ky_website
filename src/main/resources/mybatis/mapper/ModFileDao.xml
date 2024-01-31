@@ -55,7 +55,16 @@
     </delete>
 
     <select id="selectModFilePage" resultType="org.fairingstudio.kuayue_website.entity.ModFile">
-        select * from ky_mod_file order by id desc
+        select * from ky_mod_file
+        <where>
+            <if test="MCVersion != null">
+                and mc_version = #{MCVersion}
+            </if>
+            <if test="env != null">
+                and env = #{env}
+            </if>
+        </where>
+        order by id desc
     </select>
 </mapper>
 

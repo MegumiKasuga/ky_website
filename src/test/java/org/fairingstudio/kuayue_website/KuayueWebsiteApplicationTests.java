@@ -1,5 +1,6 @@
 package org.fairingstudio.kuayue_website;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -7,13 +8,11 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.dao.ModFileDao;
 import org.fairingstudio.kuayue_website.dao.UserDao;
-import org.fairingstudio.kuayue_website.entity.IpLocation;
-import org.fairingstudio.kuayue_website.entity.ModFile;
-import org.fairingstudio.kuayue_website.entity.User;
+import org.fairingstudio.kuayue_website.entity.*;
 import org.fairingstudio.kuayue_website.service.UserService;
 import org.fairingstudio.kuayue_website.util.IpUtils;
-import org.fairingstudio.kuayue_website.util.PageObject;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -113,9 +112,20 @@ class KuayueWebsiteApplicationTests {
 
     @Test
     void pageTest02() {
+
         PageObject pageObject = new PageObject();
-        Page<ModFile> page = new Page<>(2, pageObject.getSize());
-        Page<ModFile> modFilePage = modFileDao.selectModFilePage(page);
+        Page<ModFile> page = new Page<>(3, 5);
+
+        ModParamInput modParamInput = new ModParamInput();
+        modParamInput.setMCVersion("1.20.1");
+        //modParamInput.setEnv("forge");
+
+        //QueryWrapper<ModFile> queryWrapper = new QueryWrapper<>();
+        //boolean versionFlag = modParamInput.getMCVersion() != null;
+        //queryWrapper.like(versionFlag, "mc_version", modParamInput.getMCVersion())
+                //.like(StringUtils.isNotBlank(modParamInput.getEnv()), "env", modParamInput.getEnv());
+
+        Page<ModFile> modFilePage = modFileDao.selectModFilePage(page, modParamInput.getMCVersion(), modParamInput.getEnv());
         //System.out.println("modFilePage.getRecords() = " + modFilePage.getRecords());
         PageObject result = new PageObject();
         result.setCurrent(modFilePage.getCurrent());

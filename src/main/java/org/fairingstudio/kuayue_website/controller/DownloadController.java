@@ -7,29 +7,25 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.ModFile;
-import org.fairingstudio.kuayue_website.entity.UserFile;
+import org.fairingstudio.kuayue_website.entity.ModParamInput;
 import org.fairingstudio.kuayue_website.service.ModFileService;
 import org.fairingstudio.kuayue_website.service.UserFileService;
-import org.fairingstudio.kuayue_website.util.PageObject;
+import org.fairingstudio.kuayue_website.entity.PageObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.List;
 
 @Controller
 public class DownloadController {
@@ -42,14 +38,27 @@ public class DownloadController {
 
     //分页
     @RequestMapping("/download")
-    public String download(Model model, PageObject pageObject) {
+    public String download(Model model, PageObject pageObject, ModParamInput modParamInput) {
 
         pageObject.setSize(3L); //默认每页显示3条记录
-        PageObject modFilesPage = modFileService.getModFilesPage(pageObject);
+        PageObject modFilesPage = modFileService.getModFilesPage(pageObject, modParamInput);
         model.addAttribute("modFilesPage", modFilesPage);
         //System.out.println("modFilesPage = " + modFilesPage);
 
         return "download";
+    }
+
+    //条件查询及分页
+    @PostMapping("/downloadParamQuery")
+    public String downloadParamSelect(Model model, PageObject pageObject, ModParamInput modParamInput) {
+
+        System.out.println("pageObject = " + pageObject);
+        System.out.println("modParamInput = " + modParamInput);
+        pageObject.setSize(3L); //默认每页显示3条记录
+        PageObject modFilesPage = modFileService.getModFilesPage(pageObject, modParamInput);
+        model.addAttribute("modFilesPage", modFilesPage);
+        //mod列表局部刷新
+        return "download :: modList";
     }
 
     //mod文件下载

@@ -1,10 +1,12 @@
 package org.fairingstudio.kuayue_website.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.fairingstudio.kuayue_website.dao.ModFileDao;
 import org.fairingstudio.kuayue_website.entity.ModFile;
+import org.fairingstudio.kuayue_website.entity.ModParamInput;
 import org.fairingstudio.kuayue_website.service.ModFileService;
-import org.fairingstudio.kuayue_website.util.PageObject;
+import org.fairingstudio.kuayue_website.entity.PageObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,11 +69,22 @@ public class ModFileServiceImpl implements ModFileService {
     }
 
     @Override
-    public PageObject getModFilesPage(PageObject pageObject) {
+    public PageObject getModFilesPage(PageObject pageObject, ModParamInput modParamInput) {
         //进行分页
         //使用mybatis-plus的分页组件
+        if (pageObject.getCurrent() == null) {pageObject.setCurrent(1L);}   //当查询页码为空时，设置为查询第一页。
+
         Page<ModFile> page = new Page<>(pageObject.getCurrent(), pageObject.getSize());
-        Page<ModFile> modFilePage = modFileDao.selectModFilePage(page);
+        String modMCVersion = null;
+        String env = null;
+        //查询条件
+        if (!"".equals(modParamInput.getMCVersion()) && modParamInput.getMCVersion() != null) {
+            modMCVersion = modParamInput.getMCVersion();    //当MC版本不为空且不为空字符串时赋值查询参数
+        }
+        if (!"".equals(modParamInput.getEnv()) && modParamInput.getEnv() != null) {
+            env = modParamInput.getEnv();   //当运行环境不为空且不为空字符串时赋值查询参数
+        }
+        Page<ModFile> modFilePage = modFileDao.selectModFilePage(page, modMCVersion, env);
 
         PageObject result = new PageObject();
         long current = modFilePage.getCurrent();

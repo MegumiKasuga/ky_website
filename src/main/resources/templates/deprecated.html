@@ -13,6 +13,34 @@
 <body>
     <h1>废弃前端代码，留存以备测试参考。</h1>
 
+    <!--  同步请求分页按钮  -->
+    <!--<div th:if="${modFilesPage.getTotal() > 1}" class="btn-group" style="float: right;">
+        <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=1}">首页</a>
+
+        <a class="btn btn-dark" th:if="${modFilesPage.isHasPrevious()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}">上一页</a>
+
+        <a class="btn btn-light" th:if="${modFilesPage.isHasSecondPreviousPage()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getSecondPreviousPage()}" th:text="${modFilesPage.getSecondPreviousPage()}">1</a>
+
+        <a class="btn btn-light" th:if="${modFilesPage.isHasPrevious()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getPreviousPage()}" th:text="${modFilesPage.getPreviousPage()}">2</a>
+
+        <a class="btn btn-light active" href="#" th:if="${modFilesPage.current != null}"
+           th:href="@{/download?current=}+${modFilesPage.getCurrent()}" th:text="${modFilesPage.getCurrent()}">3</a>
+
+        <a class="btn btn-light" th:if="${modFilesPage.isHasNext()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getNextPage()}" th:text="${modFilesPage.getNextPage()}">4</a>
+
+        <a class="btn btn-light" th:if="${modFilesPage.isHasSecondNextPage()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getSecondNextPage()}" th:text="${modFilesPage.getSecondNextPage()}">5</a>
+
+        <a class="btn btn-dark" th:if="${modFilesPage.isHasNext()}" href="#"
+           th:href="@{/download?current=}+${modFilesPage.getNextPage()}">下一页</a>
+
+        <a class="btn btn-outline-dark" href="#" th:href="@{/download?current=}+${modFilesPage.getPages()}">尾页</a>
+    </div>-->
+
     <!--<nav>
         <ul class="pagination" th:if="${modFilesPage.getTotal() > 1}">
             <li class="page-item" th:if="${modFilesPage.isHasPrevious()}">

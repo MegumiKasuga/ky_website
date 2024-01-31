@@ -1,4 +1,4 @@
-package org.fairingstudio.kuayue_website.util;
+package org.fairingstudio.kuayue_website.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
