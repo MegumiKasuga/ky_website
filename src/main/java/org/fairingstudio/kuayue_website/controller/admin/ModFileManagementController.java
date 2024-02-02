@@ -37,7 +37,15 @@ public class ModFileManagementController {
     private ModFileService modFileService;
 
     @RequestMapping("/modFileManagement")
-    public String modFileManagement(Model model) {
+    public String modFileManagement(Model model,
+                                    HttpSession session) {
+        //若不是管理员角色，则拦截。
+        User user = (User) session.getAttribute("user");
+        String userRole = user.getRole();
+        if (!userRole.equals("1")) {
+            model.addAttribute("roleInterceptMessage","false");
+            return "admin/user";
+        }
 
         //不要和UserFile混淆，错误地注入UserFileService会使得拿到的属性和前端页面渲染的不一致导致报错。
         List<ModFile> allModFiles = modFileService.getAllModFiles();

@@ -106,11 +106,17 @@ public class UserController {
             //如果勾选了自动登录
             if(rememberMe){
                 //创建一个cookie对象，键为"JSESSIONID"，值为session的id
-                Cookie cookie = new Cookie("JSESSIONID", (String) session.getId());
+                Cookie sessionIdCookie = new Cookie("JSESSIONID", (String) session.getId());
+                //创建rememberMe对象，值为当前登录用户信息
+                //String userInfo = principal.getUsername() + "_" + principal.getPassword();
+                Cookie rememberMeCookie = new Cookie("rememberMe", principal.getUsername());
                 //设置cookie过期时间为一周
-                cookie.setMaxAge(60 * 60 * 24 * 7);
+                rememberMeCookie.setMaxAge(60 * 60 * 24 * 7);
+                sessionIdCookie.setMaxAge(60 * 60 * 24 * 7);
+                //添加到响应对象
+                response.addCookie(rememberMeCookie);
                 //将此cookie对象添加到响应对象中覆盖掉原来在会话结束就会自动失效的jsessionid
-                response.addCookie(cookie);
+                response.addCookie(sessionIdCookie);
             }
 
             //更新用户登录信息

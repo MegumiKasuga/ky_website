@@ -44,7 +44,7 @@ public class ShiroConfig {
         //将UserRealm对象存入DefaultWebSecurityManager对象
         securityManager.setRealm(userRealm);
         //设置rememberMe
-        securityManager.setRememberMeManager(rememberMeManager());
+        //securityManager.setRememberMeManager(rememberMeManager());
         //设置session管理器
         securityManager.setSessionManager(sessionManager());
 
@@ -66,12 +66,16 @@ public class ShiroConfig {
         //=====设置各请求URL权限=====
         //各请求URL应分别单独设置验证与授权条件，如果用*代替则可能出现条件混淆导致只有一部分配置生效。
 
+        /*!!!!!!!!!权限认证在tomcat上部署有bug!!!!!!!!!*/
+        /*!!成功登录之后shiro权限认证不通过还把session里的用户信息删了!!*/
+        /*!!暂时先注上!!*/
+
         //admin目录下的页面必须登录才可以访问
-        map.put("/admin/user", "user");
-        map.put("/admin/logout", "user");
-        //map.put("/wiki", "user");
+        //map.put("/admin/user", "user");
+        //map.put("/admin/logout", "user");
+
         //mod文件管理页需管理员角色才可访问
-        map.put("/admin/modFileManagement","roles[1]");
+        //map.put("/admin/modFileManagement","roles[1]");
 
         factoryBean.setFilterChainDefinitionMap(map);
         //设置未登录跳转页面

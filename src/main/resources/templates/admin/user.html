@@ -126,6 +126,20 @@
         </div>
     </div>
 
+    <!-- 权限拦截吐司消息 -->
+    <div th:unless="${#strings.isEmpty(roleInterceptMessage)}" class="toast-container position-fixed bottom-0 start-50 p-3" style="z-index: 5">
+        <div id="liveToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="../../static/images/hxd3d.png" th:src="@{/images/hxd3d.png}" alt="" style="max-height: 30px">
+                <strong class="me-auto">Kuayue&nbsp;|&nbsp;通知</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <h5 th:if="${roleInterceptMessage} == 'false'" style="text-align: center">您所在的用户组没有权限访问该页面！</h5>
+            </div>
+        </div>
+    </div>
+
     <script src="../../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
     <script src="../../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <script src="../../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>

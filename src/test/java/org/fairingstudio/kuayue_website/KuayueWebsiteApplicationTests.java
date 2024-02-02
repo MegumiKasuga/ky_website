@@ -36,8 +36,8 @@ class KuayueWebsiteApplicationTests {
     @Test
     void testSecurityManager() {
 
-        Subject subject = SecurityUtils.getSubject();
-        System.out.println("subject = " + subject.toString());
+        //Subject subject = SecurityUtils.getSubject();
+        //System.out.println("subject = " + subject.toString());
         //subject = org.apache.shiro.subject.support.DelegatingSubject@70ecf57b
 
     }
