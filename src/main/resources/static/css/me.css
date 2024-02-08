@@ -43,7 +43,7 @@ body{
 
 @font-face{
     font-family:'xiaokai';
-    src:url('../fonts/xiaokai.ttf');
+    src:url('https://cdn.jsdelivr.net/gh/zlw380/ky_website_static@0.1/fonts/xiaokai.ttf');
 }
 
 @font-face {
