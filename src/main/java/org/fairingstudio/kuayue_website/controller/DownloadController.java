@@ -40,10 +40,8 @@ public class DownloadController {
     @RequestMapping("/download")
     public String download(Model model, PageObject pageObject, ModParamInput modParamInput) {
 
-        pageObject.setSize(3L); //默认每页显示3条记录
         PageObject modFilesPage = modFileService.getModFilesPage(pageObject, modParamInput);
         model.addAttribute("modFilesPage", modFilesPage);
-        //System.out.println("modFilesPage = " + modFilesPage);
 
         return "download";
     }
@@ -52,9 +50,6 @@ public class DownloadController {
     @PostMapping("/downloadParamQuery")
     public String downloadParamSelect(Model model, PageObject pageObject, ModParamInput modParamInput) {
 
-        System.out.println("pageObject = " + pageObject);
-        System.out.println("modParamInput = " + modParamInput);
-        pageObject.setSize(3L); //默认每页显示3条记录
         PageObject modFilesPage = modFileService.getModFilesPage(pageObject, modParamInput);
         model.addAttribute("modFilesPage", modFilesPage);
         //mod列表局部刷新

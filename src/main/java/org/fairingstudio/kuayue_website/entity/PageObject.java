@@ -16,8 +16,8 @@ public class PageObject {
     //赋初值防止在打开列表第一页时因没有参数报错
     //默认打开第一页
     private Long current = 1L;
-    //默认每页显示三条记录
-    private Long size = 3L;
+    //默认每页显示5条记录
+    private Long size = 5L;
     //总记录条数
     private Long total;
     //文件信息集合

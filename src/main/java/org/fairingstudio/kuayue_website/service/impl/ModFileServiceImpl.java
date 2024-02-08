@@ -72,7 +72,8 @@ public class ModFileServiceImpl implements ModFileService {
     public PageObject getModFilesPage(PageObject pageObject, ModParamInput modParamInput) {
         //进行分页
         //使用mybatis-plus的分页组件
-        if (pageObject.getCurrent() == null) {pageObject.setCurrent(1L);}   //当查询页码为空时，设置为查询第一页。
+        if (pageObject.getCurrent() == null) {pageObject.setCurrent(1L);}   //当查询页码为空时，设置为查询第1页。
+        if (pageObject.getSize() == null) {pageObject.setSize(5L);}     //当每页展示记录条数为空时，设置为展示5条。
 
         Page<ModFile> page = new Page<>(pageObject.getCurrent(), pageObject.getSize());
         String modMCVersion = null;

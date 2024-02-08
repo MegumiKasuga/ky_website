@@ -2,11 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.min.css" th:href="@{/lib/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="../static/lib/animate/animate.css" th:href="@{/lib/animate/animate.css}">
-    <link rel="stylesheet" href="../static/lib/fontawesome/css/font-awesome.css" th:href="@{/lib/fontawesome/css/font-awesome.min.css}">
-    <link rel="stylesheet" href="../static/lib/highlight/agate.min.css" th:href="@{/lib/highlight/agate.min.css}">
-    <link rel="stylesheet" href="../static/lib/bootstrap/css/bootstrap.rtl.css" th:href="@{/lib/bootstrap/css/bootstrap.rtl.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/download-page.css" th:href="@{/css/download-page.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../static/css/gallery-page.css" th:href="@{/css/gallery-page.css}">
@@ -63,6 +61,15 @@
                 <div style="margin-top: 1.5em; margin-left: 0.5em">
                     <input type="hidden" name="current">
                     <div class="row">
+                        <div class="col-2">
+                            <input id="sizeInput" type="hidden" name="size">
+                            <select id="sizeSelect" onchange="sizeChange()" class="form-select" aria-label="Default select example">
+                                <option value="3">3</option>
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
                         <div class="col-3">
                             <input id="MCVersionInput" type="hidden" name="MCVersion">
                             <select id="MCVersionSelect" onchange="versionSelectChange()" class="form-select" aria-label="Default select example">
@@ -86,7 +93,7 @@
                     <h2 style="margin-top: 0.5em; margin-left: 0.2em" class="m-xiaokai">文件列表</h2>
                 </div>
                 <hr>
-                <div id="table-container">
+                <div id="table-container" class="table-responsive">
                     <table class="table table-hover" th:fragment="modList">
                         <thead class="table-dark">
                         <tr>
@@ -253,10 +260,9 @@
         </div>
     </div>
 
-    <script src="../static/lib/jquery/jquery-3.7.1.js" th:src="@{/lib/jquery/jquery-3.7.1.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../static/lib/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/lib/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <script src="../static/lib/highlight/highlight.min.js" th:src="@{/lib/highlight/highlight.min.js}"></script>
-    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/waypoints@4.0.1/lib/jquery.waypoints.min.js"></script>
     <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
     <script src="../static/js/download_page.js" th:src="@{/js/download_page.js}"></script>
 
@@ -289,10 +295,12 @@
             console.log('version:' + $("[name='MCVersion']").val());
             console.log('env:' + $("[name='env']").val());
             console.log('pageNum:' + $("[name='current']").val());
+            console.log('size:' + $("[name='size']").val());
             $("#table-container").load("/downloadParamQuery",{
                 MCVersion : $("[name='MCVersion']").val(),
                 env : $("[name='env']").val(),
-                current : $("[name='current']").val()
+                current : $("[name='current']").val(),
+                size : $("[name='size']").val()
             });
         }
 
@@ -301,6 +309,14 @@
             let pageNum =  $(obj).data("page");
             //按钮页码属性格式必须为th:attr="data-page=XXX"，否则拿不到页码数据。
             $("[name='current']").val(pageNum);
+            loadData();
+        }
+
+        //变更每页展示记录条数
+        function sizeChange() {
+            let sizeNum = $('#sizeSelect').val();
+            $('#sizeInput').val(sizeNum);
+            $("[name='current']").val(1);
             loadData();
         }
 
