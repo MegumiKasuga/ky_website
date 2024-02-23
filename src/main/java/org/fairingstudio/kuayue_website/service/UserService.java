@@ -16,4 +16,6 @@ public interface UserService {
     int addUser(User user);
 
     boolean getCountByIpAddress(String ipAddress);
+
+    User checkUser(String username, String password);
 }

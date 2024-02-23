@@ -3,9 +3,6 @@ package org.fairingstudio.kuayue_website.controller;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
 import org.apache.commons.io.IOUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.ModParamInput;
 import org.fairingstudio.kuayue_website.service.ModFileService;
@@ -22,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -92,9 +90,8 @@ public class DownloadController {
 
     //获取MOD下载图片验证码
     @RequestMapping("/getModDownloadCode")
-    public void getCode(HttpServletResponse response) throws IOException {
+    public void getCode(HttpServletResponse response, HttpSession session) throws IOException {
 
-        Session session = SecurityUtils.getSubject().getSession();
         //构造验证码对象
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(80, 25, 4, 10);
         //放入session
@@ -109,13 +106,8 @@ public class DownloadController {
     //异步请求检查下载验证码
     @RequestMapping("/checkModDownloadCode")
     @ResponseBody
-    public String checkModDownloadCode(@RequestParam String modDownloadCode) {
+    public String checkModDownloadCode(@RequestParam String modDownloadCode, HttpSession session) {
 
-        //获取subject对象
-        Subject subject = SecurityUtils.getSubject();
-
-        //获取subject对象提供的session
-        Session session = subject.getSession();
         //判断验证码是否正确
         try {
             String sessionCode = (String) session.getAttribute("modDownloadCode");

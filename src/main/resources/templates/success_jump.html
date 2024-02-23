@@ -45,6 +45,7 @@
                     <a class="nav_bar_button" href="login.html" th:if="${session.user}==null" th:href="@{/signUp}"><strong>注册</strong></a>
                     <div th:if="${session.user}!=null" class="dropdown">
                         <a class="nav_bar_button dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                            <img src="../static/images/avatar/ayaka1.png" th:src="@{${session.user.avatar}}" style="max-width: 30px">
                             <span th:text="${session.user.nickname}">用户昵称</span>
                         </a>
                         <ul class="dropdown-menu">

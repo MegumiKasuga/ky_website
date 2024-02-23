@@ -2,7 +2,6 @@ package org.fairingstudio.kuayue_website.controller.admin;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.shiro.web.session.HttpServletSession;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.entity.UserFile;

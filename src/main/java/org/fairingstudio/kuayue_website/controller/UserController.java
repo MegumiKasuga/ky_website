@@ -1,13 +1,7 @@
 package org.fairingstudio.kuayue_website.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.captcha.LineCaptcha;
-import cn.hutool.captcha.ShearCaptcha;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.IpLocation;
 import org.fairingstudio.kuayue_website.entity.ModFile;
 import org.fairingstudio.kuayue_website.entity.User;
@@ -32,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -76,13 +69,9 @@ public class UserController {
                             @RequestParam String code,
                             HttpServletRequest request,
                             HttpServletResponse response,
+                            HttpSession session,
                             RedirectAttributes attributes) {
 
-        //获取subject对象
-        Subject subject = SecurityUtils.getSubject();
-
-        //获取subject对象提供的session
-        Session session = subject.getSession();
         //判断验证码是否正确
         try {
             String sessionCode = (String) session.getAttribute("code");
@@ -96,13 +85,20 @@ public class UserController {
             return "redirect:/login";
         }
 
-        //若验证码正确，封装请求参数到token
-        AuthenticationToken token = new UsernamePasswordToken(username, password, rememberMe);
-        //调用login方法进行登录认证
+        //进行登录认证
         try {
             //登录验证
-            subject.login(token);
-            User principal = (User) subject.getPrincipal();
+            Integer countByUsername = userService.getCountByUsername(username);
+            if (countByUsername < 1) {
+                attributes.addFlashAttribute("message", "用户名不存在！");
+                return "redirect:/login";
+            }
+            User principal = userService.checkUser(username, password);
+            if (principal == null) {
+                attributes.addFlashAttribute("message", "密码错误！");
+                return "redirect:/login";
+            }
+
             //如果勾选了自动登录
             if(rememberMe){
                 //创建一个cookie对象，键为"JSESSIONID"，值为session的id
@@ -130,26 +126,17 @@ public class UserController {
             attributes.addFlashAttribute("successMessage", "login");
             return "redirect:/success_jump";
 
-        } catch (UnknownAccountException e) {
+        } catch (Exception e) {
 
-            //model.addAttribute("message", 1);
-            //return "/login";
-            attributes.addFlashAttribute("message", "用户名不存在！");
-            return "redirect:/login";
-        } catch (IncorrectCredentialsException e) {
-
-            //model.addAttribute("message", 2);
-            //return "/login";
-            attributes.addFlashAttribute("message", "密码错误！");
+            attributes.addFlashAttribute("message", "登录异常！");
             return "redirect:/login";
         }
     }
 
     //获取图片验证码
     @RequestMapping("/login/getCode")
-    public void getCode(HttpServletResponse response) throws IOException {
+    public void getCode(HttpServletResponse response, HttpSession session) throws IOException {
 
-        Session session = SecurityUtils.getSubject().getSession();
         //构造验证码对象
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(65, 25, 4, 10);
         //放入session
@@ -163,10 +150,21 @@ public class UserController {
 
     //注销
     @RequestMapping("/admin/logout")
-    public String logout() {
+    public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-        Subject subject = SecurityUtils.getSubject();
-        subject.logout();
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("rememberMe".equals(cookie.getName()) || "JSESSIONID".equals(cookie.getName())) {
+                    cookie.setMaxAge(0);
+                    //除了设置失效时间还应设置路径
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        session.removeAttribute("user");
+
         return "/login";
     }
 

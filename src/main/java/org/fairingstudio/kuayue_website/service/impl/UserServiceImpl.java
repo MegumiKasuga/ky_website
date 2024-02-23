@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.fairingstudio.kuayue_website.dao.UserDao;
 import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
+import org.fairingstudio.kuayue_website.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -65,5 +67,14 @@ public class UserServiceImpl implements UserService {
         return nums > 1;
     }
 
+    @Override
+    public User checkUser(String username, String password) {
 
+        String tripleSaltCode = MD5Utils.tripleSaltCode(password, "kuayue");
+        User userByName = getUserByName(username);
+        if (!userByName.getPassword().equals(tripleSaltCode)) {
+            return null;
+        }
+        return userByName;
+    }
 }

@@ -2,13 +2,10 @@ package org.fairingstudio.kuayue_website.controller;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.LineCaptcha;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.fairingstudio.kuayue_website.entity.User;
 import org.fairingstudio.kuayue_website.service.UserService;
 import org.fairingstudio.kuayue_website.util.IpUtils;
-import org.fairingstudio.kuayue_website.util.ShiroMD5Utils;
+import org.fairingstudio.kuayue_website.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -53,10 +51,9 @@ public class SignUpController {
                              @RequestParam String nickname,
                              @RequestParam String signUpCode,
                              HttpServletRequest request,
+                             HttpSession session,
                              RedirectAttributes attributes) {
-        System.out.println("执行了用户注册的控制器方法。");
-        Subject subject = SecurityUtils.getSubject();
-        Session session = subject.getSession();
+
         String sessionCode = (String) session.getAttribute("signUpCode");
         //检查验证码
         if (!sessionCode.equals(signUpCode)) {
@@ -79,7 +76,7 @@ public class SignUpController {
         //创建用户对象
         User user = new User();
         user.setUsername(username);
-        user.setPassword(ShiroMD5Utils.shiroMD5Code(password));
+        user.setPassword(MD5Utils.tripleSaltCode(password, "kuayue"));
         user.setEmail(email);
         user.setNickname(nickname);
         user.setSignUpIpAddress(ipAddress);
@@ -96,9 +93,8 @@ public class SignUpController {
     }
 
     @RequestMapping("/getSignUpCode")
-    public void getSignUpCode(HttpServletResponse response) throws IOException {
+    public void getSignUpCode(HttpServletResponse response, HttpSession session) throws IOException {
 
-        Session session = SecurityUtils.getSubject().getSession();
         //构造验证码对象
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(65, 25, 4, 10);
         //放入session

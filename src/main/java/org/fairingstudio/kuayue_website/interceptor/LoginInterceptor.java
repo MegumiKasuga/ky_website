@@ -64,6 +64,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                         Cookie clearRememberMe = new Cookie("rememberMe",null);
                         //将该cookie的有效时间设置为0
                         clearRememberMe.setMaxAge(0);
+                        clearRememberMe.setPath("/");
                         //放入响应对象
                         response.addCookie(clearRememberMe);
                     }
@@ -73,7 +74,5 @@ public class LoginInterceptor implements HandlerInterceptor {
         //若cookie列表为空 或列表中无rememberMe
         response.sendRedirect("/intercept");
         return false;
-
-
     }
 }
