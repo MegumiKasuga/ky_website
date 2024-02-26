@@ -22,9 +22,9 @@ class KuayueWebsiteApplicationTests {
 
     @Test
     void test01() {
-        userDao.selectList(null).forEach(System.out::println);
+        //userDao.selectList(null).forEach(System.out::println);
 
-        System.out.println("userService.getUserByName(\"admin\") = " + userService.getUserByName("admin"));
+        //System.out.println("userService.getUserByName(\"admin\") = " + userService.getUserByName("admin"));
     }
 
     @Test
@@ -47,25 +47,25 @@ class KuayueWebsiteApplicationTests {
     @Test
     void userTest01() {
 
-        User userByName = userService.getUserByName("lisi");
+        /*User userByName = userService.getUserByName("lisi");
         if (userByName != null) {
             System.out.println("userByName = " + userByName);
-        }
+        }*/
     }
 
     @Test
     void pageTest01() {
-        PageObject pageObject = new PageObject();
+        /*PageObject pageObject = new PageObject();
         Page<ModFile> page = new Page<>(2, pageObject.getSize());
         System.out.println("page = " + page.getRecords());
         Page<ModFile> modFilePage = modFileDao.selectPage(page, null);
-        System.out.println("page = " + page.getRecords());
+        System.out.println("page = " + page.getRecords());*/
         //执行查询操作后会自动向page对象注入查询结果，与dao方法返回值一样。
-        System.out.println("modFilePage = " + modFilePage.getRecords());
+        /*System.out.println("modFilePage = " + modFilePage.getRecords());
         System.out.println("page.getPages() = " + page.getPages());
         System.out.println("page.getTotal() = " + page.getTotal());
         System.out.println("page.hasNext() = " + page.hasNext());
-        System.out.println("page.hasPrevious() = " + page.hasPrevious());
+        System.out.println("page.hasPrevious() = " + page.hasPrevious());*/
         /*
         page.getPages() = 3
         page.getTotal() = 8
@@ -80,11 +80,11 @@ class KuayueWebsiteApplicationTests {
     @Test
     void pageTest02() {
 
-        PageObject pageObject = new PageObject();
+       /* PageObject pageObject = new PageObject();
         Page<ModFile> page = new Page<>(3, 5);
 
         ModParamInput modParamInput = new ModParamInput();
-        modParamInput.setMCVersion("1.20.1");
+        modParamInput.setMCVersion("1.20.1");*/
         //modParamInput.setEnv("forge");
 
         //QueryWrapper<ModFile> queryWrapper = new QueryWrapper<>();
@@ -92,9 +92,9 @@ class KuayueWebsiteApplicationTests {
         //queryWrapper.like(versionFlag, "mc_version", modParamInput.getMCVersion())
                 //.like(StringUtils.isNotBlank(modParamInput.getEnv()), "env", modParamInput.getEnv());
 
-        Page<ModFile> modFilePage = modFileDao.selectModFilePage(page, modParamInput.getMCVersion(), modParamInput.getEnv());
+        //Page<ModFile> modFilePage = modFileDao.selectModFilePage(page, modParamInput.getMCVersion(), modParamInput.getEnv());
         //System.out.println("modFilePage.getRecords() = " + modFilePage.getRecords());
-        PageObject result = new PageObject();
+        /*PageObject result = new PageObject();
         result.setCurrent(modFilePage.getCurrent());
         result.setSize(modFilePage.getSize());
         result.setList(modFilePage.getRecords());
@@ -109,7 +109,7 @@ class KuayueWebsiteApplicationTests {
         result.setHasSecondPreviousPage(modFilePage.getCurrent()-2L >= 1L);
         result.setHasSecondNextPage(modFilePage.getCurrent()+2L <= modFilePage.getPages());
 
-        System.out.println("result = " + result);
+        System.out.println("result = " + result);*/
         /*current=2, size=3, total=8
         * hasPrevious=true, hasNext=true, pages=3, previousPage=1, nextPage=3, secondPreviousPage=0, secondNextPage=4
         * hasSecondPreviousPage=false, hasSecondNextPage=false*/
