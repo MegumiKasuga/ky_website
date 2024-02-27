@@ -9,12 +9,12 @@ spring:
 #    url: jdbc:mysql://192.168.195.253:3306/kuayue?useUnicode=true&characterEncoding=utf-8
 #    username: carole
 #    password: 000000
-    url: jdbc:mysql://localhost:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: 3333
-#    url: jdbc:mysql://192.168.0.109:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://localhost:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
 #    username: root
 #    password: 3333
+    url: jdbc:mysql://192.168.0.109:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 3333
 #    url: jdbc:mysql://124.223.202.13:3306/kuayue?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
 #    username: kuayue
 #    password: 114514KuaYue
@@ -37,6 +37,8 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 logging:
-  config: classpath:logback-spring.xml
   file:
-    name: log/ky-website.log
+    name: ./logs/ky-website.log
+  level:
+    root: info
+    org.fairingstudio.kuayue_website.dao: debug

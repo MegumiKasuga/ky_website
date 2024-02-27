@@ -71,3 +71,22 @@ function changeDownloadCode() {
     console.log('changeCode: newSrc: ' + newSrc);
     codeImage.setAttribute("src", newSrc);
 }
+
+window.onload = function () {
+    console.log("  .--,       .--,\n" +
+                " ( (  \\.---./  ) )\n" +
+                "  \".__/o   o\\\__.\"\n" +
+                "     {=  ^  =}\n" +
+                "      >  -  <\n" +
+                "     /       \\\n" +
+                "    //       \\\\\n" +
+                "   //|       |\\\\\n" +
+                "   \"'\\       /'\"_.-~^`'-.\n" +
+                "      \\  _  /--'         `\n" +
+                "    ___)( )(___\n" +
+                "   (((__) (__)))\n" +
+                "   刻画山河岁月长，\n" +
+                "   晴空如洗白云翔。\n" +
+                "   甘泉润物无声息，\n" +
+                "   雨霁花开满地香。");
+}
