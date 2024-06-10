@@ -133,6 +133,46 @@
                                 <a href="#" class="download_button" style="text-decoration: none">下载</a>
                             </td>
                         </tr>
+                        <tr>
+                            <td>114</td>
+                            <td>forge</td>
+                            <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                            <td>1.20.1</td>
+                            <td>776</td>
+                            <td>
+                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>114</td>
+                            <td>forge</td>
+                            <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                            <td>1.20.1</td>
+                            <td>776</td>
+                            <td>
+                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>114</td>
+                            <td>forge</td>
+                            <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                            <td>1.20.1</td>
+                            <td>776</td>
+                            <td>
+                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>114</td>
+                            <td>forge</td>
+                            <td>kuayue-0.3.5m-izayoi_sakuya-rc2.jar</td>
+                            <td>1.20.1</td>
+                            <td>776</td>
+                            <td>
+                                <a href="#" class="download_button" style="text-decoration: none">下载</a>
+                            </td>
+                        </tr>
                         <!--*/-->
                         </tbody>
                         <tfoot>
@@ -243,6 +283,7 @@
 
     <footer></footer>
 
+    <!--  返回顶部按钮  -->
     <div id="toolbar" class="m-padded-tool m-fixed m-right-bottom" style="display: none">
         <div type="button" class="btn btn-lg btn-secondary" id="to-top-btn"
              data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="返回顶部">
@@ -266,31 +307,9 @@
     <script src="https://cdn.jsdelivr.net/npm/waypoints@4.0.1/lib/jquery.waypoints.min.js"></script>
     <script src="../static/js/home_page.js" th:src="@{/js/home_page.js}"></script>
     <script src="../static/js/download_page.js" th:src="@{/js/download_page.js}"></script>
+    <script src="../static/js/scroll.js" th:src="@{/js/scroll.js}"></script>
 
     <script>
-        <!--返回顶部-->
-        $('#to-top-btn').click(function toTop() {
-            $('html').animate({scrollTop: 0}, 300);
-        });
-
-        let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-        let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl);
-        });
-
-        <!--滚动侦测-->
-        let waypoint = new Waypoint({
-            element: document.getElementById('waypoint'),
-            handler: function(direction){
-                if (direction == 'down'){
-                    $('#toolbar').show(100); //100毫秒
-                }else{
-                    $('#toolbar').hide(300);
-                }
-                console.log('Scrolled to waypoint!');
-            }
-        });
-
         //根据查询条件与页码异步刷新文件列表
         function loadData() {
             console.log('version:' + $("[name='MCVersion']").val());
